@@ -1,0 +1,8 @@
+{
+  "name": "needsApp",
+  "app_id": "c3cac707",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
