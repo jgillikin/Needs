@@ -21,6 +21,8 @@
 
 <ion-content padding>
 
+<div *ngIf="!isApp">
+
 <div text-center>
 <h2>Please enter a new Client below:</h2>
 </div>
@@ -28,29 +30,62 @@
 <ion-list>
   <ion-item>
     <ion-label color="dark">First Name:  </ion-label>
-    <ion-input name="fname"></ion-input>
+    <ion-input [(ngModel)]="client.fname"></ion-input>
   </ion-item>
     <ion-item>
     <ion-label color="dark">Last Name:  </ion-label>
-    <ion-input name="lname"></ion-input>
+    <ion-input [(ngModel)]="client.lname"></ion-input>
   </ion-item>
 
     <ion-item>
     <ion-label color="dark">Cell:  </ion-label>
-    <ion-input type="tel" name="cell"></ion-input>
+    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>
   </ion-item>
     
   <ion-item>
     <ion-label color="dark">Community:  </ion-label>
-    <ion-select [(ngModel)]="community">
+    <ion-select [(ngModel)]="client.community">
     <ion-option value="1234567">Harbour View</ion-option>  </ion-select>
   </ion-item>
   
 </ion-list>
 </table>
+
+</div>
+
+<div *ngIf="isApp">
+
+<div text-center>
+<h2>Please enter a new Client below:</h2>
+</div>
+<br>
+<ion-list>
+  <ion-item>
+    <ion-label color="dark">First Name:  </ion-label>
+    <ion-input [(ngModel)]="client.fname"></ion-input>
+  </ion-item>
+    <ion-item>
+    <ion-label color="dark">Last Name:  </ion-label>
+    <ion-input [(ngModel)]="client.lname"></ion-input>
+  </ion-item>
+
+    <ion-item>
+    <ion-label color="dark">Cell:  </ion-label>
+    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>
+  </ion-item>
+    
+  <ion-item>
+    <ion-label color="dark">Community:  </ion-label>
+    <ion-select [(ngModel)]="client.community">
+    <ion-option value="1234567">Harbour View</ion-option>  </ion-select>
+  </ion-item>
+  
+</ion-list>
+</div>
+
 <br>
 <div text-center>
-<button ion-button color="dark" (click) ="addItem(item)">Save</button>
+<button ion-button color="dark" (click) ="onSave(client)">Save</button>
 </div>
 
 

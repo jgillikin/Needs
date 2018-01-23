@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { AngularFireDatabase, AngularFireAction,AngularFireList } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
+import * as firebase from 'firebase/app';
+
 
 @Component({
   selector: 'page-contact',
