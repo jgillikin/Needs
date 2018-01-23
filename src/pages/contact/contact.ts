@@ -7,7 +7,17 @@ import { NavController } from 'ionic-angular';
 })
 export class ContactPage {
 
+
+  shoppingList: any;
+
   constructor(public navCtrl: NavController) {
+
+   this.shoppingList = [
+        'All Open Needs',
+        'Open Needs by Community',
+        'All Closed Needs',
+        'Closed Needs by Community'
+     ];
 
   }
 

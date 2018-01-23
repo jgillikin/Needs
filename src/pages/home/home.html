@@ -1,17 +1,45 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Needs</ion-title>
+   <ion-buttons right>
+    <button>
+      <ion-icon name="basket">2</ion-icon>
+    </button>
+    <button>
+      <ion-icon name="clock">4</ion-icon>
+    </button>
+    <button>
+      <ion-icon name="checkbox-outline">1</ion-icon>
+    </button>
+
+   </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<div text-center>
+
+<h2>Please enter a new Need below:</h2>
+</div>  
+<table width="50%" align="center">
+<ion-list>
+  <ion-item>
+    <ion-label color="dark">Client:  </ion-label>
+    <ion-select [(ngModel)]="gender">
+    <ion-option value="1234567">John Doe</ion-option>
+    <ion-option value="9876543">Jane Doe</ion-option>
+  </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label color="dark">Need Description:  </ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="dark">Date Submitted:  </ion-label>
+    <ion-input value="1-23-18"></ion-input>
+  </ion-item>
+
+</ion-list>
+</table>
+
 </ion-content>
