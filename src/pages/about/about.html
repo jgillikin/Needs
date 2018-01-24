@@ -3,29 +3,21 @@
     <ion-title>
       Add a Client
     </ion-title>
-   <ion-buttons right>
-    <button>
-      <ion-icon name="basket">2</ion-icon>
+<ion-buttons end>
+    <button id="notification-button" ion-button clear>
+        <ion-icon name="notifications">
+          <ion-badge id="notifications-badge" color="danger">5</ion-badge>
+        </ion-icon>              
     </button>
-    <button>
-      <ion-icon name="clock">4</ion-icon>
-    </button>
-    <button>
-      <ion-icon name="checkbox-outline">1</ion-icon>
-    </button>
-
-   </ion-buttons>
+  </ion-buttons>
 
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-<div *ngIf="!isApp">
+<div *ngIf="!isApp" text-center>
 
-<div text-center>
-<h2>Please enter a new Client below:</h2>
-</div>
 <table width="50%" align="center">
 <ion-list>
   <ion-item>
@@ -42,23 +34,27 @@
     <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>
   </ion-item>
     
-  <ion-item>
-    <ion-label color="dark">Community:  </ion-label>
-    <ion-select [(ngModel)]="client.community">
-    <ion-option value="1234567">Harbour View</ion-option>  </ion-select>
-  </ion-item>
+
+ <ion-item>
+                  <ion-label>Community</ion-label>
+                  <ion-select [(ngModel)]="client.community">
+                    <div *ngFor="let field of descList">
+                      <ion-option value="{{field.id}}">{{field.record.name}}
+                      </ion-option>
+                    </div>
+                  </ion-select>
+ </ion-item>
+
   
 </ion-list>
 </table>
 
 </div>
 
-<div *ngIf="isApp">
+<div *ngIf="isApp" text-center>
 
-<div text-center>
-<h2>Please enter a new Client below:</h2>
-</div>
 <br>
+
 <ion-list>
   <ion-item>
     <ion-label color="dark">First Name:  </ion-label>
@@ -74,11 +70,17 @@
     <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>
   </ion-item>
     
-  <ion-item>
-    <ion-label color="dark">Community:  </ion-label>
-    <ion-select [(ngModel)]="client.community">
-    <ion-option value="1234567">Harbour View</ion-option>  </ion-select>
-  </ion-item>
+
+ <ion-item>
+                  <ion-label>Community</ion-label>
+                  <ion-select [(ngModel)]="client.community">
+                    <div *ngFor="let field of descList">
+                      <ion-option value="{{field.id}}">{{field.record.name}}
+                      </ion-option>
+                    </div>
+                  </ion-select>
+ </ion-item>
+
   
 </ion-list>
 </div>

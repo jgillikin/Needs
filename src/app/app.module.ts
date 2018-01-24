@@ -9,6 +9,7 @@ import { ApproveuserPage } from '../pages/approveuser/approveuser';
 import { MorePage } from '../pages/more/more';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { ListcommunityPage } from '../pages/listcommunity/listcommunity';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FIREBASE_CONFIG } from './firebase.credentials';
@@ -26,7 +27,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     TabsPage,
     ApproveuserPage,
     MorePage,
-    LoginPage
+    LoginPage,
+    ListcommunityPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     TabsPage,
     ApproveuserPage,
     MorePage,
-    LoginPage
+    LoginPage,
+    ListcommunityPage
   ],
   providers: [
     StatusBar,

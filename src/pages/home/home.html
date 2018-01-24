@@ -1,45 +1,73 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Needs</ion-title>
-   <ion-buttons right>
-    <button>
-      <ion-icon name="basket">2</ion-icon>
+<ion-buttons end>
+    <button id="notification-button" ion-button clear>
+        <ion-icon name="notifications">
+          <ion-badge id="notifications-badge" color="danger">5</ion-badge>
+        </ion-icon>              
     </button>
-    <button>
-      <ion-icon name="clock">4</ion-icon>
-    </button>
-    <button>
-      <ion-icon name="checkbox-outline">1</ion-icon>
-    </button>
-
-   </ion-buttons>
+  </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-<div text-center>
 
-<h2>Please enter a new Need below:</h2>
-</div>  
+
+<div *ngIf="!isApp" text-center>
+
 <table width="50%" align="center">
 <ion-list>
-  <ion-item>
-    <ion-label color="dark">Client:  </ion-label>
-    <ion-select [(ngModel)]="gender">
-    <ion-option value="1234567">John Doe</ion-option>
-    <ion-option value="9876543">Jane Doe</ion-option>
-  </ion-select>
-  </ion-item>
+
+
+ <ion-item>
+                  <ion-label>Client</ion-label>
+                  <ion-select [(ngModel)]="need.clientId">
+                    <div *ngFor="let field of descList">
+                      <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}
+                      </ion-option>
+                    </div>
+                  </ion-select>
+ </ion-item>
+
   <ion-item>
     <ion-label color="dark">Need Description:  </ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label color="dark">Date Submitted:  </ion-label>
-    <ion-input value="1-23-18"></ion-input>
+    <ion-input [(ngModel)]="need.desc"></ion-input>
   </ion-item>
 
 </ion-list>
 </table>
+
+</div>
+
+<div *ngIf="isApp" text-center>
+
+<ion-list>
+
+
+ <ion-item>
+                  <ion-label>Client</ion-label>
+                  <ion-select [(ngModel)]="need.clientId">
+                    <div *ngFor="let field of descList">
+                      <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}
+                      </ion-option>
+                    </div>
+                  </ion-select>
+ </ion-item>
+
+  <ion-item>
+    <ion-label color="dark">Need Description:  </ion-label>
+    <ion-input [(ngModel)]="need.desc"></ion-input>
+  </ion-item>
+
+</ion-list>
+
+</div>
+
+<br>
+<div text-center>
+<button ion-button color="dark" (click) ="onSave(need)">Save</button>
+</div>
+
 
 </ion-content>

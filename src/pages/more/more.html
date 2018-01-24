@@ -1,25 +1,30 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Settings</ion-title>
-   <ion-buttons right>
-    <button>
-      <ion-icon name="basket">2</ion-icon>
-    </button>
-    <button>
-      <ion-icon name="clock">4</ion-icon>
-    </button>
-    <button>
-      <ion-icon name="checkbox-outline">1</ion-icon>
-    </button>
 
-   </ion-buttons>
+
+  <ion-buttons end>
+    <button id="notification-button" ion-button clear>
+        <ion-icon name="notifications">
+          <ion-badge id="notifications-badge" color="danger">5</ion-badge>
+        </ion-icon>              
+    </button>
+  </ion-buttons>
+
 
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-<p>Put more options here</p>
+<ion-list>
+<ion-item (click)="open1()">
+Add/Remove Communities
+</ion-item>
+<ion-item (click)="open2()">
+Set Default Community
+</ion-item>
+</ion-list>
 
 </ion-content>
 

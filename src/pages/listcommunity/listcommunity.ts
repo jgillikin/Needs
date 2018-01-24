@@ -3,23 +3,23 @@ import { NavController,Platform } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireAction,AngularFireList } from 'angularfire2/database';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
-import { Client } from './../../models/client/client';
+import { Community } from './../../models/community/community';
 import { HomePage } from '../home/home';
-
+ 
 
 
 @Component({
-  selector: 'page-about',
-  templateUrl: 'about.html'
+  selector: 'page-listcommunity',
+  templateUrl: 'listcommunity.html'
 })
-export class AboutPage {
+export class ListcommunityPage {
 
   platformList: string = '';
   isApp: boolean = true;
-  client = {} as Client;
-  clt: AngularFireList<any> = this.db.list('/clients');
+  community = {} as Community;
+  com: AngularFireList<any> = this.db.list('/communities');
   userId: any;
-  public descList:Array<any>;
+public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
 
@@ -35,7 +35,7 @@ public platform: Platform,public db: AngularFireDatabase) {
         this.isApp = false;
 }
 
-this.descRef = firebase.database().ref('/communities');
+  this.descRef = firebase.database().ref('/communities');
 
 this.descRef.on('value', descList => {
   let descs = [];
@@ -59,13 +59,14 @@ this.descRef.on('value', descList => {
 
 
 
+
   } //end constructor
 ionViewDidLoad() {
 this.userId = firebase.auth().currentUser.uid;
 }
 
 
-onSave(cl2: Client) {
+onSave(com2: Community) {
 
 //alert("in onSave and fname is "+cl2.fname+" and lname is "+cl2.lname+" and cell is "+cl2.cell+" and community is "+cl2.community);
 
@@ -83,16 +84,14 @@ if(mm<10){
 today = mm+'/'+dd+'/'+yyyy;
 
 
- this.clt.push({
- "fname": cl2.fname,
- "lname": cl2.lname,
- "cell": cl2.cell,
- "community": cl2.community,
+ this.com.push({
+ "name": com2.name,
+ "zip": com2.zip,
  "addedBy": this.userId,
- "dateAdded": today
+  "dateAdded": today
 }); 
 
-this.navCtrl.setRoot(HomePage);
+this.navCtrl.setRoot(ListcommunityPage);
 
 }
 
