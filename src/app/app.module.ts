@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { ApproveuserPage } from '../pages/approveuser/approveuser';
 import { MorePage } from '../pages/more/more';
 import { TabsPage } from '../pages/tabs/tabs';
+import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
 import { ListcommunityPage } from '../pages/listcommunity/listcommunity';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -16,6 +17,7 @@ import { FIREBASE_CONFIG } from './firebase.credentials';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { SMS } from '@ionic-native/sms';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     ApproveuserPage,
     MorePage,
     LoginPage,
-    ListcommunityPage
+    ListcommunityPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -47,11 +50,13 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     ApproveuserPage,
     MorePage,
     LoginPage,
-    ListcommunityPage
+    ListcommunityPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    SMS,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

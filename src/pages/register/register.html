@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Register
+    </ion-title>
+<ion-buttons end>
+    <button id="notification-button" ion-button clear>
+        <ion-icon name="notifications">
+          <ion-badge id="notifications-badge" color="danger">5</ion-badge>
+        </ion-icon>              
+    </button>
+  </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+<div *ngIf="!isApp" text-center>
+
+<table width="50%" align="center">
+<ion-list>
+  <ion-item>
+    <ion-label color="dark">First Name:  </ion-label>
+    <ion-input [(ngModel)]="newuser.fname"></ion-input>
+  </ion-item>
+    <ion-item>
+    <ion-label color="dark">Last Name:  </ion-label>
+    <ion-input [(ngModel)]="newuser.lname"></ion-input>
+  </ion-item>
+
+    <ion-item>
+    <ion-label color="dark">Cell:  </ion-label>
+    <ion-input type="tel" [(ngModel)]="newuser.cell"></ion-input>
+  </ion-item>
+
+    <ion-item>
+    <ion-label color="dark">E-mail:  </ion-label>
+    <ion-input type="tel" [(ngModel)]="newuser.email"></ion-input>
+  </ion-item>
+    
+
+ <ion-item>
+                  <ion-label>Community</ion-label>
+                  <ion-select [(ngModel)]="newuser.defaultCom">
+                    <div *ngFor="let field of descList">
+                      <ion-option value="{{field.id}}">{{field.record.name}}
+                      </ion-option>
+                    </div>
+                  </ion-select>
+ </ion-item>
+
+  
+</ion-list>
+</table>
+
+</div>
+
+<div *ngIf="isApp" text-center>
+
+<br>
+
+<ion-list>
+  <ion-item>
+    <ion-label color="dark">First Name:  </ion-label>
+    <ion-input [(ngModel)]="newuser.fname"></ion-input>
+  </ion-item>
+    <ion-item>
+    <ion-label color="dark">Last Name:  </ion-label>
+    <ion-input [(ngModel)]="newuser.lname"></ion-input>
+  </ion-item>
+
+    <ion-item>
+    <ion-label color="dark">Cell:  </ion-label>
+    <ion-input type="tel" [(ngModel)]="newuser.cell"></ion-input>
+  </ion-item>
+
+    <ion-item>
+    <ion-label color="dark">E-mail:  </ion-label>
+    <ion-input type="tel" [(ngModel)]="newuser.email"></ion-input>
+  </ion-item>
+
+    
+
+ <ion-item>
+                  <ion-label>Community</ion-label>
+                  <ion-select [(ngModel)]="newuser.defaultCom">
+                    <div *ngFor="let field of descList">
+                      <ion-option value="{{field.id}}">{{field.record.name}}
+                      </ion-option>
+                    </div>
+                  </ion-select>
+ </ion-item>
+
+  
+</ion-list>
+</div>
+
+<br>
+<div text-center>
+<button ion-button color="dark" (click) ="onSave(newuser)">Save</button>
+</div>
+
+
+</ion-content>

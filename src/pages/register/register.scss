@@ -1,0 +1,23 @@
+page-register {
+#notification-button {            
+            position: relative;
+            width: 42px;
+            top:1px;
+            right: 5px;
+            overflow: visible!important;
+        }
+
+
+   #notifications-badge {
+            background-color: red;
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            border-radius: 100%;
+        }
+
+  ion-icon {
+        font-size: 25px; //Preferred size here
+    }
+
+}

@@ -4,7 +4,7 @@ import { User } from './../../models/user/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireAction,AngularFireList } from 'angularfire2/database';
 import { ResetpwdPage } from '../resetpwd/resetpwd';
-
+import { RegisterPage } from '../register/register';
 import { TabsPage } from '../tabs/tabs';
 
 
@@ -34,6 +34,10 @@ export class LoginPage {
       console.error(e);
     }
   }
+
+ goRegister() {
+  this.navCtrl.push(RegisterPage);
+ }
 
  resetPwd(){
     this.navCtrl.push(ResetpwdPage);
