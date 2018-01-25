@@ -5,8 +5,7 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { Newuser } from './../../models/newuser/newuser';
 import { LoginPage } from '../login/login';
-import { SMS } from '@ionic-native/sms';
-
+import {Http, Request, RequestMethod, Headers} from "@angular/http";
 
 @Component({
   selector: 'page-register',
@@ -22,13 +21,17 @@ export class RegisterPage {
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
+  http: Http;
+
 
 
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase,
-private sms: SMS) {
+http: Http) {
 
       let platforms = this.platform.platforms();
+
+      this.http = http;
 
       this.platformList = platforms.join(', ');
 
@@ -68,10 +71,7 @@ this.userId = firebase.auth().currentUser.uid;
 
 onSave(nu2: Newuser) {
 
-
 //alert("in onSave and fname is "+nu2.fname+" and lname is "+nu2.lname+" and cell is "+nu2.cell+" and community is "+nu2.defaultCom);
-
-this.sms.send('7572865248','Hello Jason');
 
 
 let today:any = new Date();
@@ -96,6 +96,19 @@ today = mm+'/'+dd+'/'+yyyy;
  "defaultCom": nu2.defaultCom,
  "dateAdded": today
 }); 
+
+//send SMS
+var link='https://jasongillikin.000webhostapp.com/sendSMS.php';
+var myData;
+var message;
+
+this.http.post(link,myData)
+.subscribe(data => { 
+this.data.response = "OK";
+}, error => {
+console.log("oops");
+});
+
 
 this.navCtrl.setRoot(LoginPage);
 

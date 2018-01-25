@@ -17,7 +17,7 @@ import { FIREBASE_CONFIG } from './firebase.credentials';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { SMS } from '@ionic-native/sms';
+import { HttpModule } from '@angular/http';
 
 
 @NgModule({
@@ -38,7 +38,9 @@ import { SMS } from '@ionic-native/sms';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -56,7 +58,6 @@ import { SMS } from '@ionic-native/sms';
   providers: [
     StatusBar,
     SplashScreen,
-    SMS,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

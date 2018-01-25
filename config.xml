@@ -87,4 +87,5 @@
         <variable name="UPDATE_METHOD" value="background" />
     </plugin>
     <plugin name="cordova-sms-plugin" spec="^0.1.11" />
+    <plugin name="phonegap-plugin-push" spec="^2.1.2" />
 </widget>
