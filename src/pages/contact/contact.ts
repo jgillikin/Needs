@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireAction,AngularFireList } from 'angularfire2/database';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
-
+import { NotificationsPage } from '../notifications/notifications';
 
 @Component({
   selector: 'page-contact',
@@ -23,6 +23,11 @@ export class ContactPage {
         'Closed Needs by Community'
      ];
 
-  }
+  } //end constructor
+
+goNot() {
+//alert("in goNot");
+this.navCtrl.push(NotificationsPage);
+}
 
 }

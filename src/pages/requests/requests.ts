@@ -3,37 +3,33 @@ import { NavController,Platform } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireAction,AngularFireList } from 'angularfire2/database';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
-import { AboutPage } from '../about/about';
-import { ContactPage } from '../contact/contact';
+import { Need } from './../../models/need/need';
 import { HomePage } from '../home/home';
-import { ApproveuserPage } from '../approveuser/approveuser';
-import { MorePage } from '../more/more';
+ 
 
 
 @Component({
-  templateUrl: 'tabs.html'
+  selector: 'page-requests',
+  templateUrl: 'requests.html'
 })
-export class TabsPage {
+export class RequestsPage {
 
   platformList: string = '';
   isApp: boolean = true;
-  userId: any;
-  public descList:Array<any>;
-  public descRef: firebase.database.Reference;
-  public loadedDescList: Array<any>;
-  badgeCount: any;
 
-
-  tab1Root = HomePage;
-  tab2Root = AboutPage;
-  tab3Root = ContactPage;
-  tab4Root = ApproveuserPage;
-  tab5Root = MorePage;
 
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase) {
 
-  
+      let platforms = this.platform.platforms();
+
+      this.platformList = platforms.join(', ');
+
+      if (this.platform.is('core') || this.platform.is('mobileweb')) {
+        this.isApp = false;
+}
+
+
 
   } //end constructor
 

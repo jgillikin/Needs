@@ -19,7 +19,7 @@ export class ListcommunityPage {
   community = {} as Community;
   com: AngularFireList<any> = this.db.list('/communities');
   userId: any;
-public descList:Array<any>;
+  public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
 
@@ -35,7 +35,7 @@ public platform: Platform,public db: AngularFireDatabase) {
         this.isApp = false;
 }
 
-  this.descRef = firebase.database().ref('/communities');
+this.descRef = firebase.database().ref('/communities');
 
 this.descRef.on('value', descList => {
   let descs = [];
@@ -55,10 +55,6 @@ this.descRef.on('value', descList => {
   this.descList = descs;
   this.loadedDescList = descs;
 });
-
-
-
-
 
   } //end constructor
 ionViewDidLoad() {

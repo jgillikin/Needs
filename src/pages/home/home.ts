@@ -4,7 +4,9 @@ import { AngularFireDatabase, AngularFireAction,AngularFireList } from 'angularf
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { Need } from './../../models/need/need';
-
+import { NotificationsPage } from '../notifications/notifications';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'page-home',
@@ -20,6 +22,9 @@ export class HomePage {
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
+  public badgeCount: any;
+  items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
+  size$: BehaviorSubject<string|null>;
 
 
   constructor(public navCtrl: NavController, public platform: Platform,public db: AngularFireDatabase) {
@@ -50,10 +55,15 @@ this.descRef.on('value', descList => {
 //alert(descs[0].id);
 
   this.descList = descs;
-  this.loadedDescList = descs;
+  //this.loadedDescList = descs;
 });
 
-
+ this.size$ = new BehaviorSubject(null);
+    this.items$ = this.size$.switchMap(size =>
+      db.list('/needs', ref =>
+        status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
+      ).snapshotChanges()
+    );
 
 
   } //end constructor
@@ -96,5 +106,9 @@ this.navCtrl.setRoot(HomePage);
 
 }
 
+goNot() {
+//alert("in goNot");
+this.navCtrl.push(NotificationsPage);
+}
 
 }

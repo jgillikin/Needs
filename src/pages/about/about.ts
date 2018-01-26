@@ -5,7 +5,7 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { Client } from './../../models/client/client';
 import { HomePage } from '../home/home';
-
+import { NotificationsPage } from '../notifications/notifications';
 
 
 @Component({
@@ -94,6 +94,11 @@ today = mm+'/'+dd+'/'+yyyy;
 
 this.navCtrl.setRoot(HomePage);
 
+}
+
+goNot() {
+//alert("in goNot");
+this.navCtrl.push(NotificationsPage);
 }
 
 }

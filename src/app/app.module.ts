@@ -8,8 +8,10 @@ import { HomePage } from '../pages/home/home';
 import { ApproveuserPage } from '../pages/approveuser/approveuser';
 import { MorePage } from '../pages/more/more';
 import { TabsPage } from '../pages/tabs/tabs';
+import { RequestsPage } from '../pages/requests/requests';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
+import { NotificationsPage } from '../pages/notifications/notifications';
 import { ListcommunityPage } from '../pages/listcommunity/listcommunity';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,7 +33,9 @@ import { HttpModule } from '@angular/http';
     MorePage,
     LoginPage,
     ListcommunityPage,
-    RegisterPage
+    RegisterPage,
+    NotificationsPage,
+    RequestsPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,6 @@ import { HttpModule } from '@angular/http';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     HttpModule
-
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -53,7 +56,9 @@ import { HttpModule } from '@angular/http';
     MorePage,
     LoginPage,
     ListcommunityPage,
-    RegisterPage
+    RegisterPage,
+    NotificationsPage,
+    RequestsPage
   ],
   providers: [
     StatusBar,

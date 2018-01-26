@@ -1,32 +1,46 @@
 import { Component } from '@angular/core';
-import { NavController,Platform } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireAction,AngularFireList } from 'angularfire2/database';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Newuser } from './../../models/newuser/newuser';
-import { NotificationsPage } from '../notifications/notifications';
+import { NavController, Platform } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
+import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
+import { RequestsPage } from '../requests/requests';
+import { Need } from './../../models/need/need';
+
 
 @Component({
-  selector: 'page-approveuser',
-  templateUrl: 'approveuser.html'
+  selector: 'page-notifications',
+  templateUrl: 'notifications.html'
 })
-export class ApproveuserPage {
+export class NotificationsPage {
 
-  newuser = {} as Newuser;
-  nu: AngularFireList<any> = this.db.list('/users-pending');
-  userId: any;
   platformList: string = '';
   isApp: boolean = true;
-
+  need = {} as Need;
+  nd: AngularFireList<any> = this.db.list('/needs');
+  userId: any;
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
 
-  constructor(public navCtrl: NavController,public platform: Platform,
+
+pushPage: any;
+
+section
+groceries
+
+constructor(public navCtrl: NavController, 
+public platform: Platform,
 public afA: AngularFireAuth,public db: AngularFireDatabase) {
 
-  let platforms = this.platform.platforms();
+this.pushPage = HomePage;
+
+this.section = "one";
+
+let platforms = this.platform.platforms();
 
         this.platformList = platforms.join(', ');
 
@@ -35,8 +49,13 @@ public afA: AngularFireAuth,public db: AngularFireDatabase) {
       }
 
 
-
-this.descRef = firebase.database().ref('/users-pending');
+  this.groceries = [
+            'Requests',
+            'In Progress',
+            'Work Finished'
+        ];
+			      
+  this.descRef = firebase.database().ref('/needs');
 
 this.descRef.on('value', descList => {
   let descs = [];
@@ -51,7 +70,7 @@ this.descRef.on('value', descList => {
   return false;
   });
 
-  //alert(descs[0].id);
+ //alert(descs[0].id);
 
   this.descList = descs;
   this.loadedDescList = descs;
@@ -60,11 +79,16 @@ this.descRef.on('value', descList => {
 
   } //end constructor
 
-goNot() {
-//alert("in goNot");
-this.navCtrl.push(NotificationsPage);
+logout(){
+//alert("in logout");
+    this.afA.auth.signOut().then(() => {
+       this.navCtrl.push(LoginPage);
+    })
 }
 
+  page1: any = RequestsPage;
+/*  page2: any = InprogressPage;
+  page3: any = WorkfinishedPage; */
 
-
+  
 }

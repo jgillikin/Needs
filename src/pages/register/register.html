@@ -3,19 +3,16 @@
     <ion-title>
       Register
     </ion-title>
-<ion-buttons end>
-    <button id="notification-button" ion-button clear>
-        <ion-icon name="notifications">
-          <ion-badge id="notifications-badge" color="danger">5</ion-badge>
-        </ion-icon>              
-    </button>
-  </ion-buttons>
 
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
+<div text-center>
+<u>Please register below and you will receive a text message when your account is activated.</u>
+</div>
+<br>
 <div *ngIf="!isApp" text-center>
 
 <table width="50%" align="center">
@@ -38,7 +35,12 @@
     <ion-label color="dark">E-mail:  </ion-label>
     <ion-input type="tel" [(ngModel)]="newuser.email"></ion-input>
   </ion-item>
-    
+  
+<ion-item>
+    <ion-label color="dark">Password:  </ion-label>
+    <ion-input type="password" [(ngModel)]="newuser.password"></ion-input>
+  </ion-item>
+  
 
  <ion-item>
                   <ion-label>Community</ion-label>
@@ -83,7 +85,7 @@
     
 
  <ion-item>
-                  <ion-label>Community</ion-label>
+                  <ion-label color="dark">Community</ion-label>
                   <ion-select [(ngModel)]="newuser.defaultCom">
                     <div *ngFor="let field of descList">
                       <ion-option value="{{field.id}}">{{field.record.name}}

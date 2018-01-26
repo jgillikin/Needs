@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Requested Needs
+    </ion-title>
+   
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+<br>
+<br>
+<p><u>Requested Needs</u></p>
+
+<div *ngFor="let desc of descList" text-center>
+
+<ion-item>{{desc.record.desc}}<br>
+{{desc.record.dateSub}}</ion-item>
+
+{{descList.length}}
+
+</div>
+
+</ion-content>

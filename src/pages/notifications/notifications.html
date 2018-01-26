@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Notifications
+    </ion-title>
+    <ion-buttons end>
+        <button ion-button color="clear" (click)="logout()">Log Out</button>
+    </ion-buttons>
+  </ion-navbar>
+
+<ion-toolbar>
+    <ion-segment [(ngModel)]="section" color="dark">
+
+      <ion-segment-button value="one">Requests
+              </ion-segment-button>
+
+      <ion-segment-button value="two">In Progress
+</ion-segment-button>
+
+      <ion-segment-button value="three">Work Finished</ion-segment-button>
+
+    </ion-segment>
+
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+
+
+
+ <div [ngSwitch]="section">
+ 
+      <ion-list *ngSwitchCase="'one'">
+
+<br>
+
+<div *ngFor="let desc of descList" text-center>
+
+<ion-item><u>Requested Need:</u>  {{desc.record.desc}}<br>
+<u>Date Requested:</u>  {{desc.record.dateSub}}</ion-item>
+
+</div>
+
+         
+      </ion-list>
+ 
+      <ion-list *ngSwitchCase="'two'">
+        <ion-item>
+
+<ion-list>
+ <ion-item *ngFor="let grocery of groceries">   
+   <button ion-button color="blue" (click)="goReport(grocery)">{{ grocery}}</button>
+ </ion-item>
+</ion-list>
+
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'three'">
+        <ion-item>
+
+<ion-list>
+ <ion-item *ngFor="let grocery of groceries">   
+   <button ion-button color="blue" (click)="goReport(grocery)">{{ grocery}}</button>
+ </ion-item>
+</ion-list>
+
+        </ion-item>
+      </ion-list>
+
+
+
+</div>
+
+</ion-content>

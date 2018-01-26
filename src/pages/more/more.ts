@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ListcommunityPage } from '../listcommunity/listcommunity';
+import { NotificationsPage } from '../notifications/notifications';
 
 
 @Component({
@@ -16,6 +17,11 @@ export class MorePage {
 
 
   } //end constructor
+
+goNot() {
+//alert("in goNot");
+this.navCtrl.push(NotificationsPage);
+}
 
 open1 () {
 this.navCtrl.push(ListcommunityPage);

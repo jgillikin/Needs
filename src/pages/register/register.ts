@@ -22,7 +22,7 @@ export class RegisterPage {
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
   http: Http;
-
+  data: any = {};
 
 
   constructor(public navCtrl: NavController,
@@ -64,9 +64,6 @@ this.descRef.on('value', descList => {
 
 
   } //end constructor
-ionViewDidLoad() {
-this.userId = firebase.auth().currentUser.uid;
-}
 
 
 onSave(nu2: Newuser) {
@@ -94,11 +91,14 @@ today = mm+'/'+dd+'/'+yyyy;
  "email": nu2.email,
  "cell": nu2.cell,
  "defaultCom": nu2.defaultCom,
+ "password": nu2.password,
  "dateAdded": today
 }); 
 
+let sendEmail = '7572865248@messaging.sprintpcs.com';
+
 //send SMS
-var link='https://jasongillikin.000webhostapp.com/sendSMS.php';
+var link='https://jasongillikin.000webhostapp.com/blueEmail.php';
 var myData;
 var message;
 

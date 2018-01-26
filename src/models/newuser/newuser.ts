@@ -3,6 +3,7 @@ export interface Newuser {
   lname: string;
   email: string;
   cell: string;
+  password: string;
   defaultCom: string;
   dateAdded: string;
 }

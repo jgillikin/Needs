@@ -2,15 +2,13 @@
   <ion-navbar>
     <ion-title>Settings</ion-title>
 
-
-  <ion-buttons end>
-    <button id="notification-button" ion-button clear>
+<ion-buttons end>
+    <button id="notification-button" ion-button clear (click)="goNot()">
         <ion-icon name="notifications">
           <ion-badge id="notifications-badge" color="danger">5</ion-badge>
         </ion-icon>              
     </button>
   </ion-buttons>
-
 
   </ion-navbar>
 </ion-header>
@@ -22,7 +20,10 @@
 Add/Remove Communities
 </ion-item>
 <ion-item (click)="open2()">
-Set Default Community
+Manage Clients
+</ion-item>
+<ion-item (click)="open4()">
+Delete a Need
 </ion-item>
 </ion-list>
 
