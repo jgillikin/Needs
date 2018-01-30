@@ -7,6 +7,7 @@ import { NotificationsPage } from '../notifications/notifications';
 import { AllopenPage } from '../allopen/allopen';
 import { AllclosedPage } from '../allclosed/allclosed';
 import { SearchopenPage } from '../searchopen/searchopen';
+import { SearchclosedPage } from '../searchclosed/searchclosed';
 
 
 @Component({
@@ -73,26 +74,28 @@ this.navCtrl.push(NotificationsPage);
 onChange(comId) {
 //alert("comId to search for is "+comId);
 
-this.navCtrl.push(SearchopenPage, {
+this.navCtrl.setRoot(SearchopenPage, {
     comPassed: comId
    })
 
 }
 
+onChange2(comId) {
+//alert("comId to search for is "+comId);
+
+this.navCtrl.setRoot(SearchclosedPage, {
+    comPassed: comId
+   })
+
+}
+
+
 open1 () {
 this.navCtrl.push(AllopenPage);
 }
 
-open2 () {
-this.navCtrl.push(NotificationsPage);
-}
-
 open3 () {
 this.navCtrl.push(AllclosedPage);
-}
-
-open4 () {
-this.navCtrl.push(NotificationsPage);
 }
 
 

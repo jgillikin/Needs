@@ -13,6 +13,7 @@ import { RegisterPage } from '../pages/register/register';
 import { AllopenPage } from '../pages/allopen/allopen';
 import { AllclosedPage } from '../pages/allclosed/allclosed';
 import { SearchopenPage } from '../pages/searchopen/searchopen';
+import { SearchclosedPage } from '../pages/searchclosed/searchclosed';
 import { LoginPage } from '../pages/login/login';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { ListcommunityPage } from '../pages/listcommunity/listcommunity';
@@ -41,7 +42,8 @@ import { HttpModule } from '@angular/http';
     RequestsPage,
     AllopenPage,
     SearchopenPage,
-    AllclosedPage
+    AllclosedPage,
+    SearchclosedPage
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,8 @@ import { HttpModule } from '@angular/http';
     RequestsPage,
     AllopenPage,
     SearchopenPage,
-    AllclosedPage
+    AllclosedPage,
+    SearchclosedPage
   ],
   providers: [
     StatusBar,

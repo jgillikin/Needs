@@ -35,9 +35,15 @@ All Open Needs
 <ion-item (click)="open3()">
 All Closed Needs
 </ion-item>
-<ion-item (click)="open4()">
-Search <u>Closed</u> Needs by Community
-</ion-item>
+<ion-item>
+                  <ion-label>Search <u>Closed</u> Needs by Community</ion-label>
+                  <ion-select [(ngModel)]="communityId" (ionChange)="onChange2(communityId)">
+                    <div *ngFor="let field of descList">
+                      <ion-option value="{{field.record.name}}">{{field.record.name}}
+                      </ion-option>
+                    </div>
+                  </ion-select>
+ </ion-item>
 
 </ion-list>
 </table>
