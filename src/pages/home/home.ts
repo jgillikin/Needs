@@ -15,6 +15,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class HomePage {
 
   platformList: string = '';
+  public communityId: any;
   isApp: boolean = true;
   need = {} as Need;
   nd: AngularFireList<any> = this.db.list('/needs');
@@ -23,9 +24,9 @@ export class HomePage {
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
   public badgeCount: any;
+  public shoppingList2: firebase.database.Reference;
   items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
   size$: BehaviorSubject<string|null>;
-
 
   constructor(public navCtrl: NavController, public platform: Platform,public db: AngularFireDatabase) {
 
@@ -59,7 +60,8 @@ this.descRef.on('value', descList => {
 });
 
  this.size$ = new BehaviorSubject(null);
-    this.items$ = this.size$.switchMap(size =>
+    
+this.items$ = this.size$.switchMap(size =>
       db.list('/needs', ref =>
         status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
       ).snapshotChanges()
@@ -73,7 +75,9 @@ this.userId = firebase.auth().currentUser.uid;
 }
 
 
-onSave(nd2: Need) {
+onSave(nd2: Need, commId: any) {
+
+//alert("in onSave and commId is "+commId);
 
 //alert("in onSave and fname is "+cl2.fname+" and lname is "+cl2.lname+" and cell is "+cl2.cell+" and community is "+cl2.community);
 
@@ -99,7 +103,8 @@ today = mm+'/'+dd+'/'+yyyy;
  "advocate": this.userId,
  "neighbor": '',
  "dateComp": '',
- "notes": ''
+ "notes": '',
+ "communityId": commId
 }); 
 
 this.navCtrl.setRoot(HomePage);
@@ -110,5 +115,34 @@ goNot() {
 //alert("in goNot");
 this.navCtrl.push(NotificationsPage);
 }
+
+onChange(clientId) {
+
+//this.shoppingList2 = firebase.database().ref('/clients/'+clientId);
+
+this.descRef.on('value', descList => {
+  let descs = [];
+  descList.forEach( desc => {
+//    descs.push(desc.val());
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+    //descs.push(desc.val()+" "+desc.key);
+    descs.push(weeklyData);
+  return false;
+  });
+
+//alert(descs[0].id);
+//alert(descs[0].record.community);
+this.communityId = descs[0].record.community;
+
+  //this.descList = descs;
+  this.loadedDescList = descs;
+});
+
+
+}
+
 
 }

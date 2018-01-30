@@ -19,8 +19,26 @@
 <br>  
 <table width="50%" align="center">
 <ion-list>
-    <ion-item *ngFor="let item of shoppingList" detail-push navPush="EditShoppingItemPage" [navParams]="{item: item}"><u>{{item}}</u>
-    </ion-item>
+<ion-item (click)="open1()">
+All Open Needs
+</ion-item>
+<ion-item>
+                  <ion-label>Search <u>Open</u> Needs by Community</ion-label>
+                  <ion-select [(ngModel)]="communityId" (ionChange)="onChange(communityId)">
+                    <div *ngFor="let field of descList">
+                      <ion-option value="{{field.record.name}}">{{field.record.name}}
+                      </ion-option>
+                    </div>
+                  </ion-select>
+ </ion-item>
+
+<ion-item (click)="open3()">
+All Closed Needs
+</ion-item>
+<ion-item (click)="open4()">
+Search <u>Closed</u> Needs by Community
+</ion-item>
+
 </ion-list>
 </table>
 

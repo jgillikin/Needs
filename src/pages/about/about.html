@@ -37,9 +37,9 @@
 
  <ion-item>
                   <ion-label>Community</ion-label>
-                  <ion-select [(ngModel)]="client.community">
+                  <ion-select [(ngModel)]="client.community" (ionChange)="onChange(client.community)">
                     <div *ngFor="let field of descList">
-                      <ion-option value="{{field.id}}">{{field.record.name}}
+                      <ion-option value="{{field.record.name}}">{{field.record.name}}
                       </ion-option>
                     </div>
                   </ion-select>
@@ -75,7 +75,7 @@
                   <ion-label>Community</ion-label>
                   <ion-select [(ngModel)]="client.community">
                     <div *ngFor="let field of descList">
-                      <ion-option value="{{field.id}}">{{field.record.name}}
+                      <ion-option value="{{field.record.name}}">{{field.record.name}}
                       </ion-option>
                     </div>
                   </ion-select>

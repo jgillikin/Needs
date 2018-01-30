@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Search Open Needs
+    </ion-title>
+   
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+
+<br>
+<div text-center>{{comSearch}} <u>Open</u> Needs</div>
+<br>
+<div text-center>
+<div *ngFor="let desc of descList" text-center>
+
+<ion-item><b>Need Desc:</b>  {{desc.record.desc}}<br>
+<b>Date requested:</b>  {{desc.record.dateSub}}</ion-item>
+
+</div>
+</div>
+</ion-content>
