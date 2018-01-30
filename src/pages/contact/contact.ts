@@ -91,11 +91,11 @@ this.navCtrl.setRoot(SearchclosedPage, {
 
 
 open1 () {
-this.navCtrl.push(AllopenPage);
+this.navCtrl.setRoot(AllopenPage);
 }
 
 open3 () {
-this.navCtrl.push(AllclosedPage);
+this.navCtrl.setRoot(AllclosedPage);
 }
 
 

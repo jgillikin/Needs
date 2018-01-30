@@ -46,7 +46,7 @@ this.descRef.on('value', descList => {
     weeklyData["id"] = desc.key;
     weeklyData["record"] = desc.val();
     //descs.push(desc.val()+" "+desc.key);
-    if (weeklyData.record.status == 'NEW')
+    if (weeklyData["record"].status == 'NEW')
     descs.push(weeklyData);
 
   return false;

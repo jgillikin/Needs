@@ -52,7 +52,7 @@ this.descRef.on('value', descList => {
   
   //alert("status is "+weeklyData.record.status+" and community id is "+this.comSearch);
 
-   if (weeklyData.record.status == 'CLOSED' && weeklyData.record.communityId == this.comSearch)
+   if (weeklyData["record"].status == 'CLOSED' && weeklyData["record"].communityId == this.comSearch)
     descs.push(weeklyData);
 
   return false;
