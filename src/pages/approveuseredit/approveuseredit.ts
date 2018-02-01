@@ -136,7 +136,7 @@ this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.pass2)
        this.com.remove(this.key2).then(_ => console.log('deleted!'));
 
        //send SMS to notify user
-       let sendEmail = this.cel+'@messaging.sprintpcs.com';
+       let sendEmail = this.cell+'@messaging.sprintpcs.com';
 
        //send SMS
        var link='https://jasongillikin.000webhostapp.com/blueEmail.php';
