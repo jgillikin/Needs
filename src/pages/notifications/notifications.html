@@ -22,7 +22,7 @@
     </ion-segment>
 
   </ion-toolbar>
-  
+
 </ion-header>
 
 <ion-content>
@@ -30,43 +30,62 @@
 
 
  <div [ngSwitch]="section">
- 
+
       <ion-list *ngSwitchCase="'one'">
 
 <br>
 
-<div *ngFor="let desc of descList" text-center>
+<ion-item-sliding *ngFor="let desc of descList">
 
-<ion-item><b>Requested Need:</b>  {{desc.record.desc}}<br>
-<b>Date Requested:</b>  {{desc.record.dateSub}}</ion-item>
-
-</div>
-
-         
-      </ion-list>
- 
-      <ion-list *ngSwitchCase="'two'">
-        <ion-item>
-
-<ion-list>
- <ion-item *ngFor="let grocery of groceries">   
-   <button ion-button color="blue" (click)="goReport(grocery)">{{ grocery}}</button>
+ <ion-item>
+  <b>Requested Need:</b>  {{desc.record.desc}}<br>
+  <b>Date Requested:</b>  {{desc.record.dateSub}}
  </ion-item>
-</ion-list>
 
-        </ion-item>
+ <ion-item-options>
+  <button ion-button color="primary" (click)="editItem1(desc)">Approve</button>
+  <button ion-button color="danger" (click)="rejectItem1(desc)"><ion-icon trash></ion-icon> Reject</button>
+ </ion-item-options>
+</ion-item-sliding>
+
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'two'">
+
+        <br>
+
+        <ion-item-sliding *ngFor="let desc of descList2">
+
+         <ion-item>
+          <b>Requested Need:</b>  {{desc.record.desc}}<br>
+          <b>Date Requested:</b>  {{desc.record.dateSub}}
+         </ion-item>
+
+         <ion-item-options>
+          <button ion-button color="primary" (click)="editItem2(desc)">Finish</button>
+        <!--  <button ion-button color="danger" (click)="rejectItem2(desc)"><ion-icon trash></ion-icon> Reject</button>-->
+         </ion-item-options>
+        </ion-item-sliding>
+
       </ion-list>
 
       <ion-list *ngSwitchCase="'three'">
-        <ion-item>
 
-<ion-list>
- <ion-item *ngFor="let grocery of groceries">   
-   <button ion-button color="blue" (click)="goReport(grocery)">{{ grocery}}</button>
- </ion-item>
-</ion-list>
+        <br>
 
-        </ion-item>
+        <ion-item-sliding *ngFor="let desc of descList3">
+
+         <ion-item>
+          <b>Requested Need:</b>  {{desc.record.desc}}<br>
+          <b>Date Requested:</b>  {{desc.record.dateSub}}
+         </ion-item>
+
+         <ion-item-options>
+          <button ion-button color="primary" (click)="editItem3(desc)">Close</button>
+<!--          <button ion-button color="danger" (click)="rejectItem3(desc)"><ion-icon trash></ion-icon> Reject</button>-->
+         </ion-item-options>
+        </ion-item-sliding>
+
       </ion-list>
 
 

@@ -3,14 +3,13 @@
     <ion-title>
       Add a Client
     </ion-title>
-<ion-buttons end>
-    <button id="notification-button" ion-button clear (click)="goNot()">
-        <ion-icon name="notifications">
-          <ion-badge id="notifications-badge" color="danger">5</ion-badge>
-        </ion-icon>              
-    </button>
-  </ion-buttons>
-
+    <ion-buttons end>
+        <button id="notification-button" ion-button clear (click)="goNot()">
+            <ion-icon name="notifications">
+              <ion-badge id="notifications-badge" color="danger">{{(items$ | async)?.length}}</ion-badge>
+            </ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -33,7 +32,7 @@
     <ion-label color="dark">Cell:  </ion-label>
     <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>
   </ion-item>
-    
+
 
  <ion-item>
                   <ion-label>Community</ion-label>
@@ -45,7 +44,7 @@
                   </ion-select>
  </ion-item>
 
-  
+
 </ion-list>
 </table>
 
@@ -69,7 +68,7 @@
     <ion-label color="dark">Cell:  </ion-label>
     <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>
   </ion-item>
-    
+
 
  <ion-item>
                   <ion-label>Community</ion-label>
@@ -81,7 +80,7 @@
                   </ion-select>
  </ion-item>
 
-  
+
 </ion-list>
 </div>
 

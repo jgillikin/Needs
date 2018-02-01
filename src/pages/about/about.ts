@@ -6,6 +6,8 @@ import * as firebase from 'firebase/app';
 import { Client } from './../../models/client/client';
 import { HomePage } from '../home/home';
 import { NotificationsPage } from '../notifications/notifications';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 @Component({
@@ -22,6 +24,8 @@ export class AboutPage {
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
+  items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
+  size$: BehaviorSubject<string|null>;
 
 
   constructor(public navCtrl: NavController,
@@ -33,6 +37,15 @@ public platform: Platform,public db: AngularFireDatabase) {
 
       if (this.platform.is('core') || this.platform.is('mobileweb')) {
         this.isApp = false;
+
+        this.size$ = new BehaviorSubject(null);
+
+       this.items$ = this.size$.switchMap(size =>
+             db.list('/needs', ref =>
+               status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
+             ).snapshotChanges()
+           );
+
 }
 
 this.descRef = firebase.database().ref('/communities');
@@ -76,10 +89,10 @@ let mm:any = today.getMonth()+1; //January is 0!
 let yyyy:any = today.getFullYear();
 if(dd<10){
     dd='0'+dd;
-} 
+}
 if(mm<10){
     mm='0'+mm;
-} 
+}
 today = mm+'/'+dd+'/'+yyyy;
 
 
@@ -90,7 +103,7 @@ today = mm+'/'+dd+'/'+yyyy;
  "community": cl2.community,
  "addedBy": this.userId,
  "dateAdded": today
-}); 
+});
 
 this.navCtrl.setRoot(HomePage);
 
@@ -98,11 +111,11 @@ this.navCtrl.setRoot(HomePage);
 
 goNot() {
 //alert("in goNot");
-this.navCtrl.push(NotificationsPage);
+this.navCtrl.setRoot(NotificationsPage);
 }
 
 onChange(com: any) {
-alert("search for "+com);
+//alert("search for "+com);
 }
 
 }

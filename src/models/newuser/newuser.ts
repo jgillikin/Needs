@@ -6,4 +6,5 @@ export interface Newuser {
   password: string;
   defaultCom: string;
   dateAdded: string;
+  type: string;
 }

@@ -2,22 +2,22 @@
   <ion-navbar>
     <ion-title>Approve User</ion-title>
 
-<ion-buttons end>
-    <button id="notification-button" ion-button clear (click)="goNot()">
-        <ion-icon name="notifications">
-          <ion-badge id="notifications-badge" color="danger">5</ion-badge>
-        </ion-icon>              
-    </button>
-  </ion-buttons>
-
+    <ion-buttons end>
+        <button id="notification-button" ion-button clear (click)="goNot()">
+            <ion-icon name="notifications">
+              <ion-badge id="notifications-badge" color="danger">{{(items$ | async)?.length}}</ion-badge>
+            </ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-<div *ngFor="let desc of descList" text-center>
 
-<ion-item><u>Requested user:</u>  {{desc.record.fname}} {{desc.record.lname}} <br>
-<u>Date Requested:</u>  {{desc.record.dateAdded}}</ion-item>
+
+<div *ngFor="let desc of descList" text-center>
+<ion-item (click)="open1(desc.record.fname,desc.record.lname,desc.record.cell,desc.record.defaultCom,desc.id,desc.record.email,desc.record.password)"><b>Requested user:</b>  {{desc.record.fname}} {{desc.record.lname}} <br>
+<b>Date Requested:</b>  {{desc.record.dateAdded}}</ion-item>
 
 </div>
 </ion-content>

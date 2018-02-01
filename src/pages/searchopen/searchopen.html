@@ -3,7 +3,7 @@
     <ion-title>
       Search Open Needs
     </ion-title>
-   
+
 
   </ion-navbar>
 </ion-header>
@@ -15,11 +15,28 @@
 <div text-center>{{comSearch}} <u>Open</u> Needs</div>
 <br>
 <div text-center>
-<div *ngFor="let desc of descList" text-center>
 
-<ion-item><b>Need Desc:</b>  {{desc.record.desc}}<br>
-<b>Date requested:</b>  {{desc.record.dateSub}}</ion-item>
+<ion-list>
+
+  <ion-item-sliding *ngFor="let desc of descList">
+
+   <ion-item>
+     <b>Need Description:  </b>{{desc.record.desc}}<br>
+     <b>Status:  </b>{{desc.record.status}}<br>
+     <b>Date created:  </b>{{desc.record.dateSub}}<br>
+     <b>Community:  </b>{{desc.record.communityId}}
+   </ion-item>
+
+   <ion-item-options>
+    <!--<button ion-button color="primary" (click)="editItem(desc)">Edit</button>-->
+    <button ion-button color="danger" (click)="requestItem(desc)"><ion-icon trash></ion-icon> Request to Help</button>
+   </ion-item-options>
+  </ion-item-sliding>
+
+
+</ion-list>
+
 
 </div>
-</div>
+
 </ion-content>

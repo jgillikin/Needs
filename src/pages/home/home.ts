@@ -60,7 +60,7 @@ this.descRef.on('value', descList => {
 });
 
  this.size$ = new BehaviorSubject(null);
-    
+
 this.items$ = this.size$.switchMap(size =>
       db.list('/needs', ref =>
         status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
@@ -88,10 +88,10 @@ let mm:any = today.getMonth()+1; //January is 0!
 let yyyy:any = today.getFullYear();
 if(dd<10){
     dd='0'+dd;
-} 
+}
 if(mm<10){
     mm='0'+mm;
-} 
+}
 today = mm+'/'+dd+'/'+yyyy;
 
 
@@ -105,7 +105,7 @@ today = mm+'/'+dd+'/'+yyyy;
  "dateComp": '',
  "notes": '',
  "communityId": commId
-}); 
+});
 
 this.navCtrl.setRoot(HomePage);
 
@@ -113,7 +113,7 @@ this.navCtrl.setRoot(HomePage);
 
 goNot() {
 //alert("in goNot");
-this.navCtrl.push(NotificationsPage);
+this.navCtrl.setRoot(NotificationsPage);
 }
 
 onChange(clientId) {

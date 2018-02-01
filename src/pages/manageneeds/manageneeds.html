@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Settings
+    </ion-title>
+
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+<p><u>Manage Needs</u></p>
+
+<ion-list>
+
+ <ion-item-sliding *ngFor="let desc of descList">
+
+  <ion-item>
+    <b>Need Description:  </b>{{desc.record.desc}}<br>
+    <b>Status:  </b>{{desc.record.status}}<br>
+    <b>Date created:  </b>{{desc.record.dateSub}}<br>
+    <b>Community:  </b>{{desc.record.communityId}}
+  </ion-item>
+
+  <ion-item-options>
+   <!--<button ion-button color="primary" (click)="editItem(desc)">Edit</button>-->
+   <button ion-button color="danger" (click)="removeItem(desc)"><ion-icon trash></ion-icon> Delete</button>
+  </ion-item-options>
+ </ion-item-sliding>
+
+</ion-list>
+
+
+</ion-content>

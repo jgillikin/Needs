@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Manage new User Request
+    </ion-title>
+    <ion-buttons end>
+        <button id="notification-button" ion-button clear (click)="goNot()">
+            <ion-icon name="notifications">
+              <ion-badge id="notifications-badge" color="danger">{{(items$ | async)?.length}}</ion-badge>
+            </ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+<div *ngIf="!isApp" text-center>
+
+<table width="50%" align="center">
+<ion-list>
+<ion-input placeholder="First Name:  {{fname}}" clearInput></ion-input>
+<ion-input placeholder="Last Name:  {{lname}}" clearInput></ion-input>
+<ion-input placeholder="Cell:  {{cell}}" clearInput></ion-input>
+<ion-input placeholder="Community:  {{defaultCom}}" clearInput></ion-input>
+<br>
+<ion-item>
+  <ion-label>Account Type:  </ion-label>
+  <ion-select [(ngModel)]="newuser.type">
+      <ion-option value="A">Advocate</ion-option>
+      <ion-option value="N">Neighbor</ion-option>
+  </ion-select>
+</ion-item>
+
+
+</ion-list>
+</table>
+
+</div>
+
+<div *ngIf="isApp" text-center>
+
+<br>
+
+
+<ion-list>
+  <ion-input placeholder="First Name:  {{fname}}" clearInput></ion-input>
+  <ion-input placeholder="Last Name:  {{lname}}" clearInput></ion-input>
+  <ion-input placeholder="Cell:  {{cell}}" clearInput></ion-input>
+  <ion-input placeholder="Community:  {{defaultCom}}" clearInput></ion-input>
+  <br>
+  <ion-item>
+    <ion-label>Account Type:  </ion-label>
+    <ion-select [(ngModel)]="newuser.type">
+        <ion-option value="A">Advocate</ion-option>
+        <ion-option value="N">Neighbor</ion-option>
+    </ion-select>
+  </ion-item>
+
+
+</ion-list>
+</div>
+
+<br>
+<div text-center>
+<button ion-button color="dark" (click) ="onSave(newuser.type)">Approve</button>
+<button ion-button color="danger" (click) ="reject()">Reject</button>
+</div>
+
+
+</ion-content>

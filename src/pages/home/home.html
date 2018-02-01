@@ -5,7 +5,7 @@
     <button id="notification-button" ion-button clear (click)="goNot()">
         <ion-icon name="notifications">
           <ion-badge id="notifications-badge" color="danger">{{(items$ | async)?.length}}</ion-badge>
-        </ion-icon>              
+        </ion-icon>
     </button>
   </ion-buttons>
   </ion-navbar>
@@ -30,13 +30,14 @@
                   </ion-select>
  </ion-item>
 
-<ion-item>
-<ion-input type="hidden" [(ngModel)]="communityId"></ion-input>
-</ion-item>
 
   <ion-item>
     <ion-label color="dark">Need Description:  </ion-label>
     <ion-input [(ngModel)]="need.desc"></ion-input>
+  </ion-item>
+
+  <ion-item>
+  <ion-input type="hidden" [(ngModel)]="communityId"></ion-input>
   </ion-item>
 
 </ion-list>
@@ -49,20 +50,26 @@
 <ion-list>
 
 
- <ion-item>
-                  <ion-label>Client</ion-label>
-                  <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">
-                    <div *ngFor="let field of descList">
-                      <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}
-                      </ion-option>
-                    </div>
-                  </ion-select>
- </ion-item>
 
-  <ion-item>
-    <ion-label color="dark">Need Description:  </ion-label>
-    <ion-input [(ngModel)]="need.desc"></ion-input>
-  </ion-item>
+   <ion-item>
+                    <ion-label>Client</ion-label>
+                    <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">
+                      <div *ngFor="let field of descList">
+                        <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}
+                        </ion-option>
+                      </div>
+                    </ion-select>
+   </ion-item>
+
+
+    <ion-item>
+      <ion-label color="dark">Need Description:  </ion-label>
+      <ion-input [(ngModel)]="need.desc"></ion-input>
+    </ion-item>
+
+    <ion-item>
+    <ion-input type="hidden" [(ngModel)]="communityId"></ion-input>
+    </ion-item>
 
 </ion-list>
 

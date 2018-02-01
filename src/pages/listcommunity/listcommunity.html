@@ -24,18 +24,29 @@ Add a New Community
 </ion-item>
 
  <ion-item>   
-   <button ion-button color="dark" (click)="onSave(community)">Save</button>
+   <button ion-button color="dark" (click)="onSave(community)">Add New</button>
  </ion-item>
 
 </ion-list>
 <hr>
 <br>
-<p><u>Existing Communities</u></p>
 
-<div *ngFor="let desc of descList" text-center>
+<p><u>Current Communities</u></p>
 
-<ion-item>{{desc.record.name}}</ion-item>
+<ion-list>
 
-</div>
+ <ion-item-sliding *ngFor="let desc of descList">
+
+  <ion-item>
+   {{desc.record.name}}
+  </ion-item>
+
+  <ion-item-options>
+   <button ion-button color="danger" (click)="removeItem(desc)"><ion-icon trash></ion-icon> Delete</button>
+  </ion-item-options>
+ </ion-item-sliding>
+
+</ion-list>
+
 
 </ion-content>

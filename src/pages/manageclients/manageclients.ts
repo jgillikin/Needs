@@ -9,15 +9,15 @@ import { HomePage } from '../home/home';
 
 
 @Component({
-  selector: 'page-listcommunity',
-  templateUrl: 'listcommunity.html'
+  selector: 'page-manageclients',
+  templateUrl: 'manageclients.html'
 })
-export class ListcommunityPage {
+export class ManageclientsPage {
 
   platformList: string = '';
   isApp: boolean = true;
   community = {} as Community;
-  com: AngularFireList<any> = this.db.list('/communities');
+  com: AngularFireList<any> = this.db.list('/clients');
   userId: any;
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
@@ -35,7 +35,7 @@ public platform: Platform,public db: AngularFireDatabase) {
         this.isApp = false;
 }
 
-this.descRef = firebase.database().ref('/communities');
+this.descRef = firebase.database().ref('/clients');
 
 this.descRef.on('value', descList => {
   let descs = [];
@@ -62,34 +62,6 @@ this.userId = firebase.auth().currentUser.uid;
 }
 
 
-onSave(com2: Community) {
-
-//alert("in onSave and fname is "+cl2.fname+" and lname is "+cl2.lname+" and cell is "+cl2.cell+" and community is "+cl2.community);
-
-let today:any = new Date();
-let dd:any = today.getDate();
-let mm:any = today.getMonth()+1; //January is 0!
-
-let yyyy:any = today.getFullYear();
-if(dd<10){
-    dd='0'+dd;
-} 
-if(mm<10){
-    mm='0'+mm;
-} 
-today = mm+'/'+dd+'/'+yyyy;
-
-
- this.com.push({
- "name": com2.name,
- "zip": com2.zip,
- "addedBy": this.userId,
-  "dateAdded": today
-}); 
-
-this.navCtrl.setRoot(ListcommunityPage);
-
-}
 
 removeItem(item) {
  
@@ -107,5 +79,24 @@ this.com.remove(item.id).then(_ => console.log('deleted!'));
     }*/
 
 }
+
+editItem(item) {
+
+ 
+//alert("delete record "+item.id);
+
+//delete from Firebase
+//this.com.remove(item.id).then(_ => console.log('deleted!'));
+
+/*for(var i = 0; i < this.descList.length; i++) {
+ 
+      if(this.descList[i] == item){
+        this.descList.splice(i, 1);
+      }
+ 
+    }*/
+
+}
+
 
 }

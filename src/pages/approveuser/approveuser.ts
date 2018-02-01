@@ -6,6 +6,9 @@ import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Newuser } from './../../models/newuser/newuser';
 import { NotificationsPage } from '../notifications/notifications';
+import { ApproveusereditPage} from '../approveuseredit/approveuseredit';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'page-approveuser',
@@ -14,14 +17,16 @@ import { NotificationsPage } from '../notifications/notifications';
 export class ApproveuserPage {
 
   newuser = {} as Newuser;
-  nu: AngularFireList<any> = this.db.list('/users-pending');
+//  nu: AngularFireList<any> = this.db.list('/users-pending');
   userId: any;
   platformList: string = '';
   isApp: boolean = true;
-
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
+  items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
+  size$: BehaviorSubject<string|null>;
+
 
   constructor(public navCtrl: NavController,public platform: Platform,
 public afA: AngularFireAuth,public db: AngularFireDatabase) {
@@ -54,17 +59,38 @@ this.descRef.on('value', descList => {
   //alert(descs[0].id);
 
   this.descList = descs;
-  this.loadedDescList = descs;
 });
+
+this.size$ = new BehaviorSubject(null);
+
+this.items$ = this.size$.switchMap(size =>
+     db.list('/needs', ref =>
+       status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
+     ).snapshotChanges()
+   );
 
 
   } //end constructor
 
 goNot() {
 //alert("in goNot");
-this.navCtrl.push(NotificationsPage);
+this.navCtrl.setRoot(NotificationsPage);
 }
 
+open1(fname,lname,cell,defCom,key,email,password) {
 
+//alert("pass email "+email+ "and password"+password);
+
+this.navCtrl.push(ApproveusereditPage, {
+      firstPassed: fname,
+      secondPassed: lname,
+      thirdPassed: cell,
+      fourthPassed: defCom,
+      fifthPassed: key,
+      sixthPassed: email,
+      seventhPassed: password
+      });
+
+}
 
 }

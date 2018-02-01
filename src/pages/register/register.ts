@@ -78,10 +78,10 @@ let mm:any = today.getMonth()+1; //January is 0!
 let yyyy:any = today.getFullYear();
 if(dd<10){
     dd='0'+dd;
-} 
+}
 if(mm<10){
     mm='0'+mm;
-} 
+}
 today = mm+'/'+dd+'/'+yyyy;
 
 
@@ -93,7 +93,7 @@ today = mm+'/'+dd+'/'+yyyy;
  "defaultCom": nu2.defaultCom,
  "password": nu2.password,
  "dateAdded": today
-}); 
+});
 
 let sendEmail = '7572865248@messaging.sprintpcs.com';
 
@@ -101,9 +101,11 @@ let sendEmail = '7572865248@messaging.sprintpcs.com';
 var link='https://jasongillikin.000webhostapp.com/blueEmail.php';
 var myData;
 var message;
+myData = JSON.stringify({emailS: 'New Needs User request:  '+nu2.fname+' '+nu2.lname});
+
 
 this.http.post(link,myData)
-.subscribe(data => { 
+.subscribe(data => {
 this.data.response = "OK";
 }, error => {
 console.log("oops");

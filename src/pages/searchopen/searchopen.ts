@@ -5,7 +5,7 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { Community } from './../../models/community/community';
 import { HomePage } from '../home/home';
- 
+
 
 
 @Component({
@@ -23,6 +23,7 @@ export class SearchopenPage {
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
   public comSearch: any;
+  nd: AngularFireList<any> = this.db.list('/needs');
 
 
   constructor(public navCtrl: NavController,
@@ -49,7 +50,7 @@ this.descRef.on('value', descList => {
     weeklyData["id"] = desc.key;
     weeklyData["record"] = desc.val();
     //descs.push(desc.val()+" "+desc.key);
-  
+
   //alert("status is "+weeklyData.record.status+" and community id is "+this.comSearch);
 
    if (weeklyData["record"].status == 'NEW' && weeklyData["record"].communityId == this.comSearch)
@@ -81,10 +82,10 @@ let mm:any = today.getMonth()+1; //January is 0!
 let yyyy:any = today.getFullYear();
 if(dd<10){
     dd='0'+dd;
-} 
+}
 if(mm<10){
     mm='0'+mm;
-} 
+}
 today = mm+'/'+dd+'/'+yyyy;
 
 
@@ -93,10 +94,26 @@ today = mm+'/'+dd+'/'+yyyy;
  "zip": com2.zip,
  "addedBy": this.userId,
   "dateAdded": today
-}); 
+});
 
 this.navCtrl.setRoot(HomePage);
 
 }
+
+requestItem(item) {
+
+  item.status = 'Requested';
+
+//  alert("id is "+item.id+" and status is "+item.status);
+
+//edit to Firebase
+
+  this.nd.update(item.id, { status: 'Requested' });
+
+this.navCtrl.setRoot(HomePage);
+
+
+}
+
 
 }

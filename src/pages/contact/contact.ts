@@ -8,6 +8,8 @@ import { AllopenPage } from '../allopen/allopen';
 import { AllclosedPage } from '../allclosed/allclosed';
 import { SearchopenPage } from '../searchopen/searchopen';
 import { SearchclosedPage } from '../searchclosed/searchclosed';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 @Component({
@@ -23,6 +25,8 @@ export class ContactPage {
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
+  items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
+  size$: BehaviorSubject<string|null>;
 
 
   constructor(public navCtrl: NavController,public platform: Platform,public db: AngularFireDatabase) {
@@ -63,12 +67,20 @@ this.descRef.on('value', descList => {
 //  this.loadedDescList = descs;
 });
 
+this.size$ = new BehaviorSubject(null);
+
+this.items$ = this.size$.switchMap(size =>
+     db.list('/needs', ref =>
+       status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
+     ).snapshotChanges()
+   );
+
 
   } //end constructor
 
 goNot() {
 //alert("in goNot");
-this.navCtrl.push(NotificationsPage);
+this.navCtrl.setRoot(NotificationsPage);
 }
 
 onChange(comId) {

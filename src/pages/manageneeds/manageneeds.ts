@@ -5,27 +5,23 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { Community } from './../../models/community/community';
 import { HomePage } from '../home/home';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { NotificationsPage } from '../notifications/notifications';
+
+
 
 @Component({
-  selector: 'page-allopen',
-  templateUrl: 'allopen.html'
+  selector: 'page-manageneeds',
+  templateUrl: 'manageneeds.html'
 })
-export class AllopenPage {
+export class ManageneedsPage {
 
   platformList: string = '';
   isApp: boolean = true;
   community = {} as Community;
-  com: AngularFireList<any> = this.db.list('/communities');
+  com: AngularFireList<any> = this.db.list('/needs');
   userId: any;
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
-  nd: AngularFireList<any> = this.db.list('/needs');
-  items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
-  size$: BehaviorSubject<string|null>;
 
 
   constructor(public navCtrl: NavController,
@@ -50,9 +46,7 @@ this.descRef.on('value', descList => {
     weeklyData["id"] = desc.key;
     weeklyData["record"] = desc.val();
     //descs.push(desc.val()+" "+desc.key);
-    if (weeklyData["record"].status == 'NEW')
     descs.push(weeklyData);
-
   return false;
   });
 
@@ -62,61 +56,19 @@ this.descRef.on('value', descList => {
   this.loadedDescList = descs;
 });
 
-this.size$ = new BehaviorSubject(null);
-
-this.items$ = this.size$.switchMap(size =>
-     db.list('/needs', ref =>
-       status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
-     ).snapshotChanges()
-   );
-
-
   } //end constructor
 ionViewDidLoad() {
 this.userId = firebase.auth().currentUser.uid;
 }
 
 
-onSave(com2: Community) {
 
-//alert("in onSave and fname is "+cl2.fname+" and lname is "+cl2.lname+" and cell is "+cl2.cell+" and community is "+cl2.community);
+removeItem(item) {
 
-let today:any = new Date();
-let dd:any = today.getDate();
-let mm:any = today.getMonth()+1; //January is 0!
+//alert("delete record "+item.id);
 
-let yyyy:any = today.getFullYear();
-if(dd<10){
-    dd='0'+dd;
-}
-if(mm<10){
-    mm='0'+mm;
-}
-today = mm+'/'+dd+'/'+yyyy;
-
-
- this.com.push({
- "name": com2.name,
- "zip": com2.zip,
- "addedBy": this.userId,
-  "dateAdded": today
-});
-
-this.navCtrl.setRoot(HomePage);
-
-}
-
-requestItem(item) {
-
-  item.status = 'Requested';
-
-//  alert("id is "+item.id+" and status is "+item.status);
-
-//edit to Firebase
-
-  this.nd.update(item.id, { status: 'Requested' });
-
-this.navCtrl.setRoot(HomePage);
+//delete from Firebase
+this.com.remove(item.id).then(_ => console.log('deleted!'));
 
 /*for(var i = 0; i < this.descList.length; i++) {
 
@@ -128,9 +80,22 @@ this.navCtrl.setRoot(HomePage);
 
 }
 
-goNot() {
-//alert("in goNot");
-this.navCtrl.setRoot(NotificationsPage);
+editItem(item) {
+
+
+//alert("delete record "+item.id);
+
+//delete from Firebase
+//this.com.remove(item.id).then(_ => console.log('deleted!'));
+
+/*for(var i = 0; i < this.descList.length; i++) {
+
+      if(this.descList[i] == item){
+        this.descList.splice(i, 1);
+      }
+
+    }*/
+
 }
 
 
