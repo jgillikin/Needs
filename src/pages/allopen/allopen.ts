@@ -26,6 +26,7 @@ export class AllopenPage {
   nd: AngularFireList<any> = this.db.list('/needs');
   items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
   size$: BehaviorSubject<string|null>;
+  ul: AngularFireList<any> = this.db.list('/users-list');
 
 
   constructor(public navCtrl: NavController,
@@ -108,23 +109,17 @@ this.navCtrl.setRoot(HomePage);
 
 requestItem(item) {
 
+  let notes: any;
+
+//  alert("items is "+this.items$.)
+
+
   item.status = 'Requested';
 
-//  alert("id is "+item.id+" and status is "+item.status);
+  //edit to Firebase
+  this.nd.update(item.id, { status: 'Requested',reqBy:  });
 
-//edit to Firebase
-
-  this.nd.update(item.id, { status: 'Requested' });
-
-this.navCtrl.setRoot(HomePage);
-
-/*for(var i = 0; i < this.descList.length; i++) {
-
-      if(this.descList[i] == item){
-        this.descList.splice(i, 1);
-      }
-
-    }*/
+  this.navCtrl.setRoot(HomePage);
 
 }
 

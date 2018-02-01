@@ -10,7 +10,7 @@ import { LoginPage } from '../login/login';
 import { RequestsPage } from '../requests/requests';
 import { Need } from './../../models/need/need';
 import {Http, Request, RequestMethod, Headers} from "@angular/http";
-import { NotificationsPage } from './notifications';
+//import { NotificationsPage } from './notifications';
 
 
 @Component({
