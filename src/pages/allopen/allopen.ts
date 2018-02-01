@@ -117,7 +117,7 @@ requestItem(item) {
   item.status = 'Requested';
 
   //edit to Firebase
-  this.nd.update(item.id, { status: 'Requested',reqBy:  });
+  this.nd.update(item.id, { status: 'Requested'});
 
   this.navCtrl.setRoot(HomePage);
 
