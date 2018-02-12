@@ -88,4 +88,5 @@
     </plugin>
     <plugin name="cordova-sms-plugin" spec="^0.1.11" />
     <plugin name="phonegap-plugin-push" spec="^2.1.2" />
+    <plugin name="cordova-plugin-x-toast" spec="^2.6.0" />
 </widget>

@@ -22,6 +22,9 @@ export class TabsPage {
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
   badgeCount: any;
+  isAdmin: boolean = false;
+  public descList:Array<any>;
+  public descRef: firebase.database.Reference;
 
 
   tab1Root = HomePage;
@@ -32,6 +35,42 @@ export class TabsPage {
 
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase) {
+
+      this.userId = firebase.auth().currentUser.uid;
+
+
+    this.descRef = firebase.database().ref('/users-list');
+
+this.descRef.on('value', descList => {
+  let temp = false; 
+  let descs5 = [];
+ 
+  descList.forEach( desc => {
+
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+
+//alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+
+    if (weeklyData["record"].uid == this.userId) {
+     descs5.push(weeklyData);
+
+     if (weeklyData["record"].type == 'A')
+      temp = true;
+     else
+      temp = false;
+
+    }
+
+  return false;
+  });
+
+  this.descList = descs5;
+  this.isAdmin = temp;
+
+});
 
   
 

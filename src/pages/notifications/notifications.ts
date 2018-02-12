@@ -23,15 +23,17 @@ export class NotificationsPage {
   isApp: boolean = true;
   need = {} as Need;
   nd: AngularFireList<any> = this.db.list('/needs');
+  ul: AngularFireList<any> = this.db.list('/users-list');
   userId: any;
   public descList:Array<any>;
   public descList2:Array<any>;
   public descList3:Array<any>;
   public descRef: firebase.database.Reference;
+  public userRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
   http: Http;
   data: any = {};
-
+  public reqName: any;
 
 pushPage: any;
 
@@ -44,6 +46,7 @@ public afA: AngularFireAuth,public db: AngularFireDatabase,http: Http) {
 
 this.http = http;
 
+this.userId = firebase.auth().currentUser.uid;
 
 this.pushPage = HomePage;
 
@@ -64,7 +67,39 @@ let platforms = this.platform.platforms();
             'Work Finished'
         ];
 
-  this.descRef = firebase.database().ref('/needs');
+this.userRef = firebase.database().ref('/users-list');
+
+this.userRef.on('value', descList => {
+  let descs4 = '';
+  let descs5 = [];
+ 
+  descList.forEach( desc => {
+
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+
+    descs5.push(weeklyData);
+
+//alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+
+//    if (weeklyData["record"].uid == this.userId)
+     descs4=weeklyData["record"].fname+' '+weeklyData["record"].lname;    
+
+//    desc4 = desc.val();
+
+  return false;
+  });
+
+  //this.reqName = descs4;
+  this.loadedDescList = descs5;
+
+});
+
+
+
+this.descRef = firebase.database().ref('/needs');
 
 this.descRef.on('value', descList => {
   let descs = [];
@@ -77,14 +112,18 @@ this.descRef.on('value', descList => {
     weeklyData["id"] = desc.key;
     weeklyData["record"] = desc.val();
     //descs.push(desc.val()+" "+desc.key);
-    if (weeklyData["record"].status == 'Requested')
+
+    if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate == this.userId) {
      descs.push(weeklyData);
+    }
 
-     if (weeklyData["record"].status == 'InProgress')
+     if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy == this.userId) {
       descs2.push(weeklyData);
+     }
 
-      if (weeklyData["record"].status == 'WorkCompleted')
+      if (weeklyData["record"].status == 'WorkCompleted'  && weeklyData["record"].advocate == this.userId) {
        descs3.push(weeklyData);
+      }
 
   return false;
   });
@@ -98,20 +137,46 @@ this.descRef.on('value', descList => {
 //  this.loadedDescList = descs;
 });
 
+if (this.descList === undefined)
+ this.descList = [];
+
+if (this.descList2 === undefined)
+ this.descList2 = [];
+
+if (this.descList3 === undefined)
+ this.descList3 = [];
 
   } //end constructor
 
   editItem1(item) {
 
-  this.nd.update(item.id, { status: 'InProgress' });
+  let toS: any;
 
-  let sendEmail = '7572865248@messaging.sprintpcs.com';
+  this.nd.update(item.id, { status: 'InProgress' });
+  
+
+
+  for (var q=0;q<this.loadedDescList.length;q++) {
+   if (item.record.reqBy == this.loadedDescList[q].record.uid) {
+    toS = this.loadedDescList[q].record.cell;
+    break;
+   }
+   //alert(this.loadedDescList[q].record.email);
+  }
+
+
+//need to send text to requester who was approved and to Advocate for the Need
+
+  let sendEmailReq = '7572865248@messaging.sprintpcs.com';
+  toS = toS+'@messaging.sprintpcs.com';
+
+//alert("send to "+toS);
 
   //send SMS
-  var link='https://jasongillikin.000webhostapp.com/blueEmail.php';
+  var link='https://jasongillikin.000webhostapp.com/blueEmail2.php';
   var myData;
   var message;
-  myData = JSON.stringify({emailS: 'Status set to In Progress for Need:  "'+item.record.desc+'"'});
+  myData = JSON.stringify({emailS: 'You have been assigned Need:  "'+item.record.desc+'"', toS: toS});
 
 
   this.http.post(link,myData)
@@ -128,7 +193,7 @@ this.descRef.on('value', descList => {
 
   rejectItem1(item) {
 
-  this.nd.update(item.id, { status: 'NEW',reqBy: '' });
+  this.nd.update(item.id, { status: 'NEW',reqBy: '',reqName: '', reqCell: '' });
 
   this.navCtrl.setRoot(NotificationsPage);
 
@@ -136,15 +201,29 @@ this.descRef.on('value', descList => {
 
   editItem2(item) {
 
+  let toS: any;
+
+  //alert("item advocate uid is "+item.record.advocate);
+
+  for (var q=0;q<this.loadedDescList.length;q++) {
+   if (item.record.advocate == this.loadedDescList[q].record.uid) {
+    toS = this.loadedDescList[q].record.cell;
+    break;
+   }
+   //alert(this.loadedDescList[q].record.email);
+  }
+
+  
   this.nd.update(item.id, { status: 'WorkCompleted' });
 
   let sendEmail = '7572865248@messaging.sprintpcs.com';
+  toS = toS+'@messaging.sprintpcs.com';
 
   //send SMS
   var link='https://jasongillikin.000webhostapp.com/blueEmail.php';
   var myData;
   var message;
-  myData = JSON.stringify({emailS: 'Status set to Work Completed for Need:  "'+item.record.desc+'"'});
+  myData = JSON.stringify({emailS: 'Work Completed for Need:  "'+item.record.desc+'"' +' please close it out', toS: toS});
 
 
   this.http.post(link,myData)
@@ -169,15 +248,46 @@ this.descRef.on('value', descList => {
 
   editItem3(item) {
 
+  let toS: any;
+
+  //alert("item advocate uid is "+item.record.advocate);
+
+  for (var q=0;q<this.loadedDescList.length;q++) {
+   if (item.record.advocate == this.loadedDescList[q].record.uid) {
+    toS = this.loadedDescList[q].record.cell;
+    break;
+   }
+   //alert(this.loadedDescList[q].record.email);
+  }
+
+let today:any = new Date();
+let dd:any = today.getDate();
+let mm:any = today.getMonth()+1; //January is 0!
+
+let yyyy:any = today.getFullYear();
+if(dd<10){
+    dd='0'+dd;
+}
+if(mm<10){
+    mm='0'+mm;
+}
+
+today = mm+'/'+dd+'/'+yyyy;
+
+  this.nd.update(item.id, { dateComp: today });
   this.nd.update(item.id, { status: 'CLOSED' });
+  
 
   let sendEmail = '7572865248@messaging.sprintpcs.com';
+  toS = toS+'@messaging.sprintpcs.com';
+
+//alert("toS to send is "+toS);
 
   //send SMS
-  var link='https://jasongillikin.000webhostapp.com/blueEmail.php';
+  var link='https://jasongillikin.000webhostapp.com/blueEmail2.php';
   var myData;
   var message;
-  myData = JSON.stringify({emailS: 'Status set to CLOSED for Need:  "'+item.record.desc+'"'});
+  myData = JSON.stringify({emailS: 'Status set to CLOSED for Need:  "'+item.record.desc+'"', toS: toS});
 
 
   this.http.post(link,myData)
@@ -188,7 +298,7 @@ this.descRef.on('value', descList => {
   });
 
 
-  this.navCtrl.setRoot(NotificationsPage);
+  this.navCtrl.setRoot(NotificationsPage); 
 
   }
 

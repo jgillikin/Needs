@@ -64,7 +64,25 @@ this.userId = firebase.auth().currentUser.uid;
 
 onSave(com2: Community) {
 
-//alert("in onSave and fname is "+cl2.fname+" and lname is "+cl2.lname+" and cell is "+cl2.cell+" and community is "+cl2.community);
+//alert("in onSave and com is "+com2.name);
+
+if (!com2.name) {
+
+if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('tablet') || this.platform.is('ipad') ) {
+this.toast.show(`Please enter a Community name`, '3000', 'center').subscribe(
+  toast => {
+    console.log(toast);
+  }
+);
+return false;
+}
+else {
+alert('Please enter a Community name');
+return false;
+}
+
+}
+
 
 let today:any = new Date();
 let dd:any = today.getDate();

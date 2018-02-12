@@ -6,7 +6,7 @@
     <ion-buttons end>
         <button id="notification-button" ion-button clear (click)="goNot()">
             <ion-icon name="notifications">
-              <ion-badge id="notifications-badge" color="danger">{{(items$ | async)?.length}}</ion-badge>
+              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>
             </ion-icon>
         </button>
       </ion-buttons>

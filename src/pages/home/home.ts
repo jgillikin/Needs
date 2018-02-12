@@ -7,6 +7,7 @@ import { Need } from './../../models/need/need';
 import { NotificationsPage } from '../notifications/notifications';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Toast } from '@ionic-native/toast';
 
 @Component({
   selector: 'page-home',
@@ -22,13 +23,15 @@ export class HomePage {
   userId: any;
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
+  public needRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
+  public needList: Array<any>;
   public badgeCount: any;
   public shoppingList2: firebase.database.Reference;
   items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
   size$: BehaviorSubject<string|null>;
 
-  constructor(public navCtrl: NavController, public platform: Platform,public db: AngularFireDatabase) {
+  constructor(public navCtrl: NavController, public platform: Platform,public db: AngularFireDatabase,private toast: Toast) {
 
 let platforms = this.platform.platforms();
 
@@ -59,13 +62,45 @@ this.descRef.on('value', descList => {
   //this.loadedDescList = descs;
 });
 
- this.size$ = new BehaviorSubject(null);
+this.needRef = firebase.database().ref('/needs');
 
-this.items$ = this.size$.switchMap(size =>
+this.needRef.on('value', descList => {
+  let descs2 = [];
+  descList.forEach( desc => {
+//    descs.push(desc.val());
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+    //descs.push(desc.val()+" "+desc.key);
+    
+   if (weeklyData["record"].status == 'Requested' || weeklyData["record"].status == 'InProgress' || weeklyData["record"].status == 'WorkCompleted'  ) {
+     descs2.push(weeklyData);
+   }
+
+  return false;
+  });
+
+//alert(descs[0].id);
+
+  this.needList = descs2;
+  //this.loadedDescList = descs;
+});
+
+//alert("needList size is "+this.needList.length);
+if (this.needList === undefined)
+ this.needList = [];
+
+
+/* this.size$ = new BehaviorSubject(null);
+
+
+ this.items$ = this.size$.switchMap(count =>
       db.list('/needs', ref =>
-        status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
-      ).snapshotChanges()
+        count ? ref.orderByChild('count').equalTo('1') : ref
+      ).valueChanges()
     );
+*/
 
 
   } //end constructor
@@ -80,6 +115,23 @@ onSave(nd2: Need, commId: any) {
 //alert("in onSave and commId is "+commId);
 
 //alert("in onSave and fname is "+cl2.fname+" and lname is "+cl2.lname+" and cell is "+cl2.cell+" and community is "+cl2.community);
+
+if (!commId || !nd2.clientId || !nd2.desc) {
+
+if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('tablet') || this.platform.is('ipad') ) {
+this.toast.show(`Please fill in all fields`, '3000', 'center').subscribe(
+  toast => {
+    console.log(toast);
+  }
+);
+return false;
+}
+else {
+alert('Please fill in all fields');
+return false;
+}
+
+}
 
 let today:any = new Date();
 let dd:any = today.getDate();
@@ -101,7 +153,6 @@ today = mm+'/'+dd+'/'+yyyy;
  "dateSub": today,
  "status": 'NEW',
  "advocate": this.userId,
- "neighbor": '',
  "dateComp": '',
  "notes": '',
  "communityId": commId

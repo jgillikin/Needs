@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 import { Newuser } from './../../models/newuser/newuser';
 import { LoginPage } from '../login/login';
 import {Http, Request, RequestMethod, Headers} from "@angular/http";
+import { Toast } from '@ionic-native/toast';
 
 @Component({
   selector: 'page-register',
@@ -27,7 +28,7 @@ export class RegisterPage {
 
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase,
-http: Http) {
+http: Http, private toast: Toast) {
 
       let platforms = this.platform.platforms();
 
@@ -69,6 +70,23 @@ this.descRef.on('value', descList => {
 onSave(nu2: Newuser) {
 
 //alert("in onSave and fname is "+nu2.fname+" and lname is "+nu2.lname+" and cell is "+nu2.cell+" and community is "+nu2.defaultCom);
+
+if (!nu2.fname || !nu2.lname || !nu2.cell || !nu2.email || !nu2.password || !nu2.defaultCom) {
+
+if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('tablet') || this.platform.is('ipad') ) {
+this.toast.show(`Please fill in all fields`, '3000', 'center').subscribe(
+  toast => {
+    console.log(toast);
+  }
+);
+return false;
+}
+else {
+alert('Please fill in all fields');
+return false;
+}
+
+}
 
 
 let today:any = new Date();

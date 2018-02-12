@@ -27,6 +27,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { HttpModule } from '@angular/http';
+import { Toast } from '@ionic-native/toast';
 
 
 @NgModule({
@@ -84,6 +85,7 @@ import { HttpModule } from '@angular/http';
   providers: [
     StatusBar,
     SplashScreen,
+    Toast,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

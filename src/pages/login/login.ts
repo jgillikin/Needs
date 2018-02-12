@@ -8,6 +8,7 @@ import { RegisterPage } from '../register/register';
 import { TabsPage } from '../tabs/tabs';
 
 
+
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -17,10 +18,11 @@ export class LoginPage {
 
   user = {} as User;
   us: AngularFireList<any> = this.db.list('/users-list');
-
-
+  
   constructor(private afAuth: AngularFireAuth,
     public navCtrl: NavController, public db: AngularFireDatabase, public navParams: NavParams) {
+
+    
   }
  
   async login(user: User) {
@@ -52,6 +54,8 @@ export class LoginPage {
  "email": user.email,
  "uid": user.uid
 }); 
+
+
 this.navCtrl.setRoot(TabsPage);
 
       })

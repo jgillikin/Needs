@@ -19,7 +19,6 @@ export class AllopenPage {
   isApp: boolean = true;
   community = {} as Community;
   com: AngularFireList<any> = this.db.list('/communities');
-  userId: any;
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
@@ -27,10 +26,16 @@ export class AllopenPage {
   items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
   size$: BehaviorSubject<string|null>;
   ul: AngularFireList<any> = this.db.list('/users-list');
-
+  public needRef: firebase.database.Reference;
+  public reqName: any;
+  public reqCell: any;
+  public userRef: firebase.database.Reference;
+  userId: any;
 
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase) {
+
+      this.userId = firebase.auth().currentUser.uid;
 
       let platforms = this.platform.platforms();
 
@@ -45,31 +50,58 @@ this.descRef = firebase.database().ref('/needs');
 this.descRef.on('value', descList => {
   let descs = [];
   descList.forEach( desc => {
-//    descs.push(desc.val());
+
     var weeklyData = {};
 
     weeklyData["id"] = desc.key;
     weeklyData["record"] = desc.val();
-    //descs.push(desc.val()+" "+desc.key);
+ 
     if (weeklyData["record"].status == 'NEW')
-    descs.push(weeklyData);
+     descs.push(weeklyData);
 
   return false;
   });
 
-//alert(descs[0].id);
 
   this.descList = descs;
   this.loadedDescList = descs;
 });
 
-this.size$ = new BehaviorSubject(null);
+/*this.size$ = new BehaviorSubject(null);
 
 this.items$ = this.size$.switchMap(size =>
      db.list('/needs', ref =>
        status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
      ).snapshotChanges()
    );
+*/
+
+
+this.userRef = firebase.database().ref('/users-list');
+
+this.userRef.on('value', descList => {
+  let descs4 = '';
+  let descs5 = '';
+ 
+  descList.forEach( desc => {
+
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+
+    if (weeklyData["record"].uid == this.userId) {
+     descs4=weeklyData["record"].fname+' '+weeklyData["record"].lname;
+     descs5=weeklyData["record"].cell;
+    }
+
+  return false;
+  });
+
+  this.reqName = descs4;
+  this.reqCell = descs5;
+});
+
 
 
   } //end constructor
@@ -118,6 +150,9 @@ requestItem(item) {
 
   //edit to Firebase
   this.nd.update(item.id, { status: 'Requested'});
+  this.nd.update(item.id, { reqBy: this.userId });
+  this.nd.update(item.id, { reqName: this.reqName });
+  this.nd.update(item.id, { reqCell: this.reqCell });
 
   this.navCtrl.setRoot(HomePage);
 

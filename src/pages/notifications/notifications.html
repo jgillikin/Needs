@@ -12,12 +12,16 @@
     <ion-segment [(ngModel)]="section" color="dark">
 
       <ion-segment-button value="one">Requests
+<ion-badge color="accent">{{this.descList.length}}</ion-badge>
               </ion-segment-button>
 
       <ion-segment-button value="two">In Progress
+<ion-badge color="accent">{{this.descList2.length}}</ion-badge>
 </ion-segment-button>
 
-      <ion-segment-button value="three">Work Finished</ion-segment-button>
+      <ion-segment-button value="three">Work Finished
+<ion-badge color="accent">{{this.descList3.length}}</ion-badge>
+</ion-segment-button>
 
     </ion-segment>
 
@@ -39,7 +43,9 @@
 
  <ion-item>
   <b>Requested Need:</b>  {{desc.record.desc}}<br>
-  <b>Date Requested:</b>  {{desc.record.dateSub}}
+  <b>Date Requested:</b>  {{desc.record.dateSub}} <br>
+  <b>Requested By:</b>  {{desc.record.reqName}} <br>
+  <b>Requestor Cell:</b> {{desc.record.reqCell}} 
  </ion-item>
 
  <ion-item-options>
@@ -60,6 +66,8 @@
           <b>Requested Need:</b>  {{desc.record.desc}}<br>
           <b>Date Requested:</b>  {{desc.record.dateSub}}
          </ion-item>
+
+
 
          <ion-item-options>
           <button ion-button color="primary" (click)="editItem2(desc)">Finish</button>

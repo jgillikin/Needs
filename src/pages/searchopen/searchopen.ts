@@ -18,16 +18,21 @@ export class SearchopenPage {
   isApp: boolean = true;
   community = {} as Community;
   com: AngularFireList<any> = this.db.list('/communities');
-  userId: any;
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
   public comSearch: any;
   nd: AngularFireList<any> = this.db.list('/needs');
+  public reqName: any;
+  public reqCell: any;
+  public userRef: firebase.database.Reference;
+  userId: any;
 
 
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase,public params: NavParams) {
+
+      this.userId = firebase.auth().currentUser.uid;
 
       this.comSearch = this.params.get('comPassed');
 
@@ -64,6 +69,33 @@ this.descRef.on('value', descList => {
   this.descList = descs;
  // this.loadedDescList = descs;
 });
+
+
+this.userRef = firebase.database().ref('/users-list');
+
+this.userRef.on('value', descList => {
+  let descs4 = '';
+  let descs5 = '';
+ 
+  descList.forEach( desc => {
+
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+
+    if (weeklyData["record"].uid == this.userId) {
+     descs4=weeklyData["record"].fname+' '+weeklyData["record"].lname;
+     descs5=weeklyData["record"].cell;
+    }
+
+  return false;
+  });
+
+  this.reqName = descs4;
+  this.reqCell = descs5;
+});
+
 
   } //end constructor
 ionViewDidLoad() {
@@ -109,6 +141,10 @@ requestItem(item) {
 //edit to Firebase
 
   this.nd.update(item.id, { status: 'Requested' });
+  this.nd.update(item.id, { reqBy: this.userId });
+  this.nd.update(item.id, { reqName: this.reqName });
+  this.nd.update(item.id, { reqCell: this.reqCell });
+
 
 this.navCtrl.setRoot(HomePage);
 

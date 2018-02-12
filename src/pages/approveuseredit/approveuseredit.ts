@@ -11,7 +11,7 @@ import { User } from './../../models/user/user';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {Http, Request, RequestMethod, Headers} from "@angular/http";
-
+import { Toast } from '@ionic-native/toast';
 
 @Component({
   selector: 'page-approveuseredit',
@@ -43,7 +43,7 @@ export class ApproveusereditPage {
 
 
   constructor(public navCtrl: NavController,
-public platform: Platform,public db: AngularFireDatabase,public params: NavParams,private afAuth: AngularFireAuth,http: Http) {
+public platform: Platform,public db: AngularFireDatabase,public params: NavParams,private afAuth: AngularFireAuth,http: Http, private toast: Toast) {
 
       this.http = http;
 
@@ -103,6 +103,23 @@ onSave(typeUser: any) {
 
 //alert("in onSave and fname is "+cl2.fname+" and lname is "+cl2.lname+" and cell is "+cl2.cell+" and community is "+cl2.community);
 
+if (!typeUser) {
+
+if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('tablet') || this.platform.is('ipad') ) {
+this.toast.show(`Please select a user type`, '3000', 'center').subscribe(
+  toast => {
+    console.log(toast);
+  }
+);
+return false;
+}
+else {
+alert('Please select a user type');
+return false;
+}
+
+}
+
 let today:any = new Date();
 let dd:any = today.getDate();
 let mm:any = today.getMonth()+1; //January is 0!
@@ -129,6 +146,7 @@ this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.pass2)
         "addedBy": this.userId,
         "dateAdded": today,
         "type": typeUser,
+        "email": this.email,
         "uid": user.uid
        });
 
@@ -138,11 +156,13 @@ this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.pass2)
        //send SMS to notify user
        let sendEmail = this.cell+'@messaging.sprintpcs.com';
 
+//alert("sendEmail is "+sendEmail);
+
        //send SMS
-       var link='https://jasongillikin.000webhostapp.com/blueEmail.php';
+       var link='https://jasongillikin.000webhostapp.com/blueEmail2.php';
        var myData;
        var message;
-       myData = JSON.stringify({emailS: 'Your Needs account has been activiated'});
+       myData = JSON.stringify({emailS: 'Your Needs account has been activiated', toS: sendEmail});
 
 
        this.http.post(link,myData)
