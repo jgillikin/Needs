@@ -18,8 +18,6 @@ export class TabsPage {
   platformList: string = '';
   isApp: boolean = true;
   userId: any;
-  public descList:Array<any>;
-  public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
   badgeCount: any;
   isAdmin: boolean = false;

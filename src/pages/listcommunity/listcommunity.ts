@@ -5,6 +5,7 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { Community } from './../../models/community/community';
 import { HomePage } from '../home/home';
+import { Toast } from '@ionic-native/toast';
  
 
 
@@ -25,7 +26,7 @@ export class ListcommunityPage {
 
 
   constructor(public navCtrl: NavController,
-public platform: Platform,public db: AngularFireDatabase) {
+public platform: Platform,public db: AngularFireDatabase,private toast: Toast) {
 
       let platforms = this.platform.platforms();
 
