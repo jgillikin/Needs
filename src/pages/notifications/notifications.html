@@ -4,7 +4,7 @@
       Notifications
     </ion-title>
     <ion-buttons end>
-        <button ion-button color="clear" (click)="logout()">Log Out</button>
+        <button ion-button color="clear" (click)="logout()">Close</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -19,7 +19,7 @@
 <ion-badge color="accent">{{this.descList2.length}}</ion-badge>
 </ion-segment-button>
 
-      <ion-segment-button value="three">Work Finished
+      <ion-segment-button value="three">Finished
 <ion-badge color="accent">{{this.descList3.length}}</ion-badge>
 </ion-segment-button>
 
@@ -46,6 +46,10 @@
   <b>Date Requested:</b>  {{desc.record.dateSub}} <br>
   <b>Requested By:</b>  {{desc.record.reqName}} <br>
   <b>Requestor Cell:</b> {{desc.record.reqCell}} 
+<button ion-button clear item-end>
+<ion-icon name="arrow-forward"></ion-icon>
+</button>
+
  </ion-item>
 
  <ion-item-options>
@@ -65,6 +69,10 @@
          <ion-item>
           <b>Requested Need:</b>  {{desc.record.desc}}<br>
           <b>Date Requested:</b>  {{desc.record.dateSub}}
+<button ion-button clear item-end>
+<ion-icon name="arrow-forward"></ion-icon>
+</button>
+
          </ion-item>
 
 
@@ -86,6 +94,10 @@
          <ion-item>
           <b>Requested Need:</b>  {{desc.record.desc}}<br>
           <b>Date Requested:</b>  {{desc.record.dateSub}}
+<button ion-button clear item-end>
+<ion-icon name="arrow-forward"></ion-icon>
+</button>
+
          </ion-item>
 
          <ion-item-options>

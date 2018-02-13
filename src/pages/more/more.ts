@@ -3,13 +3,17 @@ import { NavController } from 'ionic-angular';
 import { ListcommunityPage } from '../listcommunity/listcommunity';
 import { ManageclientsPage } from '../manageclients/manageclients';
 import { ManageneedsPage } from '../manageneeds/manageneeds'
+import { ManageusersPage } from '../manageusers/manageusers'
 import { NotificationsPage } from '../notifications/notifications';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AngularFireDatabase, AngularFireAction,AngularFireList } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
-
+import { ModalController } from 'ionic-angular';
+import { LoginPage } from '../login/login';
+import { CreedPage } from '../creed/creed';
 
 @Component({
   selector: 'page-more',
@@ -21,10 +25,16 @@ export class MorePage {
   size$: BehaviorSubject<string|null>;
   public needRef: firebase.database.Reference;
   public needList: Array<any>;
+  public allRef: firebase.database.Reference;
+  public allList: Array<any>;
+  isAllAdmin: boolean = false;
+  userId: any;
 
+  constructor(public navCtrl: NavController,public db: AngularFireDatabase,public modalCtrl: ModalController,
+public afA: AngularFireAuth) {
 
+   this.userId = firebase.auth().currentUser.uid;
 
-  constructor(public navCtrl: NavController,public db: AngularFireDatabase) {
 
 /*    this.size$ = new BehaviorSubject(null);
 
@@ -63,6 +73,30 @@ this.needRef.on('value', descList => {
 if (this.needList === undefined)
  this.needList = [];
 
+this.allRef = firebase.database().ref('/users-list');
+
+this.allRef.on('value', descList => {
+  let descs3 = [];
+  let temp: boolean = false;
+
+  descList.forEach( desc => {
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+    
+   if (weeklyData["record"].uid = this.userId && weeklyData["record"].alladmin == '1' ) {
+     descs3.push(weeklyData);
+     temp = true;     
+   }
+
+  return false;
+  });
+
+//alert(descs[0].id);
+  this.isAllAdmin = temp;
+  this.allList = descs3;
+});
 
 
   } //end constructor
@@ -83,5 +117,29 @@ this.navCtrl.push(ManageclientsPage);
 open4 () {
 this.navCtrl.push(ManageneedsPage);
 }
+
+open5 () {
+this.navCtrl.push(ManageusersPage);
+}
+
+
+openModal() {
+    let myModal = this.modalCtrl.create(NotificationsPage);
+    myModal.present();
+  }
+
+showAbout() {
+    let myModal = this.modalCtrl.create(CreedPage);
+    myModal.present();
+}
+
+logOff(){
+//alert("in logout");
+
+    this.afA.auth.signOut().then(() => {
+       this.navCtrl.push(LoginPage);
+    }) 
+}
+
 
 }

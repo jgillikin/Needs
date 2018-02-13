@@ -23,6 +23,8 @@ export class TabsPage {
   isAdmin: boolean = false;
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
+  public pendRef: firebase.database.Reference;
+  public pendList: Array<any>;
 
 
   tab1Root = HomePage;
@@ -70,10 +72,28 @@ this.descRef.on('value', descList => {
 
 });
 
+this.pendRef = firebase.database().ref('/users-pending');
+
+this.pendRef.on('value', descList => {
+  let descs9 = [];
+  descList.forEach( desc => {
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+    descs9.push(weeklyData);
+
+  return false;
+  });
+
+  this.pendList = descs9;
+});
+
+if (this.pendList === undefined)
+ this.pendList = [];
   
 
   } //end constructor
-
 
 
 }

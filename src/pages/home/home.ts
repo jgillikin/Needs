@@ -8,6 +8,7 @@ import { NotificationsPage } from '../notifications/notifications';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Toast } from '@ionic-native/toast';
+import { ModalController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -31,7 +32,8 @@ export class HomePage {
   items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
   size$: BehaviorSubject<string|null>;
 
-  constructor(public navCtrl: NavController, public platform: Platform,public db: AngularFireDatabase,private toast: Toast) {
+  constructor(public navCtrl: NavController, public platform: Platform,public db: AngularFireDatabase,private toast: Toast,
+public modalCtrl: ModalController) {
 
 let platforms = this.platform.platforms();
 
@@ -194,6 +196,12 @@ this.communityId = descs[0].record.community;
 
 
 }
+
+openModal() {
+    let myModal = this.modalCtrl.create(NotificationsPage);
+    myModal.present();
+  }
+
 
 
 }

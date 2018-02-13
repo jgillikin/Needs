@@ -71,6 +71,24 @@ onSave(nu2: Newuser) {
 
 //alert("in onSave and fname is "+nu2.fname+" and lname is "+nu2.lname+" and cell is "+nu2.cell+" and community is "+nu2.defaultCom);
 
+if (nu2.cell.length < 10) {
+
+if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('tablet') || this.platform.is('ipad') ) {
+this.toast.show(`Please enter 10 digit number`, '3000', 'center').subscribe(
+  toast => {
+    console.log(toast);
+  }
+);
+return false;
+}
+else {
+alert('Please enter 10 digit number');
+return false;
+}
+
+
+}
+
 if (!nu2.fname || !nu2.lname || !nu2.cell || !nu2.email || !nu2.password || !nu2.defaultCom) {
 
 if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('tablet') || this.platform.is('ipad') ) {

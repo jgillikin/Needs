@@ -9,6 +9,7 @@ import { NotificationsPage } from '../notifications/notifications';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Toast } from '@ionic-native/toast';
+import { ModalController } from 'ionic-angular';
 
 @Component({
   selector: 'page-about',
@@ -31,7 +32,7 @@ export class AboutPage {
 
 
   constructor(public navCtrl: NavController,
-public platform: Platform,public db: AngularFireDatabase,private toast: Toast) {
+public platform: Platform,public db: AngularFireDatabase,private toast: Toast,public modalCtrl: ModalController) {
 
       let platforms = this.platform.platforms();
 
@@ -166,5 +167,11 @@ this.navCtrl.setRoot(NotificationsPage);
 onChange(com: any) {
 //alert("search for "+com);
 }
+
+openModal() {
+    let myModal = this.modalCtrl.create(NotificationsPage);
+    myModal.present();
+  }
+
 
 }

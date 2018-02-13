@@ -10,7 +10,7 @@ import { SearchopenPage } from '../searchopen/searchopen';
 import { SearchclosedPage } from '../searchclosed/searchclosed';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
+import { ModalController } from 'ionic-angular';
 
 @Component({
   selector: 'page-contact',
@@ -31,7 +31,8 @@ export class ContactPage {
   public needList: Array<any>;
 
 
-  constructor(public navCtrl: NavController,public platform: Platform,public db: AngularFireDatabase) {
+  constructor(public navCtrl: NavController,
+public modalCtrl: ModalController,public platform: Platform,public db: AngularFireDatabase) {
 
    this.shoppingList = [
         'All Open Needs',
@@ -68,6 +69,7 @@ this.descRef.on('value', descList => {
   this.descList = descs;
 //  this.loadedDescList = descs;
 });
+
 
 /*this.size$ = new BehaviorSubject(null);
 
@@ -111,9 +113,17 @@ if (this.needList === undefined)
 
   } //end constructor
 
+openModal() {
+    let myModal = this.modalCtrl.create(NotificationsPage);
+    myModal.present();
+  }
+
 goNot() {
 //alert("in goNot");
-this.navCtrl.setRoot(NotificationsPage);
+
+this.navCtrl.push(NotificationsPage);
+
+
 }
 
 onChange(comId) {

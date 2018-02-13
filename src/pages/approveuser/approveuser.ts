@@ -9,6 +9,7 @@ import { NotificationsPage } from '../notifications/notifications';
 import { ApproveusereditPage} from '../approveuseredit/approveuseredit';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ModalController } from 'ionic-angular';
 
 @Component({
   selector: 'page-approveuser',
@@ -31,7 +32,7 @@ export class ApproveuserPage {
 
 
   constructor(public navCtrl: NavController,public platform: Platform,
-public afA: AngularFireAuth,public db: AngularFireDatabase) {
+public afA: AngularFireAuth,public db: AngularFireDatabase,public modalCtrl: ModalController) {
 
   let platforms = this.platform.platforms();
 
@@ -123,5 +124,11 @@ this.navCtrl.push(ApproveusereditPage, {
       });
 
 }
+
+openModal() {
+    let myModal = this.modalCtrl.create(NotificationsPage);
+    myModal.present();
+  }
+
 
 }

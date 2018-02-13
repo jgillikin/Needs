@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { ApproveuserPage } from '../pages/approveuser/approveuser';
 import { ApproveusereditPage } from '../pages/approveuseredit/approveuseredit';
 import { MorePage } from '../pages/more/more';
+import { CreedPage } from '../pages/creed/creed';
 import { TabsPage } from '../pages/tabs/tabs';
 import { RequestsPage } from '../pages/requests/requests';
 import { RegisterPage } from '../pages/register/register';
@@ -19,6 +20,7 @@ import { LoginPage } from '../pages/login/login';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { ListcommunityPage } from '../pages/listcommunity/listcommunity';
 import { ManageclientsPage } from '../pages/manageclients/manageclients';
+import { ManageusersPage } from '../pages/manageusers/manageusers';
 import { ManageneedsPage } from '../pages/manageneeds/manageneeds';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -50,7 +52,9 @@ import { Toast } from '@ionic-native/toast';
     SearchclosedPage,
     ManageclientsPage,
     ManageneedsPage,
-    ApproveusereditPage
+    ManageusersPage,
+    ApproveusereditPage,
+    CreedPage
   ],
   imports: [
     BrowserModule,
@@ -80,7 +84,9 @@ import { Toast } from '@ionic-native/toast';
     SearchclosedPage,
     ManageclientsPage,
     ManageneedsPage,
-    ApproveusereditPage
+    ManageusersPage,
+    ApproveusereditPage,
+    CreedPage
   ],
   providers: [
     StatusBar,

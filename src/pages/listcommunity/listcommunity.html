@@ -10,7 +10,7 @@
 
 <ion-content padding>
 
-<p>
+<p text-center>
 Add a New Community
 </p>
 <ion-list>
@@ -31,7 +31,7 @@ Add a New Community
 <hr>
 <br>
 
-<p><u>Current Communities</u></p>
+<p text-center><u>Current Communities</u></p>
 
 <ion-list>
 
@@ -39,7 +39,12 @@ Add a New Community
 
   <ion-item>
    {{desc.record.name}}
+<button ion-button clear item-end>
+<ion-icon name="arrow-forward"></ion-icon>
+</button>
+
   </ion-item>
+
 
   <ion-item-options>
    <button ion-button color="danger" (click)="removeItem(desc)"><ion-icon trash></ion-icon> Delete</button>

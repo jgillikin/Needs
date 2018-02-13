@@ -10,17 +10,17 @@
 
 <ion-content>
 
-<p text-center><u>Current Clients</u></p>
+<p text-center><u>Current Advocates/Neighbors</u></p>
 
 <ion-list>
 
  <ion-item-sliding *ngFor="let desc of descList">
 
   <ion-item>
-   {{desc.record.fname}} {{desc.record.lname}}
-<button ion-button clear item-end>
-<ion-icon name="arrow-forward"></ion-icon>
-</button>
+   {{desc.record.fname}} {{desc.record.lname}}<br>
+   {{desc.record.defaultCom}}<br>
+   {{desc.record.cell}}<br>
+   Type:  {{desc.record.type}}
   </ion-item>
 
   <ion-item-options>

@@ -11,7 +11,7 @@ import { RequestsPage } from '../requests/requests';
 import { Need } from './../../models/need/need';
 import {Http, Request, RequestMethod, Headers} from "@angular/http";
 //import { NotificationsPage } from './notifications';
-
+import { ViewController } from 'ionic-angular';
 
 @Component({
   selector: 'page-notifications',
@@ -42,7 +42,7 @@ groceries
 
 constructor(public navCtrl: NavController,
 public platform: Platform,
-public afA: AngularFireAuth,public db: AngularFireDatabase,http: Http) {
+public afA: AngularFireAuth,public db: AngularFireDatabase,http: Http,public viewCtrl: ViewController) {
 
 this.http = http;
 
@@ -128,13 +128,10 @@ this.descRef.on('value', descList => {
   return false;
   });
 
- //alert(descs[0].id);
-
   this.descList = descs;
   this.descList2 = descs2;
   this.descList3 = descs3;
 
-//  this.loadedDescList = descs;
 });
 
 if (this.descList === undefined)
@@ -147,6 +144,7 @@ if (this.descList3 === undefined)
  this.descList3 = [];
 
   } //end constructor
+
 
   editItem1(item) {
 
@@ -312,9 +310,13 @@ today = mm+'/'+dd+'/'+yyyy;
 
 logout(){
 //alert("in logout");
-    this.afA.auth.signOut().then(() => {
+
+/*    this.afA.auth.signOut().then(() => {
        this.navCtrl.push(LoginPage);
-    })
+    }) */
+
+this.viewCtrl.dismiss();
+
 }
 
   page1: any = RequestsPage;

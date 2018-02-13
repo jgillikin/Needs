@@ -2,6 +2,7 @@
   <ion-tab [show]="isAdmin" [root]="tab1Root" tabTitle="Add Need" tabIcon="heart"></ion-tab>
   <ion-tab [show]="isAdmin" [root]="tab2Root" tabTitle="Add Client" tabIcon="contacts"></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="Search" tabIcon="search"></ion-tab>
-  <ion-tab [show]="isAdmin" [root]="tab4Root" tabTitle="Approve User" tabIcon="hand"></ion-tab>
+  <ion-tab [show]="isAdmin" tabBadgeStyle="danger" tabBadge={{pendList.length}} [root]="tab4Root" tabTitle="Approve User" tabIcon="hand">
+</ion-tab>
   <ion-tab [show]="isAdmin" [root]="tab5Root" tabTitle="More" tabIcon="settings"></ion-tab>
 </ion-tabs>

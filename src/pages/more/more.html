@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons end>
-        <button id="notification-button" ion-button clear (click)="goNot()">
+        <button id="notification-button" ion-button clear (click)="openModal()">
             <ion-icon name="notifications">
               <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>
             </ion-icon>
@@ -21,6 +21,19 @@ Manage Clients
 </ion-item>
 <ion-item (click)="open4()">
 Delete a Need
+</ion-item>
+
+<div *ngIf="isAllAdmin">
+<ion-item (click)="open5()">
+List all Advocates and Neighbors
+</ion-item>
+</div>
+
+<ion-item (click)="logOff()">
+Log Off
+</ion-item>
+<ion-item (click)="showAbout()">
+About
 </ion-item>
 </ion-list>
 
