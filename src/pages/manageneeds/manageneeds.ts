@@ -7,7 +7,6 @@ import { Community } from './../../models/community/community';
 import { HomePage } from '../home/home';
 
 
-
 @Component({
   selector: 'page-manageneeds',
   templateUrl: 'manageneeds.html'
