@@ -40,25 +40,22 @@ this.descRef = firebase.database().ref('/needs');
 this.descRef.on('value', descList => {
   let descs = [];
   descList.forEach( desc => {
-//    descs.push(desc.val());
     var weeklyData = {};
 
     weeklyData["id"] = desc.key;
     weeklyData["record"] = desc.val();
-    //descs.push(desc.val()+" "+desc.key);
    if (weeklyData["record"].status == 'CLOSED')
     descs.push(weeklyData);
 
   return false;
   });
 
-//alert(descs[0].id);
 
   this.descList = descs;
- // this.loadedDescList = descs;
 });
 
   } //end constructor
+
 ionViewDidLoad() {
 this.userId = firebase.auth().currentUser.uid;
 }
