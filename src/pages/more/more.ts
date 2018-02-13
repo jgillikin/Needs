@@ -30,6 +30,7 @@ export class MorePage {
   public allList: Array<any>;
   isAllAdmin: boolean = false;
   userId: any;
+  isAdmin: boolean = false;
 
   constructor(public navCtrl: NavController,public db: AngularFireDatabase,public modalCtrl: ModalController,
 public afA: AngularFireAuth,public app: App) {
@@ -79,6 +80,7 @@ this.allRef = firebase.database().ref('/users-list');
 this.allRef.on('value', descList => {
   let descs3 = [];
   let temp: boolean = false;
+  let temp2: boolean = false;
 
   descList.forEach( desc => {
     var weeklyData = {};
@@ -86,9 +88,16 @@ this.allRef.on('value', descList => {
     weeklyData["id"] = desc.key;
     weeklyData["record"] = desc.val();
     
-   if (weeklyData["record"].uid = this.userId && weeklyData["record"].alladmin == '1' ) {
+   if (weeklyData["record"].uid == this.userId && weeklyData["record"].alladmin == '1' && weeklyData["record"].type == 'A') {
      descs3.push(weeklyData);
-     temp = true;     
+     temp = true;
+//alert("setting to true and uid is "+this.userId+" and alladmin is "+weeklyData["record"].alladmin+" "+weeklyData["record"].cell);
+//     return true;   
+   }
+
+   if(weeklyData["record"].uid == this.userId && weeklyData["record"].type == 'A') {
+    temp2 = true;
+    //return true;
    }
 
   return false;
@@ -96,6 +105,7 @@ this.allRef.on('value', descList => {
 
 //alert(descs[0].id);
   this.isAllAdmin = temp;
+  this.isAdmin = temp2;
   this.allList = descs3;
 });
 
@@ -137,12 +147,13 @@ showAbout() {
 logOff(){
 //alert("in logout");
 
-   /* this.afA.auth.signOut().then(() => {
-       //this.navCtrl.setRoot(LoginPage);
-       this.app.getRootNav().setRoot(LoginPage);
-    }) */
+  /*  this.afA.auth.signOut().then(() => {
+  
+      this.navCtrl.setRoot(LoginPage);
+       //this.app.getRootNav().setRoot(LoginPage);
+    }); */
 
-    const user: any = await this.afA.auth.signOut();
+    var user = this.afA.auth.signOut();
     this.app.getRootNav().setRoot(LoginPage); // Better way to fix this line?
 
 }

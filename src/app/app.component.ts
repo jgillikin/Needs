@@ -14,15 +14,15 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,afAuth: AngularFireAuth) {
 
-const unsubscribe = afAuth.auth.onAuthStateChanged(user => {
+/*const unsubscribe = afAuth.auth.onAuthStateChanged(user => {
       if (user) {
         this.rootPage = TabsPage;
-     //   unsubscribe();
+        unsubscribe();
       } else {
         this.rootPage = LoginPage;
-       // unsubscribe();
+        unsubscribe();
       }
-    });
+    }); */
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
