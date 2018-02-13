@@ -14,6 +14,7 @@ import * as firebase from 'firebase/app';
 import { ModalController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { CreedPage } from '../creed/creed';
+import {App} from 'ionic-angular';
 
 @Component({
   selector: 'page-more',
@@ -31,7 +32,7 @@ export class MorePage {
   userId: any;
 
   constructor(public navCtrl: NavController,public db: AngularFireDatabase,public modalCtrl: ModalController,
-public afA: AngularFireAuth) {
+public afA: AngularFireAuth,public app: App) {
 
    this.userId = firebase.auth().currentUser.uid;
 
@@ -136,9 +137,14 @@ showAbout() {
 logOff(){
 //alert("in logout");
 
-    this.afA.auth.signOut().then(() => {
-       this.navCtrl.push(LoginPage);
-    }) 
+   /* this.afA.auth.signOut().then(() => {
+       //this.navCtrl.setRoot(LoginPage);
+       this.app.getRootNav().setRoot(LoginPage);
+    }) */
+
+    const user: any = await this.afA.auth.signOut();
+    this.app.getRootNav().setRoot(LoginPage); // Better way to fix this line?
+
 }
 
 
