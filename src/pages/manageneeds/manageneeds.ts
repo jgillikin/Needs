@@ -53,7 +53,7 @@ this.descRef.on('value', descList => {
 //alert(descs[0].id);
 
   this.descList = descs;
-  this.loadedDescList = descs;
+  //this.loadedDescList = descs;
 });
 
   } //end constructor

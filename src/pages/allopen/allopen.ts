@@ -64,7 +64,7 @@ this.descRef.on('value', descList => {
 
 
   this.descList = descs;
-  this.loadedDescList = descs;
+ // this.loadedDescList = descs;
 });
 
 /*this.size$ = new BehaviorSubject(null);
