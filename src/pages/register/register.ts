@@ -25,7 +25,6 @@ export class RegisterPage {
   http: Http;
   data: any = {};
 
-
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase,
 http: Http, private toast: Toast) {
