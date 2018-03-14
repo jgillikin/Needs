@@ -61,6 +61,11 @@ this.descRef.on('value', descList => {
 
   this.descList = descs;
  // this.loadedDescList = descs;
+this.descList.sort(function(a, b) {
+  // convert date object into number to resolve issue in typescript
+  return  +new Date(a.record.dateComp) - +new Date(b.record.dateComp);
+})
+
 });
 
   } //end constructor
