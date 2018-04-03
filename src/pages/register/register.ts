@@ -5,7 +5,7 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { Newuser } from './../../models/newuser/newuser';
 import { LoginPage } from '../login/login';
-import {Http, Request, RequestMethod, Headers} from "@angular/http";
+import {Http, Request, RequestMethod, Headers, URLSearchParams,RequestOptions} from "@angular/http";
 import { Toast } from '@ionic-native/toast';
 
 @Component({
@@ -134,17 +134,37 @@ let sendEmail = '7572865248@messaging.sprintpcs.com';
 
 //send SMS
 var link='https://jasongillikin.000webhostapp.com/blueEmail.php';
-var myData;
+var mmsg = 'New Needs User request from '+nu2.fname+' '+nu2.lname;
+//alert("mmsg is "+mmsg);
+
+var link2='https://till-node-demo-iizbwqdopi.now.sh/login';
+//alert(link2);
+
+var myData,myData2;
 var message;
 myData = JSON.stringify({emailS: 'New Needs User request:  '+nu2.fname+' '+nu2.lname});
+myData2 = JSON.stringify({msg: 'New Needs User request:  '+nu2.fname+' '+nu2.lname});
 
+let params: URLSearchParams = new URLSearchParams();
+ params.set('msg', mmsg);
+ params.set('mto','["17572865248"]');
 
-this.http.post(link,myData)
+ //Http request-
+ this.http.get(link2, {
+   search: params
+ }).subscribe(
+   (response) => console.log('worked'), 
+   (error) => console.log('error')
+ );
+
+/*
+this.http.post(link2,myData2)
 .subscribe(data => {
 this.data.response = "OK";
 }, error => {
 console.log("oops");
 });
+*/
 
 
 this.navCtrl.setRoot(LoginPage);

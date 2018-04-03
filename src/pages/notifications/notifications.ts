@@ -9,7 +9,7 @@ import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 import { RequestsPage } from '../requests/requests';
 import { Need } from './../../models/need/need';
-import {Http, Request, RequestMethod, Headers} from "@angular/http";
+import {Http, Request, RequestMethod, Headers, URLSearchParams} from "@angular/http";
 //import { NotificationsPage } from './notifications';
 import { ViewController } from 'ionic-angular';
 
@@ -168,6 +168,12 @@ if (this.descList3 === undefined)
   let sendEmailReq = '7572865248@messaging.sprintpcs.com';
   toS = toS+'@messaging.sprintpcs.com';
 
+var mmsg = 'You have been assigned Need "'+item.record.desc+'"';
+
+
+var link2='https://till-node-demo-iizbwqdopi.now.sh/login';
+
+
 //alert("send to "+toS);
 
   //send SMS
@@ -176,14 +182,27 @@ if (this.descList3 === undefined)
   var message;
   myData = JSON.stringify({emailS: 'You have been assigned Need:  "'+item.record.desc+'"', toS: toS});
 
+let params: URLSearchParams = new URLSearchParams();
+ params.set('msg', mmsg);
+ params.set('mto','["1'+item.record.advocateCell+'"]');
 
+ //Http request-
+ this.http.get(link2, {
+   search: params
+ }).subscribe(
+   (response) => console.log('worked'), 
+   (error) => console.log('error')
+ );
+
+
+/*
   this.http.post(link,myData)
   .subscribe(data => {
   this.data.response = "OK";
   }, error => {
   console.log("oops");
   });
-
+*/
 
   this.navCtrl.setRoot(NotificationsPage);
 
@@ -217,19 +236,38 @@ if (this.descList3 === undefined)
   let sendEmail = '7572865248@messaging.sprintpcs.com';
   toS = toS+'@messaging.sprintpcs.com';
 
+var mmsg = 'Work completed for Need "'+item.record.desc+'" please close it out';
+
+
+var link2='https://till-node-demo-iizbwqdopi.now.sh/login';
+
+
   //send SMS
   var link='https://jasongillikin.000webhostapp.com/blueEmail.php';
   var myData;
   var message;
   myData = JSON.stringify({emailS: 'Work Completed for Need:  "'+item.record.desc+'"' +' please close it out', toS: toS});
 
+let params: URLSearchParams = new URLSearchParams();
+ params.set('msg', mmsg);
+ params.set('mto','["1'+item.record.advocateCell+'"]');
 
+ //Http request-
+ this.http.get(link2, {
+   search: params
+ }).subscribe(
+   (response) => console.log('worked'), 
+   (error) => console.log('error')
+ );
+
+/*
   this.http.post(link,myData)
   .subscribe(data => {
   this.data.response = "OK";
   }, error => {
   console.log("oops");
   });
+*/
 
 
   this.navCtrl.setRoot(NotificationsPage);
@@ -287,6 +325,8 @@ today = mm+'/'+dd+'/'+yyyy;
   var message;
   myData = JSON.stringify({emailS: 'Status set to CLOSED for Need:  "'+item.record.desc+'"', toS: toS});
 
+/*
+//commented out since we dont need to send a text every time an Advocate closes out a Need
 
   this.http.post(link,myData)
   .subscribe(data => {
@@ -294,7 +334,7 @@ today = mm+'/'+dd+'/'+yyyy;
   }, error => {
   console.log("oops");
   });
-
+*/
 
   this.navCtrl.setRoot(NotificationsPage); 
 

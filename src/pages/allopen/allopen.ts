@@ -8,6 +8,8 @@ import { HomePage } from '../home/home';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { NotificationsPage } from '../notifications/notifications';
+import {Http, Request, RequestMethod, Headers, URLSearchParams,RequestOptions} from "@angular/http";
+
 
 @Component({
   selector: 'page-allopen',
@@ -31,9 +33,12 @@ export class AllopenPage {
   public reqCell: any;
   public userRef: firebase.database.Reference;
   userId: any;
+  http: Http;
 
   constructor(public navCtrl: NavController,
-public platform: Platform,public db: AngularFireDatabase) {
+public platform: Platform,public db: AngularFireDatabase,http: Http) {
+
+      this.http = http;
 
       this.userId = firebase.auth().currentUser.uid;
 
@@ -153,11 +158,33 @@ requestItem(item) {
 
   item.status = 'Requested';
 
+  //alert("advCell is "+item.record.advocateCell);  
+
   //edit to Firebase
   this.nd.update(item.id, { status: 'Requested'});
   this.nd.update(item.id, { reqBy: this.userId });
   this.nd.update(item.id, { reqName: this.reqName });
   this.nd.update(item.id, { reqCell: this.reqCell });
+
+  var mmsg = 'Please review a new Request for Need "'+item.record.desc+'"';
+
+
+  var link2='https://till-node-demo-iizbwqdopi.now.sh/login';
+
+
+
+let params: URLSearchParams = new URLSearchParams();
+ params.set('msg', mmsg);
+ params.set('mto','["1'+item.record.advocateCell+'"]');
+
+ //Http request-
+ this.http.get(link2, {
+   search: params
+ }).subscribe(
+   (response) => console.log('worked'), 
+   (error) => console.log('error')
+ );
+ 
 
   this.navCtrl.setRoot(HomePage);
 

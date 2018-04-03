@@ -25,6 +25,8 @@ export class HomePage {
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
   public needRef: firebase.database.Reference;
+  public reqCell: any;
+  public userRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
   public needList: Array<any>;
   public badgeCount: any;
@@ -34,6 +36,8 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public platform: Platform,public db: AngularFireDatabase,private toast: Toast,
 public modalCtrl: ModalController) {
+
+this.userId = firebase.auth().currentUser.uid;
 
 let platforms = this.platform.platforms();
 
@@ -104,6 +108,31 @@ if (this.needList === undefined)
     );
 */
 
+this.userRef = firebase.database().ref('/users-list');
+
+this.userRef.on('value', descList => {
+  let descs4 = '';
+  let descs5 = '';
+ 
+  descList.forEach( desc => {
+
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+
+    if (weeklyData["record"].uid == this.userId) {
+     descs4=weeklyData["record"].fname+' '+weeklyData["record"].lname;
+     descs5=weeklyData["record"].cell;
+    }
+
+  return false;
+  });
+
+ // this.reqName = descs4;
+  this.reqCell = descs5;
+});
+
 
   } //end constructor
 
@@ -155,6 +184,7 @@ today = mm+'/'+dd+'/'+yyyy;
  "dateSub": today,
  "status": 'NEW',
  "advocate": this.userId,
+ "advocateCell": this.reqCell,
  "dateComp": '',
  "notes": '',
  "communityId": commId

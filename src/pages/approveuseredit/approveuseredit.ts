@@ -6,6 +6,7 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { Newuser } from './../../models/newuser/newuser';
 import { HomePage } from '../home/home';
+import { ApproveuserPage } from '../approveuser/approveuser';
 import { NotificationsPage } from '../notifications/notifications';
 import { User } from './../../models/user/user';
 import { Observable } from 'rxjs/Observable';
@@ -183,8 +184,7 @@ this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.pass2)
 reject () {
 //  alert("in reject");
   this.com.remove(this.key2).then(_ => console.log('deleted!'));
-  this.navCtrl.setRoot(HomePage);
-
+  this.navCtrl.setRoot(ApproveuserPage);
 }
 
 goNot() {
