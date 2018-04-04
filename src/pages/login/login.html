@@ -7,12 +7,12 @@
 <ion-content padding>
   <ion-item>
     <ion-label floating>Email Address</ion-label>
-    <ion-input type="email" [(ngModel)]="user.email" placeholder="Email"></ion-input>
+    <ion-input type="email" [(ngModel)]="user.email"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Password</ion-label>
-    <ion-input type="password" [(ngModel)]="user.password" placeholder="Password"></ion-input>
+    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
   </ion-item>
 <br>
   <button ion-button color="dark" (click)="login(user)">Login</button>
