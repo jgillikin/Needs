@@ -23,7 +23,6 @@ export class ManageusersPage {
   public descRef: firebase.database.Reference;
   public loadedDescList: Array<any>;
 
-
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase) {
 
