@@ -51,7 +51,7 @@ this.needRef = firebase.database().ref('/needs');
 this.needRef.on('value', descList => {
   let descs2 = [];
   descList.forEach( desc => {
-//    descs.push(desc.val());
+
     var weeklyData = {};
 
     weeklyData["id"] = desc.key;
