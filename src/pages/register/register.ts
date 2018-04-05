@@ -90,7 +90,7 @@ return false;
 
 if (!nu2.fname || !nu2.lname || !nu2.email || !nu2.password || !nu2.defaultCom) {
 
-if (this.platform.is('android') || this.platform.is('ios')  || !this.platform.is('mobileweb') || this.platform.is('tablet') || this.platform.is('ipad') ) {
+if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('mobileweb') || this.platform.is('tablet') || this.platform.is('ipad') ) {
 this.toast.show(`Please fill in all fields`, '3000', 'center').subscribe(
   toast => {
     console.log(toast);
