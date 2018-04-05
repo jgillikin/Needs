@@ -7,6 +7,7 @@ import { Newuser } from './../../models/newuser/newuser';
 import { LoginPage } from '../login/login';
 import {Http, Request, RequestMethod, Headers, URLSearchParams,RequestOptions} from "@angular/http";
 import { Toast } from '@ionic-native/toast';
+import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-register',
@@ -27,7 +28,7 @@ export class RegisterPage {
 
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase,
-http: Http, private toast: Toast) {
+http: Http, private toast: Toast,private toastCtrl: ToastController) {
 
       let platforms = this.platform.platforms();
 
@@ -80,6 +81,16 @@ this.toast.show(`Please enter 10 digit number`, '3000', 'center').subscribe(
 );
 return false;
 }
+else if (this.platform.is('mobileweb')) {
+ let toast = this.toastCtrl.create({
+    message: 'Please enter 10 digit number',
+    duration: 2000,
+    position: 'top'
+  });
+
+toast.present();
+
+}
 else {
 alert('Please enter 10 digit number');
 return false;
@@ -90,13 +101,23 @@ return false;
 
 if (!nu2.fname || !nu2.lname || !nu2.email || !nu2.password || !nu2.defaultCom) {
 
-if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('mobileweb') || this.platform.is('tablet') || this.platform.is('ipad') ) {
+if (this.platform.is('android') || this.platform.is('ios') || this.platform.is('tablet') || this.platform.is('ipad') ) {
 this.toast.show(`Please fill in all fields`, '3000', 'center').subscribe(
   toast => {
     console.log(toast);
   }
 );
 return false;
+}
+else if (this.platform.is('mobileweb')) {
+ let toast = this.toastCtrl.create({
+    message: 'Please fill in all fields',
+    duration: 2000,
+    position: 'top'
+  });
+
+toast.present();
+
 }
 else {
 alert('Please fill in all fields');
