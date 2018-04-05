@@ -73,7 +73,7 @@ onSave(nu2: Newuser) {
 
 if (!nu2.cell || nu2.cell.length < 10) {
 
-if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('tablet') || this.platform.is('ipad') ) {
+if (this.platform.is('android') || this.platform.is('tablet') || this.platform.is('ipad') ) {
 this.toast.show(`Please enter 10 digit number`, '3000', 'center').subscribe(
   toast => {
     console.log(toast);
