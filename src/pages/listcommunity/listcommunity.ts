@@ -66,10 +66,10 @@ onSave(com2: Community) {
 
 //alert("in onSave and com is "+com2.name);
 
-if (!com2.name) {
+if (!com2.name || !com2.zip) {
 
 if (this.platform.is('tablet') || this.platform.is('ipad') ) {
-this.toast.show(`Please enter a Community name`, '3000', 'center').subscribe(
+this.toast.show(`Please enter a Community name and Zip`, '3000', 'center').subscribe(
   toast => {
     console.log(toast);
   }
@@ -78,7 +78,7 @@ return false;
 }
 else if (this.platform.is('mobileweb')) {
  let toast = this.toastCtrl.create({
-    message: 'Please enter a Community name',
+    message: 'Please enter a Community name and Zip',
     duration: 2000,
     position: 'bottom'
   });
@@ -88,7 +88,7 @@ toast.present();
 }
 
 else {
-alert('Please enter a Community name');
+alert('Please enter a Community name and Zip');
 return false;
 }
 
