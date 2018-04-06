@@ -6,9 +6,8 @@ import * as firebase from 'firebase/app';
 import { Community } from './../../models/community/community';
 import { HomePage } from '../home/home';
 import { Toast } from '@ionic-native/toast';
+import { ToastController } from 'ionic-angular';
  
-
-
 @Component({
   selector: 'page-listcommunity',
   templateUrl: 'listcommunity.html'
@@ -26,7 +25,7 @@ export class ListcommunityPage {
 
 
   constructor(public navCtrl: NavController,
-public platform: Platform,public db: AngularFireDatabase,private toast: Toast) {
+public platform: Platform,public db: AngularFireDatabase,private toast: Toast,private toastCtrl: ToastController) {
 
       let platforms = this.platform.platforms();
 
@@ -69,7 +68,7 @@ onSave(com2: Community) {
 
 if (!com2.name) {
 
-if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('tablet') || this.platform.is('ipad') ) {
+if (this.platform.is('tablet') || this.platform.is('ipad') ) {
 this.toast.show(`Please enter a Community name`, '3000', 'center').subscribe(
   toast => {
     console.log(toast);
@@ -77,6 +76,17 @@ this.toast.show(`Please enter a Community name`, '3000', 'center').subscribe(
 );
 return false;
 }
+else if (this.platform.is('mobileweb')) {
+ let toast = this.toastCtrl.create({
+    message: 'Please enter a Community name',
+    duration: 2000,
+    position: 'bottom'
+  });
+
+toast.present();
+
+}
+
 else {
 alert('Please enter a Community name');
 return false;

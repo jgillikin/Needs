@@ -186,14 +186,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var HomePage = (function () {
-    function HomePage(navCtrl, platform, db, toast, modalCtrl) {
+    function HomePage(navCtrl, platform, db, toast, modalCtrl, toastCtrl) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.platform = platform;
         this.db = db;
         this.toast = toast;
         this.modalCtrl = modalCtrl;
+        this.toastCtrl = toastCtrl;
         this.platformList = '';
         this.isApp = true;
         this.need = {};
@@ -276,11 +278,19 @@ var HomePage = (function () {
         //alert("in onSave and commId is "+commId);
         //alert("in onSave and fname is "+cl2.fname+" and lname is "+cl2.lname+" and cell is "+cl2.cell+" and community is "+cl2.community);
         if (!commId || !nd2.clientId || !nd2.desc) {
-            if (this.platform.is('android') || this.platform.is('ios') || this.platform.is('tablet') || this.platform.is('ipad')) {
+            if (this.platform.is('tablet') || this.platform.is('ipad')) {
                 this.toast.show("Please fill in all fields", '3000', 'center').subscribe(function (toast) {
                     console.log(toast);
                 });
                 return false;
+            }
+            else if (this.platform.is('mobileweb')) {
+                var toast = this.toastCtrl.create({
+                    message: 'Please fill in all fields',
+                    duration: 2000,
+                    position: 'bottom'
+                });
+                toast.present();
             }
             else {
                 alert('Please fill in all fields');
@@ -342,13 +352,12 @@ var HomePage = (function () {
     };
     HomePage = HomePage_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\needsApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Needs</ion-title>\n\n<ion-buttons end>\n\n    <button id="notification-button" ion-button clear (click)="openModal()">\n\n        <ion-icon name="notifications">\n\n          <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}\n\n</ion-badge>\n\n        </ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="50%" align="center">\n\n<ion-list>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Client</ion-label>\n\n                  <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n  <ion-item>\n\n    <ion-label color="dark">Need Description:  </ion-label>\n\n    <ion-input [(ngModel)]="need.desc"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-input type="hidden" [(ngModel)]="communityId"></ion-input>\n\n  </ion-item>\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<ion-list>\n\n\n\n\n\n\n\n   <ion-item>\n\n                    <ion-label>Client</ion-label>\n\n                    <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">\n\n                      <div *ngFor="let field of descList">\n\n                        <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}\n\n                        </ion-option>\n\n                      </div>\n\n                    </ion-select>\n\n   </ion-item>\n\n\n\n\n\n    <ion-item>\n\n      <ion-label color="dark">Need Description:  </ion-label>\n\n      <ion-input [(ngModel)]="need.desc"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-input type="hidden" [(ngModel)]="communityId"></ion-input>\n\n    </ion-item>\n\n\n\n</ion-list>\n\n\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(need,communityId)">Save</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\needsApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Needs</ion-title>\n\n<ion-buttons end>\n\n    <button id="notification-button" ion-button clear (click)="openModal()">\n\n        <ion-icon name="notifications">\n\n          <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}\n\n</ion-badge>\n\n        </ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="75%" align="center">\n\n<ion-list>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Client</ion-label>\n\n                  <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n  <ion-item>\n\n    <ion-label color="dark">Need Description:  </ion-label>\n\n    <ion-input [(ngModel)]="need.desc"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-input type="hidden" [(ngModel)]="communityId"></ion-input>\n\n  </ion-item>\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<ion-list>\n\n\n\n\n\n\n\n   <ion-item>\n\n                    <ion-label>Client</ion-label>\n\n                    <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">\n\n                      <div *ngFor="let field of descList">\n\n                        <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}\n\n                        </ion-option>\n\n                      </div>\n\n                    </ion-select>\n\n   </ion-item>\n\n\n\n\n\n    <ion-item>\n\n      <ion-label color="dark">Need Description:  </ion-label>\n\n      <ion-input [(ngModel)]="need.desc"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-input type="hidden" [(ngModel)]="communityId"></ion-input>\n\n    </ion-item>\n\n\n\n</ion-list>\n\n\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(need,communityId)">Save</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__["a" /* Toast */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__["a" /* Toast */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__["a" /* Toast */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */]) === "function" && _f || Object])
     ], HomePage);
     return HomePage;
-    var HomePage_1;
+    var HomePage_1, _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -544,7 +553,7 @@ var RegisterPage = (function () {
     RegisterPage.prototype.onSave = function (nu2) {
         //alert("in onSave and fname is "+nu2.fname+" and lname is "+nu2.lname+" and cell is "+nu2.cell+" and community is "+nu2.defaultCom);
         if (!nu2.cell || nu2.cell.length < 10) {
-            if (this.platform.is('android') || this.platform.is('ios') || this.platform.is('tablet') || this.platform.is('ipad')) {
+            if (this.platform.is('tablet') || this.platform.is('ipad')) {
                 this.toast.show("Please enter 10 digit number", '3000', 'center').subscribe(function (toast) {
                     console.log(toast);
                 });
@@ -554,7 +563,7 @@ var RegisterPage = (function () {
                 var toast = this.toastCtrl.create({
                     message: 'Please enter 10 digit number',
                     duration: 2000,
-                    position: 'top'
+                    position: 'bottom'
                 });
                 toast.present();
             }
@@ -564,7 +573,7 @@ var RegisterPage = (function () {
             }
         }
         if (!nu2.fname || !nu2.lname || !nu2.email || !nu2.password || !nu2.defaultCom) {
-            if (this.platform.is('android') || this.platform.is('ios') || this.platform.is('tablet') || this.platform.is('ipad')) {
+            if (this.platform.is('android') || this.platform.is('tablet') || this.platform.is('ipad')) {
                 this.toast.show("Please fill in all fields", '3000', 'center').subscribe(function (toast) {
                     console.log(toast);
                 });
@@ -772,14 +781,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AboutPage = (function () {
-    function AboutPage(navCtrl, platform, db, toast, modalCtrl) {
+    function AboutPage(navCtrl, platform, db, toast, modalCtrl, toastCtrl) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.platform = platform;
         this.db = db;
         this.toast = toast;
         this.modalCtrl = modalCtrl;
+        this.toastCtrl = toastCtrl;
         this.platformList = '';
         this.isApp = true;
         this.client = {};
@@ -840,11 +851,19 @@ var AboutPage = (function () {
     AboutPage.prototype.onSave = function (cl2) {
         //alert("in onSave and fname is "+cl2.fname+" and lname is "+cl2.lname+" and cell is "+cl2.cell+" and community is "+cl2.community);
         if (!cl2.fname || !cl2.lname || !cl2.cell || !cl2.community) {
-            if (this.platform.is('android') || this.platform.is('ios') || this.platform.is('tablet') || this.platform.is('ipad')) {
+            if (this.platform.is('tablet') || this.platform.is('ipad')) {
                 this.toast.show("Please fill in all fields", '3000', 'center').subscribe(function (toast) {
                     console.log(toast);
                 });
                 return false;
+            }
+            else if (this.platform.is('mobileweb')) {
+                var toast = this.toastCtrl.create({
+                    message: 'Please fill in all fields',
+                    duration: 2000,
+                    position: 'bottom'
+                });
+                toast.present();
             }
             else {
                 alert('Please fill in all fields');
@@ -885,12 +904,12 @@ var AboutPage = (function () {
     };
     AboutPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-about',template:/*ion-inline-start:"C:\needsApp\src\pages\about\about.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Add a Client\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="openModal()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="50%" align="center">\n\n<ion-list>\n\n  <ion-item>\n\n    <ion-label color="dark">First Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.fname"></ion-input>\n\n  </ion-item>\n\n    <ion-item>\n\n    <ion-label color="dark">Last Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.lname"></ion-input>\n\n  </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label color="dark">Cell:  </ion-label>\n\n    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>\n\n  </ion-item>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Community</ion-label>\n\n                  <ion-select [(ngModel)]="client.community" (ionChange)="onChange(client.community)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<br>\n\n\n\n<ion-list>\n\n  <ion-item>\n\n    <ion-label color="dark">First Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.fname"></ion-input>\n\n  </ion-item>\n\n    <ion-item>\n\n    <ion-label color="dark">Last Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.lname"></ion-input>\n\n  </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label color="dark">Cell:  </ion-label>\n\n    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>\n\n  </ion-item>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Community</ion-label>\n\n                  <ion-select [(ngModel)]="client.community">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n</ion-list>\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(client)">Save</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\about\about.html"*/
+            selector: 'page-about',template:/*ion-inline-start:"C:\needsApp\src\pages\about\about.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Add a Client\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="openModal()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="75%" align="center">\n\n<ion-list>\n\n  <ion-item>\n\n    <ion-label color="dark">First Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.fname"></ion-input>\n\n  </ion-item>\n\n    <ion-item>\n\n    <ion-label color="dark">Last Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.lname"></ion-input>\n\n  </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label color="dark">Cell:  </ion-label>\n\n    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>\n\n  </ion-item>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Community</ion-label>\n\n                  <ion-select [(ngModel)]="client.community" (ionChange)="onChange(client.community)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<br>\n\n\n\n<ion-list>\n\n  <ion-item>\n\n    <ion-label color="dark">First Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.fname"></ion-input>\n\n  </ion-item>\n\n    <ion-item>\n\n    <ion-label color="dark">Last Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.lname"></ion-input>\n\n  </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label color="dark">Cell:  </ion-label>\n\n    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>\n\n  </ion-item>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Community</ion-label>\n\n                  <ion-select [(ngModel)]="client.community">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n</ion-list>\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(client)">Save</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\about\about.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_toast__["a" /* Toast */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_toast__["a" /* Toast */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_toast__["a" /* Toast */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */]) === "function" && _f || Object])
     ], AboutPage);
     return AboutPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=about.js.map
@@ -1609,14 +1628,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ApproveusereditPage = (function () {
-    function ApproveusereditPage(navCtrl, platform, db, params, afAuth, http, toast) {
+    function ApproveusereditPage(navCtrl, platform, db, params, afAuth, http, toast, toastCtrl) {
         this.navCtrl = navCtrl;
         this.platform = platform;
         this.db = db;
         this.params = params;
         this.afAuth = afAuth;
         this.toast = toast;
+        this.toastCtrl = toastCtrl;
         this.platformList = '';
         this.isApp = true;
         this.newuser = {};
@@ -1670,11 +1691,19 @@ var ApproveusereditPage = (function () {
         //alert("in onSave and fname is "+cl2.fname+" and lname is "+cl2.lname+" and cell is "+cl2.cell+" and community is "+cl2.community);
         var _this = this;
         if (!typeUser) {
-            if (this.platform.is('android') || this.platform.is('ios') || this.platform.is('tablet') || this.platform.is('ipad')) {
+            if (this.platform.is('tablet') || this.platform.is('ipad')) {
                 this.toast.show("Please select a user type", '3000', 'center').subscribe(function (toast) {
                     console.log(toast);
                 });
                 return false;
+            }
+            else if (this.platform.is('mobileweb')) {
+                var toast = this.toastCtrl.create({
+                    message: 'Please fill in all fields',
+                    duration: 2000,
+                    position: 'bottom'
+                });
+                toast.present();
             }
             else {
                 alert('Please select a user type');
@@ -1746,12 +1775,12 @@ var ApproveusereditPage = (function () {
     };
     ApproveusereditPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-approveuseredit',template:/*ion-inline-start:"C:\needsApp\src\pages\approveuseredit\approveuseredit.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Manage new User Request\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="goNot()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{(items$ | async)?.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="50%" align="center">\n\n<ion-list>\n\n<ion-input placeholder="First Name:  {{fname}}" clearInput></ion-input>\n\n<ion-input placeholder="Last Name:  {{lname}}" clearInput></ion-input>\n\n<ion-input placeholder="Cell:  {{cell}}" clearInput></ion-input>\n\n<ion-input placeholder="Community:  {{defaultCom}}" clearInput></ion-input>\n\n<br>\n\n<ion-item>\n\n  <ion-label>Account Type:  </ion-label>\n\n  <ion-select [(ngModel)]="newuser.type">\n\n      <ion-option value="A">Advocate</ion-option>\n\n      <ion-option value="N">Neighbor</ion-option>\n\n  </ion-select>\n\n</ion-item>\n\n\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<br>\n\n\n\n\n\n<ion-list>\n\n  <ion-input placeholder="First Name:  {{fname}}" clearInput></ion-input>\n\n  <ion-input placeholder="Last Name:  {{lname}}" clearInput></ion-input>\n\n  <ion-input placeholder="Cell:  {{cell}}" clearInput></ion-input>\n\n  <ion-input placeholder="Community:  {{defaultCom}}" clearInput></ion-input>\n\n  <br>\n\n  <ion-item>\n\n    <ion-label>Account Type:  </ion-label>\n\n    <ion-select [(ngModel)]="newuser.type">\n\n        <ion-option value="A">Advocate</ion-option>\n\n        <ion-option value="N">Neighbor</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n\n\n\n\n</ion-list>\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(newuser.type)">Approve</button>\n\n<button ion-button color="danger" (click) ="reject()">Reject</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\approveuseredit\approveuseredit.html"*/
+            selector: 'page-approveuseredit',template:/*ion-inline-start:"C:\needsApp\src\pages\approveuseredit\approveuseredit.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Manage new User Request\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="goNot()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{(items$ | async)?.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="75%" align="center">\n\n<ion-list>\n\n<ion-input placeholder="First Name:  {{fname}}" clearInput></ion-input>\n\n<ion-input placeholder="Last Name:  {{lname}}" clearInput></ion-input>\n\n<ion-input placeholder="Cell:  {{cell}}" clearInput></ion-input>\n\n<ion-input placeholder="Community:  {{defaultCom}}" clearInput></ion-input>\n\n<br>\n\n<ion-item>\n\n  <ion-label>Account Type:  </ion-label>\n\n  <ion-select [(ngModel)]="newuser.type">\n\n      <ion-option value="A">Advocate</ion-option>\n\n      <ion-option value="N">Neighbor</ion-option>\n\n  </ion-select>\n\n</ion-item>\n\n\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<br>\n\n\n\n\n\n<ion-list>\n\n  <ion-input placeholder="First Name:  {{fname}}" clearInput></ion-input>\n\n  <ion-input placeholder="Last Name:  {{lname}}" clearInput></ion-input>\n\n  <ion-input placeholder="Cell:  {{cell}}" clearInput></ion-input>\n\n  <ion-input placeholder="Community:  {{defaultCom}}" clearInput></ion-input>\n\n  <br>\n\n  <ion-item>\n\n    <ion-label>Account Type:  </ion-label>\n\n    <ion-select [(ngModel)]="newuser.type">\n\n        <ion-option value="A">Advocate</ion-option>\n\n        <ion-option value="N">Neighbor</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n\n\n\n\n</ion-list>\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(newuser.type)">Approve</button>\n\n<button ion-button color="danger" (click) ="reject()">Reject</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\approveuseredit\approveuseredit.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_9__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_10__ionic_native_toast__["a" /* Toast */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_9__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__angular_http__["a" /* Http */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_10__ionic_native_toast__["a" /* Toast */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10__ionic_native_toast__["a" /* Toast */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */]) === "function" && _h || Object])
     ], ApproveusereditPage);
     return ApproveusereditPage;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
 }());
 
 //# sourceMappingURL=approveuseredit.js.map
@@ -1937,13 +1966,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ListcommunityPage = (function () {
-    function ListcommunityPage(navCtrl, platform, db, toast) {
+    function ListcommunityPage(navCtrl, platform, db, toast, toastCtrl) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.platform = platform;
         this.db = db;
         this.toast = toast;
+        this.toastCtrl = toastCtrl;
         this.platformList = '';
         this.isApp = true;
         this.community = {};
@@ -1977,11 +2008,19 @@ var ListcommunityPage = (function () {
     ListcommunityPage.prototype.onSave = function (com2) {
         //alert("in onSave and com is "+com2.name);
         if (!com2.name) {
-            if (this.platform.is('android') || this.platform.is('ios') || this.platform.is('tablet') || this.platform.is('ipad')) {
+            if (this.platform.is('tablet') || this.platform.is('ipad')) {
                 this.toast.show("Please enter a Community name", '3000', 'center').subscribe(function (toast) {
                     console.log(toast);
                 });
                 return false;
+            }
+            else if (this.platform.is('mobileweb')) {
+                var toast = this.toastCtrl.create({
+                    message: 'Please enter a Community name',
+                    duration: 2000,
+                    position: 'bottom'
+                });
+                toast.present();
             }
             else {
                 alert('Please enter a Community name');
@@ -2023,11 +2062,10 @@ var ListcommunityPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-listcommunity',template:/*ion-inline-start:"C:\needsApp\src\pages\listcommunity\listcommunity.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Settings\n\n    </ion-title>\n\n   \n\n\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<p text-center>\n\nAdd a New Community\n\n</p>\n\n<ion-list>\n\n<ion-item>\n\n<ion-label>Community Name:</ion-label>\n\n<ion-input type="text" [(ngModel)]="community.name"></ion-input>\n\n</ion-item>\n\n<ion-item>\n\n<ion-label>Zip Code:</ion-label>\n\n<ion-input type="number" [(ngModel)]="community.zip"></ion-input>\n\n</ion-item>\n\n\n\n <ion-item>   \n\n   <button ion-button color="dark" (click)="onSave(community)">Add New</button>\n\n </ion-item>\n\n\n\n</ion-list>\n\n<hr>\n\n<br>\n\n\n\n<p text-center><u>Current Communities</u></p>\n\n\n\n<ion-list>\n\n\n\n <ion-item-sliding *ngFor="let desc of descList">\n\n\n\n  <ion-item>\n\n   {{desc.record.name}}\n\n<button ion-button clear item-end>\n\n<ion-icon name="arrow-forward"></ion-icon>\n\n</button>\n\n\n\n  </ion-item>\n\n\n\n\n\n  <ion-item-options>\n\n   <button ion-button color="danger" (click)="removeItem(desc)"><ion-icon trash></ion-icon> Delete</button>\n\n  </ion-item-options>\n\n </ion-item-sliding>\n\n\n\n</ion-list>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\listcommunity\listcommunity.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__["a" /* Toast */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__["a" /* Toast */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__["a" /* Toast */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */]) === "function" && _e || Object])
     ], ListcommunityPage);
     return ListcommunityPage;
-    var ListcommunityPage_1;
+    var ListcommunityPage_1, _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=listcommunity.js.map
@@ -2272,6 +2310,10 @@ var ManageusersPage = (function () {
                 var weeklyData = {};
                 weeklyData["id"] = desc.key;
                 weeklyData["record"] = desc.val();
+                if (weeklyData["record"].type == 'A')
+                    weeklyData["record"].type = 'Advocate';
+                if (weeklyData["record"].type == 'N')
+                    weeklyData["record"].type = 'Neighbor';
                 //descs.push(desc.val()+" "+desc.key);
                 descs.push(weeklyData);
                 return false;
@@ -2312,10 +2354,10 @@ var ManageusersPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-manageusers',template:/*ion-inline-start:"C:\needsApp\src\pages\manageusers\manageusers.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Settings\n\n    </ion-title>\n\n\n\n\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n<p text-center><u>Current Advocates/Neighbors</u></p>\n\n\n\n<ion-list>\n\n\n\n <ion-item-sliding *ngFor="let desc of descList">\n\n\n\n  <ion-item>\n\n   {{desc.record.fname}} {{desc.record.lname}}<br>\n\n   {{desc.record.defaultCom}}<br>\n\n   {{desc.record.cell}}<br>\n\n   Type:  {{desc.record.type}}\n\n  </ion-item>\n\n\n\n  <ion-item-options>\n\n   <!--<button ion-button color="primary" (click)="editItem(desc)">Edit</button>-->\n\n   <button ion-button color="danger" (click)="removeItem(desc)"><ion-icon trash></ion-icon> Delete</button>\n\n  </ion-item-options>\n\n </ion-item-sliding>\n\n\n\n</ion-list>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\manageusers\manageusers.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object])
     ], ManageusersPage);
     return ManageusersPage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=manageusers.js.map

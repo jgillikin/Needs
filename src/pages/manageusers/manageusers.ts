@@ -44,6 +44,13 @@ this.descRef.on('value', descList => {
 
     weeklyData["id"] = desc.key;
     weeklyData["record"] = desc.val();
+
+if (weeklyData["record"].type == 'A')
+ weeklyData["record"].type = 'Advocate';
+
+if (weeklyData["record"].type == 'N')
+ weeklyData["record"].type = 'Neighbor';
+
     //descs.push(desc.val()+" "+desc.key);
     descs.push(weeklyData);
   return false;

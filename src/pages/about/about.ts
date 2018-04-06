@@ -10,6 +10,8 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Toast } from '@ionic-native/toast';
 import { ModalController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
+
 
 @Component({
   selector: 'page-about',
@@ -32,7 +34,7 @@ export class AboutPage {
 
 
   constructor(public navCtrl: NavController,
-public platform: Platform,public db: AngularFireDatabase,private toast: Toast,public modalCtrl: ModalController) {
+public platform: Platform,public db: AngularFireDatabase,private toast: Toast,public modalCtrl: ModalController,private toastCtrl: ToastController) {
 
       let platforms = this.platform.platforms();
 
@@ -116,13 +118,23 @@ onSave(cl2: Client) {
 
 if (!cl2.fname || !cl2.lname || !cl2.cell || !cl2.community) {
 
-if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('tablet') || this.platform.is('ipad') ) {
+if (this.platform.is('tablet') || this.platform.is('ipad') ) {
 this.toast.show(`Please fill in all fields`, '3000', 'center').subscribe(
   toast => {
     console.log(toast);
   }
 );
 return false;
+}
+else if (this.platform.is('mobileweb')) {
+ let toast = this.toastCtrl.create({
+    message: 'Please fill in all fields',
+    duration: 2000,
+    position: 'bottom'
+  });
+
+toast.present();
+
 }
 else {
 alert('Please fill in all fields');

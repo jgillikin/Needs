@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {Http, Request, RequestMethod, Headers} from "@angular/http";
 import { Toast } from '@ionic-native/toast';
+import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-approveuseredit',
@@ -44,7 +45,7 @@ export class ApproveusereditPage {
 
 
   constructor(public navCtrl: NavController,
-public platform: Platform,public db: AngularFireDatabase,public params: NavParams,private afAuth: AngularFireAuth,http: Http, private toast: Toast) {
+public platform: Platform,public db: AngularFireDatabase,public params: NavParams,private afAuth: AngularFireAuth,http: Http, private toast: Toast,private toastCtrl: ToastController) {
 
       this.http = http;
 
@@ -106,13 +107,23 @@ onSave(typeUser: any) {
 
 if (!typeUser) {
 
-if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('tablet') || this.platform.is('ipad') ) {
+if (this.platform.is('tablet') || this.platform.is('ipad') ) {
 this.toast.show(`Please select a user type`, '3000', 'center').subscribe(
   toast => {
     console.log(toast);
   }
 );
 return false;
+}
+else if (this.platform.is('mobileweb')) {
+ let toast = this.toastCtrl.create({
+    message: 'Please fill in all fields',
+    duration: 2000,
+    position: 'bottom'
+  });
+
+toast.present();
+
 }
 else {
 alert('Please select a user type');
