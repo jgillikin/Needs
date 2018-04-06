@@ -23,8 +23,6 @@ import { ListcommunityPage } from '../pages/listcommunity/listcommunity';
 import { ManageclientsPage } from '../pages/manageclients/manageclients';
 import { ManageusersPage } from '../pages/manageusers/manageusers';
 import { ManageneedsPage } from '../pages/manageneeds/manageneeds';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { FIREBASE_CONFIG } from './firebase.credentials';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
@@ -92,8 +90,7 @@ import { Toast } from '@ionic-native/toast';
     CreedPage
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
+   
     Toast,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
