@@ -22,7 +22,7 @@ export class ContactPage {
   isApp: boolean = true;
   shoppingList: any;
   userId: any;
-  isAdmin: boolean = false;
+  
   communityId: any;
   public descList:Array<any>;
   isAdmin: boolean = false;
