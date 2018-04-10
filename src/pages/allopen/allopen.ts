@@ -5,6 +5,7 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { Community } from './../../models/community/community';
 import { HomePage } from '../home/home';
+import { ContactPage } from '../contact/contact';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { NotificationsPage } from '../notifications/notifications';
@@ -186,7 +187,7 @@ let params: URLSearchParams = new URLSearchParams();
  );
  
 
-  this.navCtrl.setRoot(HomePage);
+  this.navCtrl.setRoot(ContactPage);
 
 }
 

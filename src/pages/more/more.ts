@@ -25,6 +25,7 @@ export class MorePage {
   items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
   size$: BehaviorSubject<string|null>;
   public needRef: firebase.database.Reference;
+  public descRef2: firebase.database.Reference;
   public needList: Array<any>;
   public allRef: firebase.database.Reference;
   public allList: Array<any>;
@@ -46,6 +47,37 @@ public afA: AngularFireAuth,public app: App) {
          ).snapshotChanges()
        );*/
 
+this.descRef2 = firebase.database().ref('/users-list');
+
+this.descRef2.on('value', descList => {
+  let temp = false; 
+  let descs5 = [];
+ 
+  descList.forEach( desc => {
+
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+
+//alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+
+    if (weeklyData["record"].uid == this.userId) {
+     descs5.push(weeklyData);
+
+     if (weeklyData["record"].type == 'A')
+      temp = true;
+     else
+      temp = false;
+
+    }
+
+  return false;
+  });
+
+//  this.descList = descs5;
+  this.isAdmin = temp;
+
 this.needRef = firebase.database().ref('/needs');
 
 this.needRef.on('value', descList => {
@@ -57,10 +89,28 @@ this.needRef.on('value', descList => {
     weeklyData["id"] = desc.key;
     weeklyData["record"] = desc.val();
     //descs.push(desc.val()+" "+desc.key);
+
+if (this.isAdmin) {
     
-   if (weeklyData["record"].status == 'Requested' || weeklyData["record"].status == 'InProgress' || weeklyData["record"].status == 'WorkCompleted'  ) {
+   if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate === this.userId)
+    descs2.push(weeklyData);
+
+   if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === this.userId)
+    descs2.push(weeklyData);
+    
+   if (weeklyData["record"].status == 'WorkCompleted' && weeklyData["record"].advocate === this.userId)
      descs2.push(weeklyData);
-   }
+
+
+}
+else {
+
+   if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === this.userId)
+     descs2.push(weeklyData);
+
+
+}
+    
 
   return false;
   });
@@ -70,6 +120,12 @@ this.needRef.on('value', descList => {
   this.needList = descs2;
   //this.loadedDescList = descs;
 });
+
+
+});
+
+
+
 
 //alert("needList size is "+this.needList.length);
 if (this.needList === undefined)

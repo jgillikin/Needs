@@ -22,6 +22,8 @@ export class AboutPage {
   platformList: string = '';
   isApp: boolean = true;
   client = {} as Client;
+  isAdmin: boolean = false;
+  public descRef2: firebase.database.Reference;
   clt: AngularFireList<any> = this.db.list('/clients');
   userId: any;
   public descList:Array<any>;
@@ -35,6 +37,9 @@ export class AboutPage {
 
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase,private toast: Toast,public modalCtrl: ModalController,private toastCtrl: ToastController) {
+
+this.userId = firebase.auth().currentUser.uid;
+
 
       let platforms = this.platform.platforms();
 
@@ -74,6 +79,40 @@ this.descRef.on('value', descList => {
   //this.loadedDescList = descs;
 });
 
+this.descRef2 = firebase.database().ref('/users-list');
+
+this.descRef2.on('value', descList => {
+  let temp = false; 
+  let descs5 = [];
+ 
+  descList.forEach( desc => {
+
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+
+//alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+
+    if (weeklyData["record"].uid == this.userId) {
+     descs5.push(weeklyData);
+
+     if (weeklyData["record"].type == 'A')
+      temp = true;
+     else
+      temp = false;
+
+    }
+
+  return false;
+  });
+
+//  this.descList = descs5;
+  this.isAdmin = temp;
+
+});
+
+
 
 this.needRef = firebase.database().ref('/needs');
 
@@ -87,9 +126,32 @@ this.needRef.on('value', descList => {
     weeklyData["record"] = desc.val();
     //descs.push(desc.val()+" "+desc.key);
     
-   if (weeklyData["record"].status == 'Requested' || weeklyData["record"].status == 'InProgress' || weeklyData["record"].status == 'WorkCompleted'  ) {
+     if (this.isAdmin) {
+    
+   if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate === this.userId) {
+   // alert(weeklyData["record"].desc);
+    descs2.push(weeklyData);
+   }
+
+   if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === this.userId) {
+//    alert(weeklyData["record"].desc);
+    descs2.push(weeklyData);
+   }
+    
+   if (weeklyData["record"].status == 'WorkCompleted' && weeklyData["record"].advocate === this.userId) {
+  //   alert(weeklyData["record"].desc);
      descs2.push(weeklyData);
    }
+
+
+}
+else {
+
+   if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === this.userId)
+     descs2.push(weeklyData);
+
+
+}
 
   return false;
   });

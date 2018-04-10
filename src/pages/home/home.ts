@@ -24,8 +24,10 @@ export class HomePage {
   need = {} as Need;
   nd: AngularFireList<any> = this.db.list('/needs');
   userId: any;
+  isAdmin: boolean = false;
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
+  public descRef2: firebase.database.Reference;
   public needRef: firebase.database.Reference;
   public reqCell: any;
   public userRef: firebase.database.Reference;
@@ -70,6 +72,38 @@ this.descRef.on('value', descList => {
   //this.loadedDescList = descs;
 });
 
+this.descRef2 = firebase.database().ref('/users-list');
+
+this.descRef2.on('value', descList => {
+  let temp = false; 
+  let descs5 = [];
+ 
+  descList.forEach( desc => {
+
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+
+//alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+
+    if (weeklyData["record"].uid == this.userId) {
+     descs5.push(weeklyData);
+
+     if (weeklyData["record"].type == 'A')
+      temp = true;
+     else
+      temp = false;
+
+    }
+
+  return false;
+  });
+
+//  this.descList = descs5;
+  this.isAdmin = temp;
+});
+
 this.needRef = firebase.database().ref('/needs');
 
 this.needRef.on('value', descList => {
@@ -82,9 +116,33 @@ this.needRef.on('value', descList => {
     weeklyData["record"] = desc.val();
     //descs.push(desc.val()+" "+desc.key);
     
-   if (weeklyData["record"].status == 'Requested' || weeklyData["record"].status == 'InProgress' || weeklyData["record"].status == 'WorkCompleted'  ) {
+   if (this.isAdmin) {
+    
+   if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate === this.userId) {
+   // alert(weeklyData["record"].desc);
+    descs2.push(weeklyData);
+   }
+
+   if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === this.userId) {
+//    alert(weeklyData["record"].desc);
+    descs2.push(weeklyData);
+   }
+    
+   if (weeklyData["record"].status == 'WorkCompleted' && weeklyData["record"].advocate === this.userId) {
+  //   alert(weeklyData["record"].desc);
      descs2.push(weeklyData);
    }
+
+
+}
+else {
+
+   if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === this.userId)
+     descs2.push(weeklyData);
+
+
+}
+
 
   return false;
   });

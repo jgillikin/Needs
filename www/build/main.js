@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 140:
+/***/ 141:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -41,6 +41,8 @@ var ApproveuserPage = (function () {
         this.newuser = {};
         this.platformList = '';
         this.isApp = true;
+        this.isAdmin = false;
+        this.userId = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["auth"]().currentUser.uid;
         var platforms = this.platform.platforms();
         this.platformList = platforms.join(', ');
         if (this.platform.is('core') || this.platform.is('mobileweb')) {
@@ -68,6 +70,27 @@ var ApproveuserPage = (function () {
                status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
              ).snapshotChanges()
            );*/
+        this.descRef2 = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["database"]().ref('/users-list');
+        this.descRef2.on('value', function (descList) {
+            var temp = false;
+            var descs5 = [];
+            descList.forEach(function (desc) {
+                var weeklyData = {};
+                weeklyData["id"] = desc.key;
+                weeklyData["record"] = desc.val();
+                //alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+                if (weeklyData["record"].uid == _this.userId) {
+                    descs5.push(weeklyData);
+                    if (weeklyData["record"].type == 'A')
+                        temp = true;
+                    else
+                        temp = false;
+                }
+                return false;
+            });
+            //  this.descList = descs5;
+            _this.isAdmin = temp;
+        });
         this.needRef = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["database"]().ref('/needs');
         this.needRef.on('value', function (descList) {
             var descs2 = [];
@@ -77,8 +100,23 @@ var ApproveuserPage = (function () {
                 weeklyData["id"] = desc.key;
                 weeklyData["record"] = desc.val();
                 //descs.push(desc.val()+" "+desc.key);
-                if (weeklyData["record"].status == 'Requested' || weeklyData["record"].status == 'InProgress' || weeklyData["record"].status == 'WorkCompleted') {
-                    descs2.push(weeklyData);
+                if (_this.isAdmin) {
+                    if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate === _this.userId) {
+                        // alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                    if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId) {
+                        //    alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                    if (weeklyData["record"].status == 'WorkCompleted' && weeklyData["record"].advocate === _this.userId) {
+                        //   alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                }
+                else {
+                    if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId)
+                        descs2.push(weeklyData);
                 }
                 return false;
             });
@@ -90,6 +128,9 @@ var ApproveuserPage = (function () {
         if (this.needList === undefined)
             this.needList = [];
     } //end constructor
+    ApproveuserPage.prototype.ionViewDidLoad = function () {
+        this.userId = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["auth"]().currentUser.uid;
+    };
     ApproveuserPage.prototype.goNot = function () {
         //alert("in goNot");
         this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_5__notifications_notifications__["a" /* NotificationsPage */]);
@@ -114,17 +155,17 @@ var ApproveuserPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-approveuser',template:/*ion-inline-start:"C:\needsApp\src\pages\approveuser\approveuser.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Approve User</ion-title>\n\n\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="openModal()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n\n\n<div *ngFor="let desc of descList" text-center>\n\n<ion-item (click)="open1(desc.record.fname,desc.record.lname,desc.record.cell,desc.record.defaultCom,desc.id,desc.record.email,desc.record.password)"><b>Requested user:</b>  {{desc.record.fname}} {{desc.record.lname}} <br>\n\n<b>Date Requested:</b>  {{desc.record.dateAdded}}</ion-item>\n\n\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\approveuser\approveuser.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */],
-            __WEBPACK_IMPORTED_MODULE_4_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _e || Object])
     ], ApproveuserPage);
     return ApproveuserPage;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=approveuser.js.map
 
 /***/ }),
 
-/***/ 153:
+/***/ 154:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -137,11 +178,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 153;
+webpackEmptyAsyncContext.id = 154;
 
 /***/ }),
 
-/***/ 196:
+/***/ 197:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -154,7 +195,7 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 196;
+webpackEmptyAsyncContext.id = 197;
 
 /***/ }),
 
@@ -200,6 +241,7 @@ var HomePage = (function () {
         this.isApp = true;
         this.need = {};
         this.nd = this.db.list('/needs');
+        this.isAdmin = false;
         this.userId = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["auth"]().currentUser.uid;
         var platforms = this.platform.platforms();
         this.platformList = platforms.join(', ');
@@ -222,6 +264,27 @@ var HomePage = (function () {
             _this.descList = descs;
             //this.loadedDescList = descs;
         });
+        this.descRef2 = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["database"]().ref('/users-list');
+        this.descRef2.on('value', function (descList) {
+            var temp = false;
+            var descs5 = [];
+            descList.forEach(function (desc) {
+                var weeklyData = {};
+                weeklyData["id"] = desc.key;
+                weeklyData["record"] = desc.val();
+                //alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+                if (weeklyData["record"].uid == _this.userId) {
+                    descs5.push(weeklyData);
+                    if (weeklyData["record"].type == 'A')
+                        temp = true;
+                    else
+                        temp = false;
+                }
+                return false;
+            });
+            //  this.descList = descs5;
+            _this.isAdmin = temp;
+        });
         this.needRef = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["database"]().ref('/needs');
         this.needRef.on('value', function (descList) {
             var descs2 = [];
@@ -231,8 +294,23 @@ var HomePage = (function () {
                 weeklyData["id"] = desc.key;
                 weeklyData["record"] = desc.val();
                 //descs.push(desc.val()+" "+desc.key);
-                if (weeklyData["record"].status == 'Requested' || weeklyData["record"].status == 'InProgress' || weeklyData["record"].status == 'WorkCompleted') {
-                    descs2.push(weeklyData);
+                if (_this.isAdmin) {
+                    if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate === _this.userId) {
+                        // alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                    if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId) {
+                        //    alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                    if (weeklyData["record"].status == 'WorkCompleted' && weeklyData["record"].advocate === _this.userId) {
+                        //   alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                }
+                else {
+                    if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId)
+                        descs2.push(weeklyData);
                 }
                 return false;
             });
@@ -354,18 +432,17 @@ var HomePage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"C:\needsApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Needs</ion-title>\n\n<ion-buttons end>\n\n    <button id="notification-button" ion-button clear (click)="openModal()">\n\n        <ion-icon name="notifications">\n\n          <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}\n\n</ion-badge>\n\n        </ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="75%" align="center">\n\n<ion-list>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Client</ion-label>\n\n                  <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n  <ion-item>\n\n    <ion-label color="dark">Need:  </ion-label>\n\n    <ion-input [(ngModel)]="need.desc"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-input type="hidden" [(ngModel)]="communityId"></ion-input>\n\n  </ion-item>\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<ion-list>\n\n\n\n\n\n\n\n   <ion-item>\n\n                    <ion-label>Client</ion-label>\n\n                    <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">\n\n                      <div *ngFor="let field of descList">\n\n                        <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}\n\n                        </ion-option>\n\n                      </div>\n\n                    </ion-select>\n\n   </ion-item>\n\n\n\n\n\n    <ion-item>\n\n      <ion-label color="dark">Need Description:  </ion-label>\n\n      <ion-input [(ngModel)]="need.desc"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-input type="hidden" [(ngModel)]="communityId"></ion-input>\n\n    </ion-item>\n\n\n\n</ion-list>\n\n\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(need,communityId)">Save</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__["a" /* Toast */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__["a" /* Toast */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__["a" /* Toast */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */]) === "function" && _f || Object])
     ], HomePage);
     return HomePage;
-    var HomePage_1;
+    var HomePage_1, _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=home.js.map
 
 /***/ }),
 
-/***/ 286:
+/***/ 287:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -485,7 +562,7 @@ var ResetpwdPage = (function () {
 
 /***/ }),
 
-/***/ 287:
+/***/ 288:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -656,7 +733,7 @@ var RegisterPage = (function () {
 
 /***/ }),
 
-/***/ 289:
+/***/ 290:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -666,10 +743,10 @@ var RegisterPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__about_about__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__contact_contact__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__about_about__ = __webpack_require__(291);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__contact_contact__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__home_home__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__approveuser_approveuser__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__approveuser_approveuser__ = __webpack_require__(141);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__more_more__ = __webpack_require__(298);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -753,7 +830,7 @@ var TabsPage = (function () {
 
 /***/ }),
 
-/***/ 290:
+/***/ 291:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -796,7 +873,9 @@ var AboutPage = (function () {
         this.platformList = '';
         this.isApp = true;
         this.client = {};
+        this.isAdmin = false;
         this.clt = this.db.list('/clients');
+        this.userId = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["auth"]().currentUser.uid;
         var platforms = this.platform.platforms();
         this.platformList = platforms.join(', ');
         if (this.platform.is('core') || this.platform.is('mobileweb')) {
@@ -825,6 +904,27 @@ var AboutPage = (function () {
             _this.descList = descs;
             //this.loadedDescList = descs;
         });
+        this.descRef2 = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["database"]().ref('/users-list');
+        this.descRef2.on('value', function (descList) {
+            var temp = false;
+            var descs5 = [];
+            descList.forEach(function (desc) {
+                var weeklyData = {};
+                weeklyData["id"] = desc.key;
+                weeklyData["record"] = desc.val();
+                //alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+                if (weeklyData["record"].uid == _this.userId) {
+                    descs5.push(weeklyData);
+                    if (weeklyData["record"].type == 'A')
+                        temp = true;
+                    else
+                        temp = false;
+                }
+                return false;
+            });
+            //  this.descList = descs5;
+            _this.isAdmin = temp;
+        });
         this.needRef = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["database"]().ref('/needs');
         this.needRef.on('value', function (descList) {
             var descs2 = [];
@@ -834,8 +934,23 @@ var AboutPage = (function () {
                 weeklyData["id"] = desc.key;
                 weeklyData["record"] = desc.val();
                 //descs.push(desc.val()+" "+desc.key);
-                if (weeklyData["record"].status == 'Requested' || weeklyData["record"].status == 'InProgress' || weeklyData["record"].status == 'WorkCompleted') {
-                    descs2.push(weeklyData);
+                if (_this.isAdmin) {
+                    if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate === _this.userId) {
+                        // alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                    if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId) {
+                        //    alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                    if (weeklyData["record"].status == 'WorkCompleted' && weeklyData["record"].advocate === _this.userId) {
+                        //   alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                }
+                else {
+                    if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId)
+                        descs2.push(weeklyData);
                 }
                 return false;
             });
@@ -908,17 +1023,17 @@ var AboutPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-about',template:/*ion-inline-start:"C:\needsApp\src\pages\about\about.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Add a Client\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="openModal()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="75%" align="center">\n\n<ion-list>\n\n  <ion-item>\n\n    <ion-label color="dark">First Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.fname"></ion-input>\n\n  </ion-item>\n\n    <ion-item>\n\n    <ion-label color="dark">Last Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.lname"></ion-input>\n\n  </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label color="dark">Cell:  </ion-label>\n\n    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>\n\n  </ion-item>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Community</ion-label>\n\n                  <ion-select [(ngModel)]="client.community" (ionChange)="onChange(client.community)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<br>\n\n\n\n<ion-list>\n\n  <ion-item>\n\n    <ion-label color="dark">First Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.fname"></ion-input>\n\n  </ion-item>\n\n    <ion-item>\n\n    <ion-label color="dark">Last Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.lname"></ion-input>\n\n  </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label color="dark">Cell:  </ion-label>\n\n    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>\n\n  </ion-item>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Community</ion-label>\n\n                  <ion-select [(ngModel)]="client.community">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n</ion-list>\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(client)">Save</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\about\about.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_toast__["a" /* Toast */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_toast__["a" /* Toast */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_toast__["a" /* Toast */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */]) === "function" && _f || Object])
     ], AboutPage);
     return AboutPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=about.js.map
 
 /***/ }),
 
-/***/ 291:
+/***/ 292:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -965,146 +1080,6 @@ var RequestsPage = (function () {
 
 /***/ }),
 
-/***/ 292:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__notifications_notifications__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__allopen_allopen__ = __webpack_require__(293);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__allclosed_allclosed__ = __webpack_require__(294);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__searchopen_searchopen__ = __webpack_require__(295);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__searchclosed_searchclosed__ = __webpack_require__(296);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-
-
-var ContactPage = (function () {
-    function ContactPage(navCtrl, modalCtrl, platform, db) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.modalCtrl = modalCtrl;
-        this.platform = platform;
-        this.db = db;
-        this.platformList = '';
-        this.isApp = true;
-        this.shoppingList = [
-            'All Open Needs',
-            'Open Needs by Community',
-            'All Closed Needs',
-            'Closed Needs by Community'
-        ];
-        var platforms = this.platform.platforms();
-        this.platformList = platforms.join(', ');
-        if (this.platform.is('core') || this.platform.is('mobileweb')) {
-            this.isApp = false;
-        }
-        this.descRef = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["database"]().ref('/communities');
-        this.descRef.on('value', function (descList) {
-            var descs = [];
-            descList.forEach(function (desc) {
-                //    descs.push(desc.val());
-                var weeklyData = {};
-                weeklyData["id"] = desc.key;
-                weeklyData["record"] = desc.val();
-                //descs.push(desc.val()+" "+desc.key);
-                descs.push(weeklyData);
-                return false;
-            });
-            //alert(descs[0].id);
-            _this.descList = descs;
-            //  this.loadedDescList = descs;
-        });
-        /*this.size$ = new BehaviorSubject(null);
-        
-        this.items$ = this.size$.switchMap(size =>
-             db.list('/needs', ref =>
-               status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
-             ).snapshotChanges()
-           );
-        */
-        this.needRef = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["database"]().ref('/needs');
-        this.needRef.on('value', function (descList) {
-            var descs2 = [];
-            descList.forEach(function (desc) {
-                //    descs.push(desc.val());
-                var weeklyData = {};
-                weeklyData["id"] = desc.key;
-                weeklyData["record"] = desc.val();
-                //descs.push(desc.val()+" "+desc.key);
-                if (weeklyData["record"].status == 'Requested' || weeklyData["record"].status == 'InProgress' || weeklyData["record"].status == 'WorkCompleted') {
-                    descs2.push(weeklyData);
-                }
-                return false;
-            });
-            //alert(descs[0].id);
-            _this.needList = descs2;
-            //this.loadedDescList = descs;
-        });
-        //alert("needList size is "+this.needList.length);
-        if (this.needList === undefined)
-            this.needList = [];
-    } //end constructor
-    ContactPage.prototype.openModal = function () {
-        var myModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_4__notifications_notifications__["a" /* NotificationsPage */]);
-        myModal.present();
-    };
-    ContactPage.prototype.goNot = function () {
-        //alert("in goNot");
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__notifications_notifications__["a" /* NotificationsPage */]);
-    };
-    ContactPage.prototype.onChange = function (comId) {
-        //alert("comId to search for is "+comId);
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_7__searchopen_searchopen__["a" /* SearchopenPage */], {
-            comPassed: comId
-        });
-    };
-    ContactPage.prototype.onChange2 = function (comId) {
-        //alert("comId to search for is "+comId);
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_8__searchclosed_searchclosed__["a" /* SearchclosedPage */], {
-            comPassed: comId
-        });
-    };
-    ContactPage.prototype.open1 = function () {
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_5__allopen_allopen__["a" /* AllopenPage */]);
-    };
-    ContactPage.prototype.open3 = function () {
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__allclosed_allclosed__["a" /* AllclosedPage */]);
-    };
-    ContactPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-contact',template:/*ion-inline-start:"C:\needsApp\src\pages\contact\contact.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Find a Need\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="openModal()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n<br>\n\n<br>\n\n<table width="50%" align="center">\n\n<ion-list>\n\n<ion-item (click)="open1()">\n\nAll Open Needs\n\n</ion-item>\n\n<ion-item>\n\n                  <ion-label>Search <u>Open</u> Needs by Community</ion-label>\n\n                  <ion-select [(ngModel)]="communityId" (ionChange)="onChange(communityId)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n<ion-item (click)="open3()">\n\nAll Closed Needs\n\n</ion-item>\n\n<ion-item>\n\n                  <ion-label>Search <u>Closed</u> Needs by Community</ion-label>\n\n                  <ion-select [(ngModel)]="communityId" (ionChange)="onChange2(communityId)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\contact\contact.html"*/
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]])
-    ], ContactPage);
-    return ContactPage;
-}());
-
-//# sourceMappingURL=contact.js.map
-
-/***/ }),
-
 /***/ 293:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1116,8 +1091,9 @@ var ContactPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__notifications_notifications__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__contact_contact__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__notifications_notifications__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_http__ = __webpack_require__(49);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1127,6 +1103,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1233,25 +1210,25 @@ var AllopenPage = (function () {
         this.nd.update(item.id, { reqCell: this.reqCell });
         var mmsg = 'Please review a new Request for Need "' + item.record.desc + '"';
         var link2 = 'https://till-node-demo-iizbwqdopi.now.sh/login';
-        var params = new __WEBPACK_IMPORTED_MODULE_6__angular_http__["c" /* URLSearchParams */]();
+        var params = new __WEBPACK_IMPORTED_MODULE_7__angular_http__["c" /* URLSearchParams */]();
         params.set('msg', mmsg);
         params.set('mto', '["1' + item.record.advocateCell + '"]');
         //Http request-
         this.http.get(link2, {
             search: params
         }).subscribe(function (response) { return console.log('worked'); }, function (error) { return console.log('error'); });
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_4__home_home__["a" /* HomePage */]);
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_5__contact_contact__["a" /* ContactPage */]);
     };
     AllopenPage.prototype.goNot = function () {
         //alert("in goNot");
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_5__notifications_notifications__["a" /* NotificationsPage */]);
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__notifications_notifications__["a" /* NotificationsPage */]);
     };
     AllopenPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-allopen',template:/*ion-inline-start:"C:\needsApp\src\pages\allopen\allopen.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      All Open Needs\n\n    </ion-title>\n\n      </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n\n\n<br>\n\n<div text-center>All <u>Open</u> Needs</div>\n\n<br>\n\n<div text-center>\n\n\n\n<ion-list>\n\n\n\n  <ion-item-sliding *ngFor="let desc of descList">\n\n\n\n   <ion-item>\n\n\n\n\n\n     <b>Need Description:  </b>{{desc.record.desc}}<br>\n\n     <b>Status:  </b>{{desc.record.status}}<br>\n\n     <b>Date created:  </b>{{desc.record.dateSub}}<br>\n\n     <b>Community:  </b>{{desc.record.communityId}}\n\n\n\n<button ion-button clear item-end>\n\n<ion-icon name="arrow-forward"></ion-icon>\n\n</button>\n\n\n\n   </ion-item>\n\n\n\n   <ion-item-options>\n\n    <!--<button ion-button color="primary" (click)="editItem(desc)">Edit</button>-->\n\n    <button ion-button color="danger" (click)="requestItem(desc)"><ion-icon trash></ion-icon> Request to Help</button>\n\n   </ion-item-options>\n\n  </ion-item-sliding>\n\n\n\n\n\n</ion-list>\n\n\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\allopen\allopen.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* Http */]])
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_7__angular_http__["a" /* Http */]])
     ], AllopenPage);
     return AllopenPage;
 }());
@@ -1367,6 +1344,7 @@ var AllclosedPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__contact_contact__ = __webpack_require__(84);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1376,6 +1354,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1473,7 +1452,7 @@ var SearchopenPage = (function () {
         this.nd.update(item.id, { reqBy: this.userId });
         this.nd.update(item.id, { reqName: this.reqName });
         this.nd.update(item.id, { reqCell: this.reqCell });
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_4__home_home__["a" /* HomePage */]);
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_5__contact_contact__["a" /* ContactPage */]);
     };
     SearchopenPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
@@ -1604,7 +1583,7 @@ var SearchclosedPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase_app__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase_app__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_home__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__approveuser_approveuser__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__approveuser_approveuser__ = __webpack_require__(141);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__notifications_notifications__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_BehaviorSubject__ = __webpack_require__(467);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_BehaviorSubject__);
@@ -1633,6 +1612,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var ApproveusereditPage = (function () {
     function ApproveusereditPage(navCtrl, platform, db, params, afAuth, http, toast, toastCtrl) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.platform = platform;
         this.db = db;
@@ -1642,11 +1622,13 @@ var ApproveusereditPage = (function () {
         this.toastCtrl = toastCtrl;
         this.platformList = '';
         this.isApp = true;
+        this.isAdmin = false;
         this.newuser = {};
         this.nu = this.db.list('/users-list');
         this.com = this.db.list('/users-pending');
         this.user = {};
         this.data = {};
+        this.userId = __WEBPACK_IMPORTED_MODULE_4_firebase_app__["auth"]().currentUser.uid;
         this.http = http;
         this.fname = this.params.get('firstPassed');
         this.lname = this.params.get('secondPassed');
@@ -1684,6 +1666,60 @@ var ApproveusereditPage = (function () {
             return db.list('/needs', function (ref) {
                 return status ? ref.orderByChild('dateSub').equalTo('NEW') : ref;
             }).snapshotChanges();
+        });
+        this.descRef2 = __WEBPACK_IMPORTED_MODULE_4_firebase_app__["database"]().ref('/users-list');
+        this.descRef2.on('value', function (descList) {
+            var temp = false;
+            var descs5 = [];
+            descList.forEach(function (desc) {
+                var weeklyData = {};
+                weeklyData["id"] = desc.key;
+                weeklyData["record"] = desc.val();
+                //alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+                if (weeklyData["record"].uid == _this.userId) {
+                    descs5.push(weeklyData);
+                    if (weeklyData["record"].type == 'A')
+                        temp = true;
+                    else
+                        temp = false;
+                }
+                return false;
+            });
+            //  this.descList = descs5;
+            _this.isAdmin = temp;
+        });
+        this.needRef = __WEBPACK_IMPORTED_MODULE_4_firebase_app__["database"]().ref('/needs');
+        this.needRef.on('value', function (descList) {
+            var descs2 = [];
+            descList.forEach(function (desc) {
+                //    descs.push(desc.val());
+                var weeklyData = {};
+                weeklyData["id"] = desc.key;
+                weeklyData["record"] = desc.val();
+                //descs.push(desc.val()+" "+desc.key);
+                if (_this.isAdmin) {
+                    if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate === _this.userId) {
+                        // alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                    if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId) {
+                        //    alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                    if (weeklyData["record"].status == 'WorkCompleted' && weeklyData["record"].advocate === _this.userId) {
+                        //   alert(weeklyData["record"].desc);
+                        descs2.push(weeklyData);
+                    }
+                }
+                else {
+                    if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId)
+                        descs2.push(weeklyData);
+                }
+                return false;
+            });
+            //alert(descs[0].id);
+            _this.needList = descs2;
+            //this.loadedDescList = descs;
         });
     } //end constructor
     ApproveusereditPage.prototype.ionViewDidLoad = function () {
@@ -1777,12 +1813,12 @@ var ApproveusereditPage = (function () {
     };
     ApproveusereditPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-approveuseredit',template:/*ion-inline-start:"C:\needsApp\src\pages\approveuseredit\approveuseredit.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Manage new User Request\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="goNot()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{(items$ | async)?.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="75%" align="center">\n\n<ion-list>\n\n<ion-input placeholder="First Name:  {{fname}}" clearInput></ion-input>\n\n<ion-input placeholder="Last Name:  {{lname}}" clearInput></ion-input>\n\n<ion-input placeholder="Cell:  {{cell}}" clearInput></ion-input>\n\n<ion-input placeholder="Community:  {{defaultCom}}" clearInput></ion-input>\n\n<br>\n\n<ion-item>\n\n  <ion-label>Account Type:  </ion-label>\n\n  <ion-select [(ngModel)]="newuser.type">\n\n      <ion-option value="A">Advocate</ion-option>\n\n      <ion-option value="N">Neighbor</ion-option>\n\n  </ion-select>\n\n</ion-item>\n\n\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<br>\n\n\n\n\n\n<ion-list>\n\n  <ion-input placeholder="First Name:  {{fname}}" clearInput></ion-input>\n\n  <ion-input placeholder="Last Name:  {{lname}}" clearInput></ion-input>\n\n  <ion-input placeholder="Cell:  {{cell}}" clearInput></ion-input>\n\n  <ion-input placeholder="Community:  {{defaultCom}}" clearInput></ion-input>\n\n  <br>\n\n  <ion-item>\n\n    <ion-label>Account Type:  </ion-label>\n\n    <ion-select [(ngModel)]="newuser.type">\n\n        <ion-option value="A">Advocate</ion-option>\n\n        <ion-option value="N">Neighbor</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n\n\n\n\n</ion-list>\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(newuser.type)">Approve</button>\n\n<button ion-button color="danger" (click) ="reject()">Reject</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\approveuseredit\approveuseredit.html"*/
+            selector: 'page-approveuseredit',template:/*ion-inline-start:"C:\needsApp\src\pages\approveuseredit\approveuseredit.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Manage new User Request\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="goNot()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>\n\n\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="75%" align="center">\n\n<ion-list>\n\n<ion-input placeholder="First Name:  {{fname}}" clearInput></ion-input>\n\n<ion-input placeholder="Last Name:  {{lname}}" clearInput></ion-input>\n\n<ion-input placeholder="Cell:  {{cell}}" clearInput></ion-input>\n\n<ion-input placeholder="Community:  {{defaultCom}}" clearInput></ion-input>\n\n<br>\n\n<ion-item>\n\n  <ion-label>Account Type:  </ion-label>\n\n  <ion-select [(ngModel)]="newuser.type">\n\n      <ion-option value="A">Advocate</ion-option>\n\n      <ion-option value="N">Neighbor</ion-option>\n\n  </ion-select>\n\n</ion-item>\n\n\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<br>\n\n\n\n\n\n<ion-list>\n\n  <ion-input placeholder="First Name:  {{fname}}" clearInput></ion-input>\n\n  <ion-input placeholder="Last Name:  {{lname}}" clearInput></ion-input>\n\n  <ion-input placeholder="Cell:  {{cell}}" clearInput></ion-input>\n\n  <ion-input placeholder="Community:  {{defaultCom}}" clearInput></ion-input>\n\n  <br>\n\n  <ion-item>\n\n    <ion-label>Account Type:  </ion-label>\n\n    <ion-select [(ngModel)]="newuser.type">\n\n        <ion-option value="A">Advocate</ion-option>\n\n        <ion-option value="N">Neighbor</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n\n\n\n\n</ion-list>\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(newuser.type)">Approve</button>\n\n<button ion-button color="danger" (click) ="reject()">Reject</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\approveuseredit\approveuseredit.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_9__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_10__ionic_native_toast__["a" /* Toast */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_9__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__angular_http__["a" /* Http */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_10__ionic_native_toast__["a" /* Toast */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10__ionic_native_toast__["a" /* Toast */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */]) === "function" && _h || Object])
     ], ApproveusereditPage);
     return ApproveusereditPage;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
 }());
 
 //# sourceMappingURL=approveuseredit.js.map
@@ -1848,22 +1884,52 @@ var MorePage = (function () {
                    status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
                  ).snapshotChanges()
                );*/
-        this.needRef = __WEBPACK_IMPORTED_MODULE_9_firebase_app__["database"]().ref('/needs');
-        this.needRef.on('value', function (descList) {
-            var descs2 = [];
+        this.descRef2 = __WEBPACK_IMPORTED_MODULE_9_firebase_app__["database"]().ref('/users-list');
+        this.descRef2.on('value', function (descList) {
+            var temp = false;
+            var descs5 = [];
             descList.forEach(function (desc) {
                 var weeklyData = {};
                 weeklyData["id"] = desc.key;
                 weeklyData["record"] = desc.val();
-                //descs.push(desc.val()+" "+desc.key);
-                if (weeklyData["record"].status == 'Requested' || weeklyData["record"].status == 'InProgress' || weeklyData["record"].status == 'WorkCompleted') {
-                    descs2.push(weeklyData);
+                //alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+                if (weeklyData["record"].uid == _this.userId) {
+                    descs5.push(weeklyData);
+                    if (weeklyData["record"].type == 'A')
+                        temp = true;
+                    else
+                        temp = false;
                 }
                 return false;
             });
-            //alert(descs[0].id);
-            _this.needList = descs2;
-            //this.loadedDescList = descs;
+            //  this.descList = descs5;
+            _this.isAdmin = temp;
+            _this.needRef = __WEBPACK_IMPORTED_MODULE_9_firebase_app__["database"]().ref('/needs');
+            _this.needRef.on('value', function (descList) {
+                var descs2 = [];
+                descList.forEach(function (desc) {
+                    var weeklyData = {};
+                    weeklyData["id"] = desc.key;
+                    weeklyData["record"] = desc.val();
+                    //descs.push(desc.val()+" "+desc.key);
+                    if (_this.isAdmin) {
+                        if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate === _this.userId)
+                            descs2.push(weeklyData);
+                        if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId)
+                            descs2.push(weeklyData);
+                        if (weeklyData["record"].status == 'WorkCompleted' && weeklyData["record"].advocate === _this.userId)
+                            descs2.push(weeklyData);
+                    }
+                    else {
+                        if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId)
+                            descs2.push(weeklyData);
+                    }
+                    return false;
+                });
+                //alert(descs[0].id);
+                _this.needList = descs2;
+                //this.loadedDescList = descs;
+            });
         });
         //alert("needList size is "+this.needList.length);
         if (this.needList === undefined)
@@ -2471,22 +2537,22 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(365);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_about_about__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_contact_contact__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_about_about__ = __webpack_require__(291);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_contact_contact__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_approveuser_approveuser__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_approveuser_approveuser__ = __webpack_require__(141);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_approveuseredit_approveuseredit__ = __webpack_require__(297);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_more_more__ = __webpack_require__(298);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_creed_creed__ = __webpack_require__(303);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_tabs_tabs__ = __webpack_require__(289);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_requests_requests__ = __webpack_require__(291);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_register_register__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_tabs_tabs__ = __webpack_require__(290);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_requests_requests__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_register_register__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_allopen_allopen__ = __webpack_require__(293);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_allclosed_allclosed__ = __webpack_require__(294);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_searchopen_searchopen__ = __webpack_require__(295);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_searchclosed_searchclosed__ = __webpack_require__(296);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_login_login__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_resetpwd_resetpwd__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_resetpwd_resetpwd__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_notifications_notifications__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_listcommunity_listcommunity__ = __webpack_require__(299);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_manageclients_manageclients__ = __webpack_require__(300);
@@ -2624,7 +2690,7 @@ var AppModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_auth__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_home__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__requests_requests__ = __webpack_require__(291);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__requests_requests__ = __webpack_require__(292);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_http__ = __webpack_require__(49);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2955,9 +3021,9 @@ var FIREBASE_CONFIG = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__resetpwd_resetpwd__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__register_register__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tabs_tabs__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__resetpwd_resetpwd__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__register_register__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tabs_tabs__ = __webpack_require__(290);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3079,6 +3145,191 @@ var LoginPage = (function () {
 }());
 
 //# sourceMappingURL=login.js.map
+
+/***/ }),
+
+/***/ 84:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__notifications_notifications__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__allopen_allopen__ = __webpack_require__(293);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__allclosed_allclosed__ = __webpack_require__(294);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__searchopen_searchopen__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__searchclosed_searchclosed__ = __webpack_require__(296);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+var ContactPage = (function () {
+    function ContactPage(navCtrl, modalCtrl, platform, db) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.modalCtrl = modalCtrl;
+        this.platform = platform;
+        this.db = db;
+        this.platformList = '';
+        this.isApp = true;
+        this.isAdmin = false;
+        this.isAdmin = false;
+        this.userId = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["auth"]().currentUser.uid;
+        //alert("logged in with "+this.userId);
+        this.shoppingList = [
+            'All Open Needs',
+            'Open Needs by Community',
+            'All Closed Needs',
+            'Closed Needs by Community'
+        ];
+        var platforms = this.platform.platforms();
+        this.platformList = platforms.join(', ');
+        if (this.platform.is('core') || this.platform.is('mobileweb')) {
+            this.isApp = false;
+        }
+        this.descRef2 = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["database"]().ref('/users-list');
+        this.descRef2.on('value', function (descList) {
+            var temp = false;
+            var descs5 = [];
+            descList.forEach(function (desc) {
+                var weeklyData = {};
+                weeklyData["id"] = desc.key;
+                weeklyData["record"] = desc.val();
+                //alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+                if (weeklyData["record"].uid == _this.userId) {
+                    descs5.push(weeklyData);
+                    if (weeklyData["record"].type == 'A')
+                        temp = true;
+                    else
+                        temp = false;
+                }
+                return false;
+            });
+            //  this.descList = descs5;
+            _this.isAdmin = temp;
+            _this.needRef = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["database"]().ref('/needs');
+            _this.needRef.on('value', function (descList) {
+                var descs2 = [];
+                descList.forEach(function (desc) {
+                    //    descs.push(desc.val());
+                    var weeklyData = {};
+                    weeklyData["id"] = desc.key;
+                    weeklyData["record"] = desc.val();
+                    //descs.push(desc.val()+" "+desc.key);
+                    //alert(this.userId);
+                    //alert("isAdmin is "+this.isAdmin);
+                    if (temp) {
+                        if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate === _this.userId) {
+                            // alert(weeklyData["record"].desc);
+                            descs2.push(weeklyData);
+                        }
+                        if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId) {
+                            //    alert(weeklyData["record"].desc);
+                            descs2.push(weeklyData);
+                        }
+                        if (weeklyData["record"].status == 'WorkCompleted' && weeklyData["record"].advocate === _this.userId) {
+                            //   alert(weeklyData["record"].desc);
+                            descs2.push(weeklyData);
+                        }
+                    }
+                    else {
+                        if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === _this.userId)
+                            descs2.push(weeklyData);
+                    }
+                    return false;
+                });
+                //alert(descs[0].id);
+                _this.needList = descs2;
+                //this.loadedDescList = descs;
+            });
+        });
+        this.descRef = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["database"]().ref('/communities');
+        this.descRef.on('value', function (descList) {
+            var descs = [];
+            descList.forEach(function (desc) {
+                //    descs.push(desc.val());
+                var weeklyData = {};
+                weeklyData["id"] = desc.key;
+                weeklyData["record"] = desc.val();
+                //descs.push(desc.val()+" "+desc.key);
+                descs.push(weeklyData);
+                return false;
+            });
+            //alert(descs[0].id);
+            _this.descList = descs;
+            //  this.loadedDescList = descs;
+        });
+        /*this.size$ = new BehaviorSubject(null);
+        
+        this.items$ = this.size$.switchMap(size =>
+             db.list('/needs', ref =>
+               status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
+             ).snapshotChanges()
+           );
+        */
+        //alert("needList size is "+this.needList.length);
+        if (this.needList === undefined)
+            this.needList = [];
+    } //end constructor
+    ContactPage.prototype.ionViewDidLoad = function () {
+        this.userId = __WEBPACK_IMPORTED_MODULE_3_firebase_app__["auth"]().currentUser.uid;
+    };
+    ContactPage.prototype.openModal = function () {
+        var myModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_4__notifications_notifications__["a" /* NotificationsPage */]);
+        myModal.present();
+    };
+    ContactPage.prototype.goNot = function () {
+        //alert("in goNot");
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__notifications_notifications__["a" /* NotificationsPage */]);
+    };
+    ContactPage.prototype.onChange = function (comId) {
+        //alert("comId to search for is "+comId);
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_7__searchopen_searchopen__["a" /* SearchopenPage */], {
+            comPassed: comId
+        });
+    };
+    ContactPage.prototype.onChange2 = function (comId) {
+        //alert("comId to search for is "+comId);
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_8__searchclosed_searchclosed__["a" /* SearchclosedPage */], {
+            comPassed: comId
+        });
+    };
+    ContactPage.prototype.open1 = function () {
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_5__allopen_allopen__["a" /* AllopenPage */]);
+    };
+    ContactPage.prototype.open3 = function () {
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__allclosed_allclosed__["a" /* AllclosedPage */]);
+    };
+    ContactPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-contact',template:/*ion-inline-start:"C:\needsApp\src\pages\contact\contact.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Find a Need\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="openModal()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n<br>\n\n<br>\n\n<table width="50%" align="center">\n\n<ion-list>\n\n<ion-item (click)="open1()">\n\nAll Open Needs\n\n</ion-item>\n\n<ion-item>\n\n                  <ion-label>Search <u>Open</u> Needs by Community</ion-label>\n\n                  <ion-select [(ngModel)]="communityId" (ionChange)="onChange(communityId)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n<ion-item (click)="open3()">\n\nAll Closed Needs\n\n</ion-item>\n\n<ion-item>\n\n                  <ion-label>Search <u>Closed</u> Needs by Community</ion-label>\n\n                  <ion-select [(ngModel)]="communityId" (ionChange)="onChange2(communityId)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\contact\contact.html"*/
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _d || Object])
+    ], ContactPage);
+    return ContactPage;
+    var _a, _b, _c, _d;
+}());
+
+//# sourceMappingURL=contact.js.map
 
 /***/ })
 

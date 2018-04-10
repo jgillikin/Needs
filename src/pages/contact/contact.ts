@@ -21,9 +21,13 @@ export class ContactPage {
   platformList: string = '';
   isApp: boolean = true;
   shoppingList: any;
+  userId: any;
+  isAdmin: boolean = false;
   communityId: any;
   public descList:Array<any>;
+  isAdmin: boolean = false;
   public descRef: firebase.database.Reference;
+  public descRef2: firebase.database.Reference;
   public loadedDescList: Array<any>;
   items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
   size$: BehaviorSubject<string|null>;
@@ -33,6 +37,10 @@ export class ContactPage {
 
   constructor(public navCtrl: NavController,
 public modalCtrl: ModalController,public platform: Platform,public db: AngularFireDatabase) {
+
+   this.userId = firebase.auth().currentUser.uid;
+
+//alert("logged in with "+this.userId);
 
    this.shoppingList = [
         'All Open Needs',
@@ -48,6 +56,94 @@ public modalCtrl: ModalController,public platform: Platform,public db: AngularFi
       if (this.platform.is('core') || this.platform.is('mobileweb')) {
         this.isApp = false;
 }
+
+
+this.descRef2 = firebase.database().ref('/users-list');
+
+this.descRef2.on('value', descList => {
+  let temp = false; 
+  let descs5 = [];
+ 
+  descList.forEach( desc => {
+
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+
+//alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+
+    if (weeklyData["record"].uid == this.userId) {
+     descs5.push(weeklyData);
+
+     if (weeklyData["record"].type == 'A')
+      temp = true;
+     else
+      temp = false;
+
+    }
+
+  return false;
+  });
+
+//  this.descList = descs5;
+  this.isAdmin = temp;
+
+this.needRef = firebase.database().ref('/needs');
+
+this.needRef.on('value', descList => {
+  let descs2 = [];
+  descList.forEach( desc => {
+//    descs.push(desc.val());
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+    //descs.push(desc.val()+" "+desc.key);
+
+//alert(this.userId);
+
+//alert("isAdmin is "+this.isAdmin);
+
+if (temp) {
+    
+   if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate === this.userId) {
+   // alert(weeklyData["record"].desc);
+    descs2.push(weeklyData);
+   }
+
+   if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === this.userId) {
+//    alert(weeklyData["record"].desc);
+    descs2.push(weeklyData);
+   }
+    
+   if (weeklyData["record"].status == 'WorkCompleted' && weeklyData["record"].advocate === this.userId) {
+  //   alert(weeklyData["record"].desc);
+     descs2.push(weeklyData);
+   }
+
+
+}
+else {
+
+   if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === this.userId)
+     descs2.push(weeklyData);
+
+
+}
+
+  return false;
+  });
+
+//alert(descs[0].id);
+
+  this.needList = descs2;
+  //this.loadedDescList = descs;
+});
+
+
+
+});
 
 this.descRef = firebase.database().ref('/communities');
 
@@ -80,31 +176,6 @@ this.items$ = this.size$.switchMap(size =>
    );
 */
 
-this.needRef = firebase.database().ref('/needs');
-
-this.needRef.on('value', descList => {
-  let descs2 = [];
-  descList.forEach( desc => {
-//    descs.push(desc.val());
-    var weeklyData = {};
-
-    weeklyData["id"] = desc.key;
-    weeklyData["record"] = desc.val();
-    //descs.push(desc.val()+" "+desc.key);
-    
-   if (weeklyData["record"].status == 'Requested' || weeklyData["record"].status == 'InProgress' || weeklyData["record"].status == 'WorkCompleted'  ) {
-     descs2.push(weeklyData);
-   }
-
-  return false;
-  });
-
-//alert(descs[0].id);
-
-  this.needList = descs2;
-  //this.loadedDescList = descs;
-});
-
 //alert("needList size is "+this.needList.length);
 if (this.needList === undefined)
  this.needList = [];
@@ -112,6 +183,9 @@ if (this.needList === undefined)
 
 
   } //end constructor
+ionViewDidLoad() {
+this.userId = firebase.auth().currentUser.uid;
+}
 
 openModal() {
     let myModal = this.modalCtrl.create(NotificationsPage);

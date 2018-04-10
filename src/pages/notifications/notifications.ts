@@ -34,11 +34,9 @@ export class NotificationsPage {
   http: Http;
   data: any = {};
   public reqName: any;
-
-pushPage: any;
-
-section
-groceries
+  pushPage: any;
+  section
+  groceries
 
 constructor(public navCtrl: NavController,
 public platform: Platform,

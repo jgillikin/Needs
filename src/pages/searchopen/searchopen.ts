@@ -5,8 +5,7 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { Community } from './../../models/community/community';
 import { HomePage } from '../home/home';
-
-
+import { ContactPage } from '../contact/contact';
 
 @Component({
   selector: 'page-searchopen',
@@ -151,7 +150,7 @@ requestItem(item) {
   this.nd.update(item.id, { reqCell: this.reqCell });
 
 
-this.navCtrl.setRoot(HomePage);
+this.navCtrl.setRoot(ContactPage);
 
 
 }

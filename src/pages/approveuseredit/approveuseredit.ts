@@ -23,6 +23,8 @@ export class ApproveusereditPage {
 
   platformList: string = '';
   isApp: boolean = true;
+  isAdmin: boolean = false;
+  public descRef2: firebase.database.Reference;
   newuser = {} as Newuser;
   nu: AngularFireList<any> = this.db.list('/users-list');
   com: AngularFireList<any> = this.db.list('/users-pending');
@@ -42,10 +44,16 @@ export class ApproveusereditPage {
   size$: BehaviorSubject<string|null>;
   http: Http;
   data: any = {};
+  public needRef: firebase.database.Reference;
+  public needList: Array<any>;
+
 
 
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase,public params: NavParams,private afAuth: AngularFireAuth,http: Http, private toast: Toast,private toastCtrl: ToastController) {
+
+this.userId = firebase.auth().currentUser.uid;
+
 
       this.http = http;
 
@@ -93,6 +101,90 @@ this.items$ = this.size$.switchMap(size =>
        status ? ref.orderByChild('dateSub').equalTo('NEW') : ref
      ).snapshotChanges()
    );
+
+this.descRef2 = firebase.database().ref('/users-list');
+
+this.descRef2.on('value', descList => {
+  let temp = false; 
+  let descs5 = [];
+ 
+  descList.forEach( desc => {
+
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+
+//alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+
+    if (weeklyData["record"].uid == this.userId) {
+     descs5.push(weeklyData);
+
+     if (weeklyData["record"].type == 'A')
+      temp = true;
+     else
+      temp = false;
+
+    }
+
+  return false;
+  });
+
+//  this.descList = descs5;
+  this.isAdmin = temp;
+
+});
+
+this.needRef = firebase.database().ref('/needs');
+
+this.needRef.on('value', descList => {
+  let descs2 = [];
+  descList.forEach( desc => {
+//    descs.push(desc.val());
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+    //descs.push(desc.val()+" "+desc.key);
+    
+        if (this.isAdmin) {
+    
+   if (weeklyData["record"].status == 'Requested' && weeklyData["record"].advocate === this.userId) {
+   // alert(weeklyData["record"].desc);
+    descs2.push(weeklyData);
+   }
+
+   if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === this.userId) {
+//    alert(weeklyData["record"].desc);
+    descs2.push(weeklyData);
+   }
+    
+   if (weeklyData["record"].status == 'WorkCompleted' && weeklyData["record"].advocate === this.userId) {
+  //   alert(weeklyData["record"].desc);
+     descs2.push(weeklyData);
+   }
+
+
+}
+else {
+
+   if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy === this.userId)
+     descs2.push(weeklyData);
+
+
+}
+
+
+  return false;
+  });
+
+//alert(descs[0].id);
+
+  this.needList = descs2;
+  //this.loadedDescList = descs;
+});
+
+
 
 
   } //end constructor
