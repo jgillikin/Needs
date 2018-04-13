@@ -39,8 +39,8 @@ public afA: AngularFireAuth,public app: App) {
 
    this.userId = firebase.auth().currentUser.uid;
 
-   if (userId == 'quh5AGVVCKb3npQkxCxPzKBmaC52')
-    isSpecialAdmin = true;
+   if (this.userId == 'quh5AGVVCKb3npQkxCxPzKBmaC52')
+    this.isSpecialAdmin = true;
 
 
 /*    this.size$ = new BehaviorSubject(null);

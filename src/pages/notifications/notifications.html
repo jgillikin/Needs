@@ -9,7 +9,10 @@
   </ion-navbar>
 
 <ion-toolbar>
+
+
     <ion-segment [(ngModel)]="section" color="dark">
+
 
       <ion-segment-button value="one">Requests
 <ion-badge color="accent">{{this.descList.length}}</ion-badge>
@@ -19,11 +22,15 @@
 <ion-badge color="accent">{{this.descList2.length}}</ion-badge>
 </ion-segment-button>
 
+
       <ion-segment-button value="three">Finished
 <ion-badge color="accent">{{this.descList3.length}}</ion-badge>
 </ion-segment-button>
 
+
     </ion-segment>
+
+
 
   </ion-toolbar>
 
@@ -35,7 +42,6 @@
 
  <div [ngSwitch]="section">
 
-<div *ngIf="isSpecialAdmin">
 
       <ion-list *ngSwitchCase="'one'">
 
@@ -62,7 +68,6 @@
 
       </ion-list>
 
-</div>
 
       <ion-list *ngSwitchCase="'two'">
 
@@ -89,7 +94,6 @@
 
       </ion-list>
 
-<div *ngIf="isSpecialAdmin">
 
       <ion-list *ngSwitchCase="'three'">
 
@@ -113,7 +117,6 @@
         </ion-item-sliding>
 
       </ion-list>
-</div>
 
 
 </div>

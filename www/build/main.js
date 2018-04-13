@@ -1888,7 +1888,10 @@ var MorePage = (function () {
         this.app = app;
         this.isAllAdmin = false;
         this.isAdmin = false;
+        this.isSpecialAdmin = false;
         this.userId = __WEBPACK_IMPORTED_MODULE_9_firebase_app__["auth"]().currentUser.uid;
+        if (this.userId == 'quh5AGVVCKb3npQkxCxPzKBmaC52')
+            this.isSpecialAdmin = true;
         /*    this.size$ = new BehaviorSubject(null);
         
            this.items$ = this.size$.switchMap(size =>
@@ -1973,6 +1976,9 @@ var MorePage = (function () {
             _this.allList = descs3;
         });
     } //end constructor
+    MorePage.prototype.ionViewDidLoad = function () {
+        this.userId = __WEBPACK_IMPORTED_MODULE_9_firebase_app__["auth"]().currentUser.uid;
+    };
     MorePage.prototype.goNot = function () {
         //alert("in goNot");
         this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__notifications_notifications__["a" /* NotificationsPage */]);
@@ -2009,12 +2015,12 @@ var MorePage = (function () {
     };
     MorePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-more',template:/*ion-inline-start:"C:\needsApp\src\pages\more\more.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="openModal()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<ion-list>\n\n<div *ngIf="isAdmin">\n\n<ion-item (click)="open1()">\n\nAdd/Remove Communities\n\n</ion-item>\n\n</div>\n\n\n\n<div *ngIf="isAdmin">\n\n<ion-item (click)="open2()">\n\nManage Clients\n\n</ion-item>\n\n</div>\n\n\n\n<div *ngIf="isAdmin">\n\n<ion-item (click)="open4()">\n\nDelete a Need\n\n</ion-item>\n\n</div>\n\n\n\n<div *ngIf="isAllAdmin">\n\n<ion-item (click)="open5()">\n\nList all Advocates and Neighbors\n\n</ion-item>\n\n</div>\n\n\n\n<ion-item (click)="logOff()">\n\nLog Off\n\n</ion-item>\n\n<ion-item (click)="showAbout()">\n\nAbout\n\n</ion-item>\n\n</ion-list>\n\n\n\n<br>\n\n<br>\n\n<br>\n\n<br>\n\n<br>\n\n<p text-center>\n\nVersion 1\n\n</p>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\more\more.html"*/
+            selector: 'page-more',template:/*ion-inline-start:"C:\needsApp\src\pages\more\more.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="openModal()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<ion-list>\n\n<div *ngIf="isSpecialAdmin">\n\n<ion-item (click)="open1()">\n\nAdd/Remove Communities\n\n</ion-item>\n\n</div>\n\n\n\n<div *ngIf="isSpecialAdmin">\n\n<ion-item (click)="open2()">\n\nManage Clients\n\n</ion-item>\n\n</div>\n\n\n\n<div *ngIf="isSpecialAdmin">\n\n<ion-item (click)="open4()">\n\nDelete a Need\n\n</ion-item>\n\n</div>\n\n\n\n<div *ngIf="isSpecialAdmin">\n\n<ion-item (click)="open5()">\n\nList all Advocates and Neighbors\n\n</ion-item>\n\n</div>\n\n\n\n<ion-item (click)="logOff()">\n\nLog Off\n\n</ion-item>\n\n<ion-item (click)="showAbout()">\n\nAbout\n\n</ion-item>\n\n</ion-list>\n\n\n\n<br>\n\n<br>\n\n<br>\n\n<br>\n\n<br>\n\n<p text-center>\n\nVersion 1\n\n</p>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\more\more.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_7_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */],
-            __WEBPACK_IMPORTED_MODULE_8_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_7_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_8_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _e || Object])
     ], MorePage);
     return MorePage;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=more.js.map
@@ -2736,6 +2742,7 @@ var NotificationsPage = (function () {
         this.need = {};
         this.nd = this.db.list('/needs');
         this.ul = this.db.list('/users-list');
+        this.isAdmin = false;
         this.data = {};
         this.page1 = __WEBPACK_IMPORTED_MODULE_6__requests_requests__["a" /* RequestsPage */];
         this.http = http;
@@ -2802,8 +2809,32 @@ var NotificationsPage = (function () {
             this.descList2 = [];
         if (this.descList3 === undefined)
             this.descList3 = [];
+        this.descRef2 = __WEBPACK_IMPORTED_MODULE_2_firebase_app__["database"]().ref('/users-list');
+        this.descRef2.on('value', function (descList) {
+            var temp = false;
+            var descs5 = [];
+            descList.forEach(function (desc) {
+                var weeklyData = {};
+                weeklyData["id"] = desc.key;
+                weeklyData["record"] = desc.val();
+                //alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+                if (weeklyData["record"].uid == _this.userId) {
+                    descs5.push(weeklyData);
+                    if (weeklyData["record"].type == 'A')
+                        temp = true;
+                    else
+                        temp = false;
+                }
+                return false;
+            });
+            //  this.descList = descs5;
+            _this.isAdmin = temp;
+        });
     } //end constructor
     NotificationsPage_1 = NotificationsPage;
+    NotificationsPage.prototype.ionViewDidLoad = function () {
+        this.userId = __WEBPACK_IMPORTED_MODULE_2_firebase_app__["auth"]().currentUser.uid;
+    };
     NotificationsPage.prototype.editItem1 = function (item) {
         var toS;
         this.nd.update(item.id, { status: 'InProgress' });
@@ -2943,14 +2974,12 @@ var NotificationsPage = (function () {
     };
     NotificationsPage = NotificationsPage_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-notifications',template:/*ion-inline-start:"C:\needsApp\src\pages\notifications\notifications.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Notifications\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button ion-button color="clear" (click)="logout()">Close</button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n<ion-toolbar>\n\n    <ion-segment [(ngModel)]="section" color="dark">\n\n\n\n      <ion-segment-button value="one">Requests\n\n<ion-badge color="accent">{{this.descList.length}}</ion-badge>\n\n              </ion-segment-button>\n\n\n\n      <ion-segment-button value="two">Progress\n\n<ion-badge color="accent">{{this.descList2.length}}</ion-badge>\n\n</ion-segment-button>\n\n\n\n      <ion-segment-button value="three">Finished\n\n<ion-badge color="accent">{{this.descList3.length}}</ion-badge>\n\n</ion-segment-button>\n\n\n\n    </ion-segment>\n\n\n\n  </ion-toolbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n\n\n\n\n <div [ngSwitch]="section">\n\n\n\n      <ion-list *ngSwitchCase="\'one\'">\n\n\n\n<br>\n\n\n\n<ion-item-sliding *ngFor="let desc of descList">\n\n\n\n <ion-item>\n\n  <b>Requested Need:</b>  {{desc.record.desc}}<br>\n\n  <b>Date Requested:</b>  {{desc.record.dateSub}} <br>\n\n  <b>Requested By:</b>  {{desc.record.reqName}} <br>\n\n  <b>Requestor Cell:</b> {{desc.record.reqCell}} \n\n<button ion-button clear item-end>\n\n<ion-icon name="arrow-forward"></ion-icon>\n\n</button>\n\n\n\n </ion-item>\n\n\n\n <ion-item-options>\n\n  <button ion-button color="primary" (click)="editItem1(desc)">Approve</button>\n\n  <button ion-button color="danger" (click)="rejectItem1(desc)"><ion-icon trash></ion-icon> Reject</button>\n\n </ion-item-options>\n\n</ion-item-sliding>\n\n\n\n      </ion-list>\n\n\n\n      <ion-list *ngSwitchCase="\'two\'">\n\n\n\n        <br>\n\n\n\n        <ion-item-sliding *ngFor="let desc of descList2">\n\n\n\n         <ion-item>\n\n          <b>Requested Need:</b>  {{desc.record.desc}}<br>\n\n          <b>Date Requested:</b>  {{desc.record.dateSub}}\n\n<button ion-button clear item-end>\n\n<ion-icon name="arrow-forward"></ion-icon>\n\n</button>\n\n\n\n         </ion-item>\n\n\n\n\n\n\n\n         <ion-item-options>\n\n          <button ion-button color="primary" (click)="editItem2(desc)">Finish</button>\n\n        <!--  <button ion-button color="danger" (click)="rejectItem2(desc)"><ion-icon trash></ion-icon> Reject</button>-->\n\n         </ion-item-options>\n\n        </ion-item-sliding>\n\n\n\n      </ion-list>\n\n\n\n      <ion-list *ngSwitchCase="\'three\'">\n\n\n\n        <br>\n\n\n\n        <ion-item-sliding *ngFor="let desc of descList3">\n\n\n\n         <ion-item>\n\n          <b>Requested Need:</b>  {{desc.record.desc}}<br>\n\n          <b>Date Requested:</b>  {{desc.record.dateSub}}\n\n<button ion-button clear item-end>\n\n<ion-icon name="arrow-forward"></ion-icon>\n\n</button>\n\n\n\n         </ion-item>\n\n\n\n         <ion-item-options>\n\n          <button ion-button color="primary" (click)="editItem3(desc)">Close</button>\n\n<!--          <button ion-button color="danger" (click)="rejectItem3(desc)"><ion-icon trash></ion-icon> Reject</button>-->\n\n         </ion-item-options>\n\n        </ion-item-sliding>\n\n\n\n      </ion-list>\n\n\n\n\n\n\n\n</div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\notifications\notifications.html"*/
+            selector: 'page-notifications',template:/*ion-inline-start:"C:\needsApp\src\pages\notifications\notifications.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Notifications\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button ion-button color="clear" (click)="logout()">Close</button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n<ion-toolbar>\n\n\n\n\n\n    <ion-segment [(ngModel)]="section" color="dark">\n\n\n\n\n\n      <ion-segment-button value="one">Requests\n\n<ion-badge color="accent">{{this.descList.length}}</ion-badge>\n\n              </ion-segment-button>\n\n\n\n      <ion-segment-button value="two">Progress\n\n<ion-badge color="accent">{{this.descList2.length}}</ion-badge>\n\n</ion-segment-button>\n\n\n\n\n\n      <ion-segment-button value="three">Finished\n\n<ion-badge color="accent">{{this.descList3.length}}</ion-badge>\n\n</ion-segment-button>\n\n\n\n\n\n    </ion-segment>\n\n\n\n\n\n\n\n  </ion-toolbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n\n\n\n\n <div [ngSwitch]="section">\n\n\n\n\n\n      <ion-list *ngSwitchCase="\'one\'">\n\n\n\n<br>\n\n\n\n<ion-item-sliding *ngFor="let desc of descList">\n\n\n\n <ion-item>\n\n  <b>Requested Need:</b>  {{desc.record.desc}}<br>\n\n  <b>Date Requested:</b>  {{desc.record.dateSub}} <br>\n\n  <b>Requested By:</b>  {{desc.record.reqName}} <br>\n\n  <b>Requestor Cell:</b> {{desc.record.reqCell}} \n\n<button ion-button clear item-end>\n\n<ion-icon name="arrow-forward"></ion-icon>\n\n</button>\n\n\n\n </ion-item>\n\n\n\n <ion-item-options>\n\n  <button ion-button color="primary" (click)="editItem1(desc)">Approve</button>\n\n  <button ion-button color="danger" (click)="rejectItem1(desc)"><ion-icon trash></ion-icon> Reject</button>\n\n </ion-item-options>\n\n</ion-item-sliding>\n\n\n\n      </ion-list>\n\n\n\n\n\n      <ion-list *ngSwitchCase="\'two\'">\n\n\n\n        <br>\n\n\n\n        <ion-item-sliding *ngFor="let desc of descList2">\n\n\n\n         <ion-item>\n\n          <b>Requested Need:</b>  {{desc.record.desc}}<br>\n\n          <b>Date Requested:</b>  {{desc.record.dateSub}}\n\n<button ion-button clear item-end>\n\n<ion-icon name="arrow-forward"></ion-icon>\n\n</button>\n\n\n\n         </ion-item>\n\n\n\n\n\n\n\n         <ion-item-options>\n\n          <button ion-button color="primary" (click)="editItem2(desc)">Finish</button>\n\n        <!--  <button ion-button color="danger" (click)="rejectItem2(desc)"><ion-icon trash></ion-icon> Reject</button>-->\n\n         </ion-item-options>\n\n        </ion-item-sliding>\n\n\n\n      </ion-list>\n\n\n\n\n\n      <ion-list *ngSwitchCase="\'three\'">\n\n\n\n        <br>\n\n\n\n        <ion-item-sliding *ngFor="let desc of descList3">\n\n\n\n         <ion-item>\n\n          <b>Requested Need:</b>  {{desc.record.desc}}<br>\n\n          <b>Date Requested:</b>  {{desc.record.dateSub}}\n\n<button ion-button clear item-end>\n\n<ion-icon name="arrow-forward"></ion-icon>\n\n</button>\n\n\n\n         </ion-item>\n\n\n\n         <ion-item-options>\n\n          <button ion-button color="primary" (click)="editItem3(desc)">Close</button>\n\n<!--          <button ion-button color="danger" (click)="rejectItem3(desc)"><ion-icon trash></ion-icon> Reject</button>-->\n\n         </ion-item-options>\n\n        </ion-item-sliding>\n\n\n\n      </ion-list>\n\n\n\n\n\n</div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\notifications\notifications.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["j" /* Platform */],
-            __WEBPACK_IMPORTED_MODULE_3_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_7__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["l" /* ViewController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_7__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__angular_http__["a" /* Http */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["l" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["l" /* ViewController */]) === "function" && _f || Object])
     ], NotificationsPage);
     return NotificationsPage;
-    var NotificationsPage_1;
+    var NotificationsPage_1, _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=notifications.js.map
