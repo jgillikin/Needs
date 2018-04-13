@@ -1,6 +1,6 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "The Needs App",
+  "short_name": "NeedsApp",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

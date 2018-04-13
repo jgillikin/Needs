@@ -11,7 +11,7 @@ import { NotificationsPage } from '../notifications/notifications';
 import { User } from './../../models/user/user';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {Http, Request, RequestMethod, Headers} from "@angular/http";
+import {Http, Request, RequestMethod, Headers,URLSearchParams} from "@angular/http";
 import { Toast } from '@ionic-native/toast';
 import { ToastController } from 'ionic-angular';
 
@@ -264,17 +264,37 @@ this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.pass2)
 
        //send SMS
        var link='https://jasongillikin.000webhostapp.com/blueEmail2.php';
+
+       var mmsg = 'Your Needs App account has been activated, you can now login.';
+
+       var link2='https://till-node-demo-iizbwqdopi.now.sh/login';
+
        var myData;
        var message;
        myData = JSON.stringify({emailS: 'Your Needs account has been activiated', toS: sendEmail});
 
+let params: URLSearchParams = new URLSearchParams();
+ params.set('msg', mmsg);
+ params.set('mto','["1'+this.cell+'"]');
 
-       this.http.post(link,myData)
+ //Http request-
+ this.http.get(link2, {
+   search: params
+ }).subscribe(
+   (response) => console.log('worked'), 
+   (error) => console.log('error')
+ );
+
+       
+
+      /* this.http.post(link,myData)
        .subscribe(data => {
        this.data.response = "OK";
        }, error => {
        console.log("oops");
-       });
+       });*/
+
+
 
 
        this.navCtrl.setRoot(HomePage);

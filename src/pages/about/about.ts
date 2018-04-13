@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Toast } from '@ionic-native/toast';
 import { ModalController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
-
+import {App} from 'ionic-angular';
 
 @Component({
   selector: 'page-about',
@@ -36,7 +36,7 @@ export class AboutPage {
 
 
   constructor(public navCtrl: NavController,
-public platform: Platform,public db: AngularFireDatabase,private toast: Toast,public modalCtrl: ModalController,private toastCtrl: ToastController) {
+public platform: Platform,public db: AngularFireDatabase,private toast: Toast,public modalCtrl: ModalController,private toastCtrl: ToastController,public app: App) {
 
 this.userId = firebase.auth().currentUser.uid;
 
