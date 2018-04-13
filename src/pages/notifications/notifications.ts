@@ -25,11 +25,13 @@ export class NotificationsPage {
   nd: AngularFireList<any> = this.db.list('/needs');
   ul: AngularFireList<any> = this.db.list('/users-list');
   userId: any;
+  isAdmin: boolean = false;
   public descList:Array<any>;
   public descList2:Array<any>;
   public descList3:Array<any>;
   public descRef: firebase.database.Reference;
   public userRef: firebase.database.Reference;
+  public descRef2: firebase.database.Reference;
   public loadedDescList: Array<any>;
   http: Http;
   data: any = {};
@@ -141,7 +143,44 @@ if (this.descList2 === undefined)
 if (this.descList3 === undefined)
  this.descList3 = [];
 
+this.descRef2 = firebase.database().ref('/users-list');
+
+this.descRef2.on('value', descList => {
+  let temp = false; 
+  let descs5 = [];
+ 
+  descList.forEach( desc => {
+
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+
+//alert("this userId is "+this.userId+" and array uid is "+weeklyData["record"].uid);
+
+    if (weeklyData["record"].uid == this.userId) {
+     descs5.push(weeklyData);
+
+     if (weeklyData["record"].type == 'A')
+      temp = true;
+     else
+      temp = false;
+
+    }
+
+  return false;
+  });
+
+//  this.descList = descs5;
+  this.isAdmin = temp;
+});
+
+
+
   } //end constructor
+ionViewDidLoad() {
+this.userId = firebase.auth().currentUser.uid;
+}
 
 
   editItem1(item) {

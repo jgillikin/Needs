@@ -13,25 +13,25 @@
 <ion-content padding>
 
 <ion-list>
-<div *ngIf="isAdmin">
+<div *ngIf="isSpecialAdmin">
 <ion-item (click)="open1()">
 Add/Remove Communities
 </ion-item>
 </div>
 
-<div *ngIf="isAdmin">
+<div *ngIf="isSpecialAdmin">
 <ion-item (click)="open2()">
 Manage Clients
 </ion-item>
 </div>
 
-<div *ngIf="isAdmin">
+<div *ngIf="isSpecialAdmin">
 <ion-item (click)="open4()">
 Delete a Need
 </ion-item>
 </div>
 
-<div *ngIf="isAllAdmin">
+<div *ngIf="isSpecialAdmin">
 <ion-item (click)="open5()">
 List all Advocates and Neighbors
 </ion-item>

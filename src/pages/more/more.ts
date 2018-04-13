@@ -32,11 +32,15 @@ export class MorePage {
   isAllAdmin: boolean = false;
   userId: any;
   isAdmin: boolean = false;
+  isSpecialAdmin: boolean = false;
 
   constructor(public navCtrl: NavController,public db: AngularFireDatabase,public modalCtrl: ModalController,
 public afA: AngularFireAuth,public app: App) {
 
    this.userId = firebase.auth().currentUser.uid;
+
+   if (userId == 'quh5AGVVCKb3npQkxCxPzKBmaC52')
+    isSpecialAdmin = true;
 
 
 /*    this.size$ = new BehaviorSubject(null);
@@ -167,6 +171,10 @@ this.allRef.on('value', descList => {
 
 
   } //end constructor
+ionViewDidLoad() {
+this.userId = firebase.auth().currentUser.uid;
+}
+
 
 goNot() {
 //alert("in goNot");
