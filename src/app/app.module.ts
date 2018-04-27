@@ -14,6 +14,7 @@ import { RequestsPage } from '../pages/requests/requests';
 import { RegisterPage } from '../pages/register/register';
 import { AllopenPage } from '../pages/allopen/allopen';
 import { AllclosedPage } from '../pages/allclosed/allclosed';
+import { Allclosed2Page } from '../pages/allclosed2/allclosed2';
 import { SearchopenPage } from '../pages/searchopen/searchopen';
 import { SearchclosedPage } from '../pages/searchclosed/searchclosed';
 import { LoginPage } from '../pages/login/login';
@@ -49,6 +50,7 @@ import { Toast } from '@ionic-native/toast';
     AllopenPage,
     SearchopenPage,
     AllclosedPage,
+    Allclosed2Page,
     SearchclosedPage,
     ManageclientsPage,
     ManageneedsPage,
@@ -82,6 +84,7 @@ import { Toast } from '@ionic-native/toast';
     AllopenPage,
     SearchopenPage,
     AllclosedPage,
+    Allclosed2Page,
     SearchclosedPage,
     ManageclientsPage,
     ManageneedsPage,

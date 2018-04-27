@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Historical Needs Report
+    </ion-title>
+   
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+
+<br>
+<div text-center>Historical Needs Report</div>
+<br>
+<div text-center>
+<div *ngFor="let desc of descList" text-center>
+
+<ion-item><b>Need Desc:</b>  {{desc.record.desc}}<br>
+<b>Date Closed:</b>  {{desc.record.dateComp}}<br>
+<b>Community:</b>  {{desc.record.communityId}}<br>
+<b>Client:</b>  {{desc.record.clientId}}
+</ion-item>
+
+</div>
+</div>
+</ion-content>

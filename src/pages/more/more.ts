@@ -13,6 +13,7 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { ModalController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
+import { Allclosed2Page } from '../allclosed2/allclosed2';
 import { CreedPage } from '../creed/creed';
 import {App} from 'ionic-angular';
 
@@ -33,6 +34,7 @@ export class MorePage {
   userId: any;
   isAdmin: boolean = false;
   isSpecialAdmin: boolean = false;
+  isReportAdmin: boolean = false;
 
   constructor(public navCtrl: NavController,public db: AngularFireDatabase,public modalCtrl: ModalController,
 public afA: AngularFireAuth,public app: App) {
@@ -141,6 +143,7 @@ this.allRef.on('value', descList => {
   let descs3 = [];
   let temp: boolean = false;
   let temp2: boolean = false;
+  let temp3: boolean = false;
 
   descList.forEach( desc => {
     var weeklyData = {};
@@ -160,12 +163,16 @@ this.allRef.on('value', descList => {
     //return true;
    }
 
+   if (weeklyData["record"].uid == this.userId && weeklyData["record"].reportType == 'A')
+    temp3 = true;
+
   return false;
   });
 
 //alert(descs[0].id);
   this.isAllAdmin = temp;
   this.isAdmin = temp2;
+  this.isReportAdmin = temp3;
   this.allList = descs3;
 });
 
@@ -195,6 +202,10 @@ this.navCtrl.push(ManageneedsPage);
 
 open5 () {
 this.navCtrl.push(ManageusersPage);
+}
+
+open6 () {
+this.navCtrl.push(Allclosed2Page);
 }
 
 

@@ -25,7 +25,7 @@
                   <ion-label>Client</ion-label>
                   <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">
                     <div *ngFor="let field of descList">
-                      <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}
+                      <ion-option value="{{field.name}}">{{field.record.fname}} {{field.record.lname}}
                       </ion-option>
                     </div>
                   </ion-select>
@@ -56,7 +56,7 @@
                     <ion-label>Client</ion-label>
                     <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">
                       <div *ngFor="let field of descList">
-                        <ion-option value="{{field.id}}">{{field.record.fname}} {{field.record.lname}}
+                        <ion-option value="{{field.name}}">{{field.record.fname}} {{field.record.lname}}
                         </ion-option>
                       </div>
                     </ion-select>

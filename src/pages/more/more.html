@@ -37,6 +37,12 @@ List all Advocates and Neighbors
 </ion-item>
 </div>
 
+<div *ngIf="isReportAdmin">
+<ion-item (click)="open6()">
+Historical Needs Report
+</ion-item>
+</div>
+
 <ion-item (click)="logOff()">
 Log Off
 </ion-item>

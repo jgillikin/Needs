@@ -60,7 +60,9 @@ this.descRef.on('value', descList => {
     var weeklyData = {};
 
     weeklyData["id"] = desc.key;
+    weeklyData["name"] = desc.val().fname+' '+desc.val().lname;
     weeklyData["record"] = desc.val();
+    
     //descs.push(desc.val()+" "+desc.key);
     descs.push(weeklyData);
   return false;
@@ -271,6 +273,8 @@ this.navCtrl.setRoot(NotificationsPage);
 }
 
 onChange(clientId) {
+
+
 
 //this.shoppingList2 = firebase.database().ref('/clients/'+clientId);
 
