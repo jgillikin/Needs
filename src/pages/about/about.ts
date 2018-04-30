@@ -229,6 +229,18 @@ today = mm+'/'+dd+'/'+yyyy;
  "dateAdded": today
 });
 
+if (this.platform.is('mobileweb')) {
+ let toast2 = this.toastCtrl.create({
+    message: 'Client added',
+    duration: 2000,
+    position: 'bottom'
+  });
+
+toast2.present();
+
+}
+
+
 this.navCtrl.setRoot(HomePage);
 
 }
