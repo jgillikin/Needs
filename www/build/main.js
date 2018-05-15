@@ -692,7 +692,7 @@ var RegisterPage = (function () {
         }
         today = mm + '/' + dd + '/' + yyyy;
         //let cellMod = nu2.cell.replace(/-/g,"");
-        var cellMod = nu2.cell.replace(/[\(\)\-\s]+/g, '');
+        var cellMod = nu2.cell.replace(/[()\-\s]+/g, '');
         this.nu.push({
             "fname": nu2.fname,
             "lname": nu2.lname,
