@@ -140,12 +140,13 @@ if(mm<10){
 }
 today = mm+'/'+dd+'/'+yyyy;
 
+let cellMod = nu2.cell.replace(/-/g,"");
 
  this.nu.push({
  "fname": nu2.fname,
  "lname": nu2.lname,
  "email": nu2.email,
- "cell": nu2.cell,
+ "cell": cellMod,
  "defaultCom": nu2.defaultCom,
  "password": nu2.password,
  "dateAdded": today
