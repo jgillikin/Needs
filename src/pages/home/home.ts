@@ -11,7 +11,6 @@ import { Toast } from '@ionic-native/toast';
 import { ModalController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
