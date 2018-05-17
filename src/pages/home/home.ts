@@ -23,7 +23,9 @@ export class HomePage {
   isApp: boolean = true;
   need = {} as Need;
   nd: AngularFireList<any> = this.db.list('/needs');
-  userId: any;
+  userId: any; 
+  fname: any;
+  lname: any;
   isAdmin: boolean = false;
   public descList:Array<any>;
   public descRef: firebase.database.Reference;
@@ -78,6 +80,7 @@ this.descRef2 = firebase.database().ref('/users-list');
 
 this.descRef2.on('value', descList => {
   let temp = false; 
+  let f,l;
   let descs5 = [];
  
   descList.forEach( desc => {
@@ -91,6 +94,8 @@ this.descRef2.on('value', descList => {
 
     if (weeklyData["record"].uid == this.userId) {
      descs5.push(weeklyData);
+     f = weeklyData["record"].fname;
+     l = weeklyData["record"].lname;
 
      if (weeklyData["record"].type == 'A')
       temp = true;
@@ -104,6 +109,8 @@ this.descRef2.on('value', descList => {
 
 //  this.descList = descs5;
   this.isAdmin = temp;
+  this.fname = f;
+  this.lname = l;
 });
 
 this.needRef = firebase.database().ref('/needs');
@@ -257,6 +264,7 @@ today = mm+'/'+dd+'/'+yyyy;
  "dateSub": today,
  "status": 'NEW',
  "advocate": this.userId,
+ "advocateName": this.fname+' '+this.lname,
  "advocateCell": this.reqCell,
  "dateComp": '',
  "notes": '',

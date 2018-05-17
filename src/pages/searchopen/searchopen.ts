@@ -6,6 +6,8 @@ import * as firebase from 'firebase/app';
 import { Community } from './../../models/community/community';
 import { HomePage } from '../home/home';
 import { ContactPage } from '../contact/contact';
+import {Http, Request, RequestMethod, Headers, URLSearchParams,RequestOptions} from "@angular/http";
+
 
 @Component({
   selector: 'page-searchopen',
@@ -29,7 +31,9 @@ export class SearchopenPage {
 
 
   constructor(public navCtrl: NavController,
-public platform: Platform,public db: AngularFireDatabase,public params: NavParams) {
+public platform: Platform,public db: AngularFireDatabase,public params: NavParams, http: Http) {
+
+      this.http = http;
 
       this.userId = firebase.auth().currentUser.uid;
 
@@ -148,6 +152,25 @@ requestItem(item) {
   this.nd.update(item.id, { reqBy: this.userId });
   this.nd.update(item.id, { reqName: this.reqName });
   this.nd.update(item.id, { reqCell: this.reqCell });
+
+  var mmsg = 'Please review a new Request for Need "'+item.record.desc+'"';
+
+
+  var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
+
+
+
+let params: URLSearchParams = new URLSearchParams();
+ params.set('msg', mmsg);
+ params.set('mto','["1'+item.record.advocateCell+'"]');
+
+ //Http request-
+ this.http.get(link2, {
+   search: params
+ }).subscribe(
+   (response) => console.log('worked'), 
+   (error) => console.log('error')
+ );
 
 
 this.navCtrl.setRoot(ContactPage);

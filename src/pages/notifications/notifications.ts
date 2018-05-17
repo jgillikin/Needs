@@ -206,9 +206,10 @@ this.userId = firebase.auth().currentUser.uid;
   toS = toS+'@messaging.sprintpcs.com';
 
 var mmsg = 'You have been assigned Need "'+item.record.desc+'"';
+mmsg = mmsg+ '.  Please contact '+item.record.advocateName+' at '+item.record.advocateCell+' for more info';
 
 
-var link2='https://till-node-demo-iizbwqdopi.now.sh/login';
+var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
 
 
 //alert("send to "+toS);
@@ -273,10 +274,10 @@ let params: URLSearchParams = new URLSearchParams();
   let sendEmail = '7572865248@messaging.sprintpcs.com';
   toS = toS+'@messaging.sprintpcs.com';
 
-var mmsg = 'Work completed for Need "'+item.record.desc+'" please close it out';
+var mmsg = 'Needs work completed for Need "'+item.record.desc+'" by '+item.record.reqName+' ('+item.record.reqCell+') please close it out';
 
 
-var link2='https://till-node-demo-iizbwqdopi.now.sh/login';
+var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
 
 
   //send SMS
@@ -360,7 +361,32 @@ today = mm+'/'+dd+'/'+yyyy;
   var link='https://jasongillikin.000webhostapp.com/blueEmail2.php';
   var myData;
   var message;
-  myData = JSON.stringify({emailS: 'Status set to CLOSED for Need:  "'+item.record.desc+'"', toS: toS});
+  myData = JSON.stringify({emailS: 'NeedsApp, status set to CLOSED for Need:  "'+item.record.desc+'"', toS: toS});
+
+var mmsg = 'NeedsApp, status set to CLOSED for Need:  "'+item.record.desc+'"';
+
+
+var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
+
+
+  //send SMS
+  var link='https://jasongillikin.000webhostapp.com/blueEmail.php';
+  var myData;
+  var message;
+  myData = JSON.stringify({emailS: 'Work Completed for Need:  "'+item.record.desc+'"' +' please close it out', toS: toS});
+
+let params: URLSearchParams = new URLSearchParams();
+ params.set('msg', mmsg);
+ params.set('mto','["1'+item.record.advocateCell+'"]');
+
+ //Http request-
+ this.http.get(link2, {
+   search: params
+ }).subscribe(
+   (response) => console.log('worked'), 
+   (error) => console.log('error')
+ );
+
 
 /*
 //commented out since we dont need to send a text every time an Advocate closes out a Need

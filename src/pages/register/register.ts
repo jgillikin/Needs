@@ -161,7 +161,11 @@ var mmsg = 'New Needs User request from '+nu2.fname+' '+nu2.lname;
 //alert("mmsg is "+mmsg);
 
 var link2='https://till-node-demo-iizbwqdopi.now.sh/login';
+//linked to palomas gmail in Till
 //alert(link2);
+
+//twilio on Zeit with palomas email
+var link3='https://twiliotest-ajvlzxkjds.now.sh/login';
 
 var myData,myData2;
 var message;
@@ -173,7 +177,7 @@ let params: URLSearchParams = new URLSearchParams();
  params.set('mto','["17572865248"]');
 
  //Http request-
- this.http.get(link2, {
+ this.http.get(link3, {
    search: params
  }).subscribe(
    (response) => console.log('worked'), 
