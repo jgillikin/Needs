@@ -28,6 +28,7 @@ export class SearchopenPage {
   public reqCell: any;
   public userRef: firebase.database.Reference;
   userId: any;
+  http: Http;
 
 
   constructor(public navCtrl: NavController,
