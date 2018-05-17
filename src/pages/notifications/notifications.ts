@@ -222,7 +222,7 @@ var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
 
 let params: URLSearchParams = new URLSearchParams();
  params.set('msg', mmsg);
- params.set('mto','["1'+item.record.advocateCell+'"]');
+ params.set('mto','["1'+item.record.reqCell+'"]');
 
  //Http request-
  this.http.get(link2, {
