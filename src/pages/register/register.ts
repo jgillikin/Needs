@@ -161,7 +161,7 @@ var mmsg = 'New Needs User request from '+nu2.fname+' '+nu2.lname;
 //alert("mmsg is "+mmsg);
 
 //var link2='https://till-node-demo-iizbwqdopi.now.sh/login';
-var link2='http://needstwilio3-twilioneeds.a3c1.starter-us-west-1.openshiftapps.com:8080/login';
+var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
 
 //linked to palomas gmail in Till
 //alert(link2);

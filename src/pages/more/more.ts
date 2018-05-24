@@ -219,6 +219,10 @@ showAbout() {
     myModal.present();
 }
 
+setNoti() {
+//alert("Let Jason now how often you want to receive notificatons :-) ");
+}
+
 logOff(){
 //alert("in logout");
 
