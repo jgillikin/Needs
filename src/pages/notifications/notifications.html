@@ -53,7 +53,9 @@
   <b>Requested Need:</b>  {{desc.record.desc}}<br>
   <b>Date Requested:</b>  {{desc.record.dateSub}} <br>
   <b>Requested By:</b>  {{desc.record.reqName}} <br>
-  <b>Requestor Cell:</b> {{desc.record.reqCell}} 
+  <b>Requestor Cell:</b> {{desc.record.reqCell}} <br>
+<button ion-button (click)="editItem1(desc)">Appprove</button>&nbsp;&nbsp;&nbsp;
+<button ion-button color="danger" (click)="rejectItem1(desc)">Reject</button>
 <button ion-button clear item-end>
 <ion-icon name="arrow-forward"></ion-icon>
 </button>
@@ -79,7 +81,9 @@
           <b>Requested Need:</b>  {{desc.record.desc}}<br>
           <b>Date Requested:</b>  {{desc.record.dateSub}} <br>
           <b>Advocate:</b>  {{desc.record.advocateName}} <br>
-          <b>Advocate Cell:</b> {{desc.record.advocateCell}}
+          <b>Advocate Cell:</b> {{desc.record.advocateCell}} <br>
+  <button ion-button color="primary" (click)="editItem2(desc)">Finished work</button>
+
 <button ion-button clear item-end>
 <ion-icon name="arrow-forward"></ion-icon>
 </button>
@@ -107,7 +111,8 @@
           <b>Requested Need:</b>  {{desc.record.desc}}<br>
           <b>Date Requested:</b>  {{desc.record.dateSub}} <br>
           <b>Worked by:</b>  {{desc.record.reqName}} <br>
-          <b>Cell:</b> {{desc.record.reqCell}} 
+          <b>Cell:</b> {{desc.record.reqCell}} <br>
+  <button ion-button color="primary" (click)="editItem3(desc)">Close</button>
 
 <button ion-button clear item-end>
 <ion-icon name="arrow-forward"></ion-icon>
