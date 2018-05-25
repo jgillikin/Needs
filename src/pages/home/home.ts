@@ -8,6 +8,8 @@ import { NotificationsPage } from '../notifications/notifications';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Toast } from '@ionic-native/toast';
+import {Http, Request, RequestMethod, Headers, URLSearchParams,RequestOptions} from "@angular/http";
+
 import { ModalController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 
@@ -25,8 +27,10 @@ export class HomePage {
   userId: any; 
   fname: any;
   lname: any;
+  http: Http;
   isAdmin: boolean = false;
   public descList:Array<any>;
+  public hviewList:Array<any>;
   public descRef: firebase.database.Reference;
   public descRef2: firebase.database.Reference;
   public needRef: firebase.database.Reference;
@@ -40,7 +44,10 @@ export class HomePage {
   size$: BehaviorSubject<string|null>;
 
   constructor(public navCtrl: NavController, public platform: Platform,public db: AngularFireDatabase,private toast: Toast,
-public modalCtrl: ModalController,private toastCtrl: ToastController) {
+public modalCtrl: ModalController,private toastCtrl: ToastController,
+http: Http) {
+
+this.http = http;
 
 this.userId = firebase.auth().currentUser.uid;
 
@@ -81,6 +88,7 @@ this.descRef2.on('value', descList => {
   let temp = false; 
   let f,l;
   let descs5 = [];
+  let hviews = [];
  
   descList.forEach( desc => {
 
@@ -103,10 +111,15 @@ this.descRef2.on('value', descList => {
 
     }
 
+    if (weeklyData["record"].defaultCom === 'Harbour View') {
+     hviews.push(weeklyData);
+    }
+
   return false;
   });
 
 //  this.descList = descs5;
+  this.hviewList = hviews;
   this.isAdmin = temp;
   this.fname = f;
   this.lname = l;
@@ -280,6 +293,35 @@ if (this.platform.is('mobileweb')) {
 toast2.present();
 
 }
+
+//send text for new Need
+var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
+
+var mmsg = 'There is a new Need in the Needs App:  '+nd2.desc; 
+
+// this.hviewList
+for (var s=0; s< this.hviewList.length; s++) {
+
+// alert(this.hviewList[s].record.cell);
+
+//if (this.hviewList[s].record.cell == '7572865248') {
+
+let params: URLSearchParams = new URLSearchParams();
+ params.set('msg', mmsg);
+ params.set('mto','["1'+this.hviewList[s].record.cell+'"]');
+
+ //Http request-
+ this.http.get(link2, {
+   search: params
+ }).subscribe(
+   (response) => console.log('worked'), 
+   (error) => console.log('error')
+ );
+
+//} //end temp if
+
+
+} //end for
 
 
 this.navCtrl.setRoot(HomePage);
