@@ -11,7 +11,7 @@ webpackJsonp([0],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_auth__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__notifications_notifications__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__notifications_notifications__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__approveuseredit_approveuseredit__ = __webpack_require__(297);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -209,9 +209,9 @@ webpackEmptyAsyncContext.id = 197;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__notifications_notifications__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__notifications_notifications__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(36);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -336,7 +336,6 @@ var HomePage = (function () {
         if (this.needList === undefined)
             this.needList = [];
         /* this.size$ = new BehaviorSubject(null);
-        
         
          this.items$ = this.size$.switchMap(count =>
               db.list('/needs', ref =>
@@ -471,10 +470,12 @@ var HomePage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"C:\needsApp\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Needs</ion-title>\n\n<ion-buttons end>\n\n    <button id="notification-button" ion-button clear (click)="openModal()">\n\n        <ion-icon name="notifications">\n\n          <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}\n\n</ion-badge>\n\n        </ion-icon>\n\n    </button>\n\n  </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="95%">\n\n<ion-list>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Client</ion-label>\n\n                  <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.name}}">{{field.record.fname}} {{field.record.lname}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n  <ion-item>\n\n    <ion-label color="dark">Need:  </ion-label>\n\n    <ion-input [(ngModel)]="need.desc"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-input type="hidden" [(ngModel)]="communityId"></ion-input>\n\n  </ion-item>\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<ion-list>\n\n\n\n\n\n\n\n   <ion-item>\n\n                    <ion-label>Client</ion-label>\n\n                    <ion-select [(ngModel)]="need.clientId" (ionChange)="onChange(need.clientId)">\n\n                      <div *ngFor="let field of descList">\n\n                        <ion-option value="{{field.name}}">{{field.record.fname}} {{field.record.lname}}\n\n                        </ion-option>\n\n                      </div>\n\n                    </ion-select>\n\n   </ion-item>\n\n\n\n\n\n    <ion-item>\n\n      <ion-label color="dark">Need Description:  </ion-label>\n\n      <ion-input [(ngModel)]="need.desc"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-input type="hidden" [(ngModel)]="communityId"></ion-input>\n\n    </ion-item>\n\n\n\n</ion-list>\n\n\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(need,communityId)">Save</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__["a" /* Toast */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__["a" /* Toast */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* Http */]) === "function" && _g || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__["a" /* Toast */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* Http */]])
     ], HomePage);
     return HomePage;
-    var HomePage_1, _a, _b, _c, _d, _e, _f, _g;
+    var HomePage_1;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -612,7 +613,7 @@ var ResetpwdPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_toast__ = __webpack_require__(50);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -886,7 +887,7 @@ var TabsPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__notifications_notifications__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__notifications_notifications__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_toast__ = __webpack_require__(50);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1076,7 +1077,7 @@ var AboutPage = (function () {
     };
     AboutPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-about',template:/*ion-inline-start:"C:\needsApp\src\pages\about\about.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Add a Client\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="openModal()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="75%" align="center">\n\n<ion-list>\n\n  <ion-item>\n\n    <ion-label color="dark">First Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.fname"></ion-input>\n\n  </ion-item>\n\n    <ion-item>\n\n    <ion-label color="dark">Last Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.lname"></ion-input>\n\n  </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label color="dark">Home/Cell:  </ion-label>\n\n    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>\n\n  </ion-item>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Community</ion-label>\n\n                  <ion-select [(ngModel)]="client.community" (ionChange)="onChange(client.community)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<br>\n\n\n\n<ion-list>\n\n  <ion-item>\n\n    <ion-label color="dark">First Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.fname"></ion-input>\n\n  </ion-item>\n\n    <ion-item>\n\n    <ion-label color="dark">Last Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.lname"></ion-input>\n\n  </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label color="dark">Cell:  </ion-label>\n\n    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>\n\n  </ion-item>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Community</ion-label>\n\n                  <ion-select [(ngModel)]="client.community">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n</ion-list>\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(client)">Save</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\about\about.html"*/
+            selector: 'page-about',template:/*ion-inline-start:"C:\needsApp\src\pages\about\about.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Add a Client\n\n    </ion-title>\n\n    <ion-buttons end>\n\n        <button id="notification-button" ion-button clear (click)="openModal()">\n\n            <ion-icon name="notifications">\n\n              <ion-badge id="notifications-badge" color="danger">{{this.needList.length}}</ion-badge>\n\n            </ion-icon>\n\n        </button>\n\n      </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n<div *ngIf="!isApp" text-center>\n\n\n\n<table width="95%">\n\n<ion-list>\n\n  <ion-item>\n\n    <ion-label color="dark">First Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.fname"></ion-input>\n\n  </ion-item>\n\n    <ion-item>\n\n    <ion-label color="dark">Last Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.lname"></ion-input>\n\n  </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label color="dark">Home/Cell:  </ion-label>\n\n    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>\n\n  </ion-item>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Community</ion-label>\n\n                  <ion-select [(ngModel)]="client.community" (ionChange)="onChange(client.community)">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n</ion-list>\n\n</table>\n\n\n\n</div>\n\n\n\n<div *ngIf="isApp" text-center>\n\n\n\n<br>\n\n\n\n<ion-list>\n\n  <ion-item>\n\n    <ion-label color="dark">First Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.fname"></ion-input>\n\n  </ion-item>\n\n    <ion-item>\n\n    <ion-label color="dark">Last Name:  </ion-label>\n\n    <ion-input [(ngModel)]="client.lname"></ion-input>\n\n  </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label color="dark">Cell:  </ion-label>\n\n    <ion-input type="tel" [(ngModel)]="client.cell"></ion-input>\n\n  </ion-item>\n\n\n\n\n\n <ion-item>\n\n                  <ion-label>Community</ion-label>\n\n                  <ion-select [(ngModel)]="client.community">\n\n                    <div *ngFor="let field of descList">\n\n                      <ion-option value="{{field.record.name}}">{{field.record.name}}\n\n                      </ion-option>\n\n                    </div>\n\n                  </ion-select>\n\n </ion-item>\n\n\n\n\n\n</ion-list>\n\n</div>\n\n\n\n<br>\n\n<div text-center>\n\n<button ion-button color="dark" (click) ="onSave(client)">Save</button>\n\n</div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\needsApp\src\pages\about\about.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_toast__["a" /* Toast */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]])
@@ -1147,8 +1148,8 @@ var RequestsPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__contact_contact__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__notifications_notifications__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__notifications_notifications__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_http__ = __webpack_require__(36);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1400,7 +1401,7 @@ var AllclosedPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__contact_contact__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(36);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1651,10 +1652,10 @@ var SearchclosedPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase_app__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_home__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__approveuser_approveuser__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__notifications_notifications__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__notifications_notifications__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_BehaviorSubject__ = __webpack_require__(468);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_BehaviorSubject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_http__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_toast__ = __webpack_require__(50);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1912,7 +1913,7 @@ var ApproveusereditPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__manageclients_manageclients__ = __webpack_require__(300);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__manageneeds_manageneeds__ = __webpack_require__(301);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__manageusers_manageusers__ = __webpack_require__(302);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__notifications_notifications__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__notifications_notifications__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2_database__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angularfire2_auth__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_firebase_app__ = __webpack_require__(14);
@@ -2636,7 +2637,7 @@ var Allclosed2Page = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_auth__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_home__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(36);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2725,7 +2726,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(366);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_about_about__ = __webpack_require__(291);
@@ -2745,7 +2746,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_searchclosed_searchclosed__ = __webpack_require__(296);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_login_login__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_resetpwd_resetpwd__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_notifications_notifications__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_notifications_notifications__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_listcommunity_listcommunity__ = __webpack_require__(299);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_manageclients_manageclients__ = __webpack_require__(300);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_manageusers_manageusers__ = __webpack_require__(302);
@@ -2754,7 +2755,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_angularfire2_database__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_angularfire2__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_angularfire2_auth__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__angular_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__angular_http__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_toast__ = __webpack_require__(50);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2873,7 +2874,57 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 36:
+/***/ 366:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_login_login__ = __webpack_require__(60);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var MyApp = (function () {
+    function MyApp() {
+        /*const unsubscribe = afAuth.auth.onAuthStateChanged(user => {
+              if (user) {
+                this.rootPage = TabsPage;
+                unsubscribe();
+              } else {
+                this.rootPage = LoginPage;
+                unsubscribe();
+              }
+            });
+        
+            platform.ready().then(() => {
+              // Okay, so the platform is ready and our plugins are available.
+              // Here you can do any higher level native things you might need.
+              statusBar.styleDefault();
+              splashScreen.hide();
+            }); */
+        this.rootPage = __WEBPACK_IMPORTED_MODULE_1__pages_login_login__["a" /* LoginPage */];
+    }
+    MyApp = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\needsApp\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"C:\needsApp\src\app\app.html"*/
+        }),
+        __metadata("design:paramtypes", [])
+    ], MyApp);
+    return MyApp;
+}());
+
+//# sourceMappingURL=app.component.js.map
+
+/***/ }),
+
+/***/ 37:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2886,7 +2937,7 @@ var AppModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_home__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__requests_requests__ = __webpack_require__(292);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_http__ = __webpack_require__(36);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3180,56 +3231,6 @@ var NotificationsPage = (function () {
 
 /***/ }),
 
-/***/ 366:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_login_login__ = __webpack_require__(60);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var MyApp = (function () {
-    function MyApp() {
-        /*const unsubscribe = afAuth.auth.onAuthStateChanged(user => {
-              if (user) {
-                this.rootPage = TabsPage;
-                unsubscribe();
-              } else {
-                this.rootPage = LoginPage;
-                unsubscribe();
-              }
-            });
-        
-            platform.ready().then(() => {
-              // Okay, so the platform is ready and our plugins are available.
-              // Here you can do any higher level native things you might need.
-              statusBar.styleDefault();
-              splashScreen.hide();
-            }); */
-        this.rootPage = __WEBPACK_IMPORTED_MODULE_1__pages_login_login__["a" /* LoginPage */];
-    }
-    MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\needsApp\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"C:\needsApp\src\app\app.html"*/
-        }),
-        __metadata("design:paramtypes", [])
-    ], MyApp);
-    return MyApp;
-}());
-
-//# sourceMappingURL=app.component.js.map
-
-/***/ }),
-
 /***/ 469:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3393,7 +3394,7 @@ var LoginPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__notifications_notifications__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__notifications_notifications__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__allopen_allopen__ = __webpack_require__(293);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__allclosed_allclosed__ = __webpack_require__(294);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__searchopen_searchopen__ = __webpack_require__(295);

@@ -181,7 +181,6 @@ if (this.needList === undefined)
 
 /* this.size$ = new BehaviorSubject(null);
 
-
  this.items$ = this.size$.switchMap(count =>
       db.list('/needs', ref =>
         count ? ref.orderByChild('count').equalTo('1') : ref
