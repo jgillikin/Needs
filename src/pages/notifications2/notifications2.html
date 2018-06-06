@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Notifications
+    </ion-title>
+    <ion-buttons end>
+        <button ion-button color="clear" (click)="logout()">Close</button>
+    </ion-buttons>
+  </ion-navbar>
+
+
+</ion-header>
+
+<ion-content>
+<br>
+
+&nbsp;&nbsp; Number of Needs assigned to you in Progress:  
+<ion-badge color="accent">{{this.descList2.length}}</ion-badge>
+
+      <ion-list>
+
+        <br>
+
+        <ion-item-sliding *ngFor="let desc of descList2">
+
+         <ion-item>
+          <b>Requested Need:</b>  {{desc.record.desc}}<br>
+          <b>Date Requested:</b>  {{desc.record.dateSub}} <br>
+          <b>Advocate:</b>  {{desc.record.advocateName}} <br>
+          <b>Advocate Cell:</b> {{desc.record.advocateCell}} <br>
+  <button ion-button color="primary" (click)="editItem2(desc)">Finished work</button>
+
+<button ion-button clear item-end>
+<ion-icon name="arrow-forward"></ion-icon>
+</button>
+
+         </ion-item>
+
+
+
+         <ion-item-options>
+          <button ion-button color="primary" (click)="editItem2(desc)">Finish</button>
+        <!--  <button ion-button color="danger" (click)="rejectItem2(desc)"><ion-icon trash></ion-icon> Reject</button>-->
+         </ion-item-options>
+        </ion-item-sliding>
+
+      </ion-list>
+
+</ion-content>

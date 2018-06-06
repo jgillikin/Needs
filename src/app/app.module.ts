@@ -20,6 +20,7 @@ import { SearchclosedPage } from '../pages/searchclosed/searchclosed';
 import { LoginPage } from '../pages/login/login';
 import { ResetpwdPage } from '../pages/resetpwd/resetpwd';
 import { NotificationsPage } from '../pages/notifications/notifications';
+import { Notifications2Page } from '../pages/notifications2/notifications2';
 import { ListcommunityPage } from '../pages/listcommunity/listcommunity';
 import { ManageclientsPage } from '../pages/manageclients/manageclients';
 import { ManageusersPage } from '../pages/manageusers/manageusers';
@@ -46,6 +47,7 @@ import { Toast } from '@ionic-native/toast';
     ListcommunityPage,
     RegisterPage,
     NotificationsPage,
+    Notifications2Page,
     RequestsPage,
     AllopenPage,
     SearchopenPage,
@@ -80,6 +82,7 @@ import { Toast } from '@ionic-native/toast';
     ListcommunityPage,
     RegisterPage,
     NotificationsPage,
+    Notifications2Page,
     RequestsPage,
     AllopenPage,
     SearchopenPage,

@@ -44,6 +44,7 @@ constructor(public navCtrl: NavController,
 public platform: Platform,
 public afA: AngularFireAuth,public db: AngularFireDatabase,http: Http,public viewCtrl: ViewController) {
 
+
 this.http = http;
 
 this.userId = firebase.auth().currentUser.uid;
@@ -181,7 +182,6 @@ this.descRef2.on('value', descList => {
 ionViewDidLoad() {
 this.userId = firebase.auth().currentUser.uid;
 }
-
 
   editItem1(item) {
 

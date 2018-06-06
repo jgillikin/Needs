@@ -9,7 +9,8 @@ import { ContactPage } from '../contact/contact';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { NotificationsPage } from '../notifications/notifications';
-import {Http, Request, RequestMethod, Headers, URLSearchParams,RequestOptions} from "@angular/http";
+import {Http, Request, RequestMethod, Headers, URLSearchParams} from "@angular/http";
+
 
 
 @Component({
@@ -35,6 +36,8 @@ export class AllopenPage {
   public userRef: firebase.database.Reference;
   userId: any;
   http: Http;
+  data: any = {};
+
 
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase,http: Http) {
@@ -178,14 +181,36 @@ let params: URLSearchParams = new URLSearchParams();
  params.set('msg', mmsg);
  params.set('mto','["1'+item.record.advocateCell+'"]');
 
- //Http request-
+ //Http request
+
  this.http.get(link2, {
    search: params
  }).subscribe(
    (response) => console.log('worked'), 
    (error) => console.log('error')
  );
- 
+
+
+//only send Email as an extra communicaton to Dick Powell
+if (item.record.advocateName == 'Dick Powell') {
+
+  let toS2: any;
+
+  toS2 = 'dck92446@gmail.com';
+
+  var link='https://jasongillikin.000webhostapp.com/blueEmail3.php';
+  var myData;
+  var message;
+  myData = JSON.stringify({emailS: 'Please review a new Request for Need "'+item.record.desc+'"\n\nhttp://needs.city', toS: toS2});
+
+this.http.post(link,myData)
+  .subscribe(data => {
+  this.data.response = "OK";
+  }, error => {
+  console.log("oops");
+  });
+
+} //end Dick Powell if 
 
   this.navCtrl.setRoot(ContactPage);
 

@@ -4,6 +4,8 @@ import { AngularFireDatabase, AngularFireAction,AngularFireList } from 'angularf
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { NotificationsPage } from '../notifications/notifications';
+import { Notifications2Page } from '../notifications2/notifications2';
+
 import { AllopenPage } from '../allopen/allopen';
 import { AllclosedPage } from '../allclosed/allclosed';
 import { SearchopenPage } from '../searchopen/searchopen';
@@ -188,8 +190,15 @@ this.userId = firebase.auth().currentUser.uid;
 }
 
 openModal() {
+ if(this.isAdmin) {
     let myModal = this.modalCtrl.create(NotificationsPage);
     myModal.present();
+ }
+ else {
+//alert("nonAdmin");
+    let myModal2 = this.modalCtrl.create(Notifications2Page);
+    myModal2.present();
+ }
   }
 
 goNot() {
