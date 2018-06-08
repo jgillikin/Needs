@@ -217,7 +217,7 @@ this.http.post(link,myData)
 
 
 if (this.platform.is('tablet') || this.platform.is('ipad') ) {
-this.toast.show(`The Advocate has been contacted`, '3000', 'center').subscribe(
+this.toast.show(`The Advocate has been contacted.`, '3000', 'center').subscribe(
   toast => {
     console.log(toast);
   }
@@ -226,7 +226,7 @@ return false;
 }
 else if (this.platform.is('mobileweb')) {
  let toast = this.toastCtrl.create({
-    message: 'The Advocate has been contacted',
+    message: 'The Advocate has been contacted.',
     duration: 2000,
     position: 'bottom'
   });
@@ -235,7 +235,7 @@ toast.present();
 
 }
 else {
-alert('The Advocate has been contacted');
+alert('The Advocate has been contacted.');
 return false;
 }
 
