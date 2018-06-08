@@ -294,16 +294,14 @@ toast2.present();
 }
 
 //send text for new Need
+
+/*
+
 var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
 
 var mmsg = 'There is a new Need in the Needs App:  '+nd2.desc; 
 
-// this.hviewList
 for (var s=0; s< this.hviewList.length; s++) {
-
-// alert(this.hviewList[s].record.cell);
-
-//if (this.hviewList[s].record.cell == '7572865248') {
 
 let params: URLSearchParams = new URLSearchParams();
  params.set('msg', mmsg);
@@ -317,11 +315,9 @@ let params: URLSearchParams = new URLSearchParams();
    (error) => console.log('error')
  );
 
-//} //end temp if
-
-
 } //end for
 
+*/
 
 this.navCtrl.setRoot(HomePage);
 

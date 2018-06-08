@@ -7,6 +7,8 @@ import { Community } from './../../models/community/community';
 import { HomePage } from '../home/home';
 import { ContactPage } from '../contact/contact';
 import {Http, Request, RequestMethod, Headers, URLSearchParams,RequestOptions} from "@angular/http";
+import { Toast } from '@ionic-native/toast';
+import { ToastController } from 'ionic-angular';
 
 
 @Component({
@@ -33,7 +35,7 @@ export class SearchopenPage {
 
 
   constructor(public navCtrl: NavController,
-public platform: Platform,public db: AngularFireDatabase,public params: NavParams, http: Http) {
+public platform: Platform,public db: AngularFireDatabase,public params: NavParams, http: Http,private toast: Toast,private toastCtrl: ToastController) {
 
       this.http = http;
 
@@ -195,6 +197,28 @@ this.http.post(link,myData)
 
 } //end Dick Powell if 
 
+if (this.platform.is('tablet') || this.platform.is('ipad') ) {
+this.toast.show(`The Advocate has been contacted`, '3000', 'center').subscribe(
+  toast => {
+    console.log(toast);
+  }
+);
+return false;
+}
+else if (this.platform.is('mobileweb')) {
+ let toast = this.toastCtrl.create({
+    message: 'The Advocate has been contacted',
+    duration: 2000,
+    position: 'bottom'
+  });
+
+toast.present();
+
+}
+else {
+alert('The Advocate has been contacted');
+return false;
+}
 
 
 this.navCtrl.setRoot(ContactPage);
