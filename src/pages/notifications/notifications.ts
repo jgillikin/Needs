@@ -185,10 +185,24 @@ this.userId = firebase.auth().currentUser.uid;
 
   editItem1(item) {
 
+let today:any = new Date();
+let dd:any = today.getDate();
+let mm:any = today.getMonth()+1; //January is 0!
+
+let yyyy:any = today.getFullYear();
+if(dd<10){
+    dd='0'+dd;
+}
+if(mm<10){
+    mm='0'+mm;
+}
+today = mm+'/'+dd+'/'+yyyy;
+
+
   let toS: any;
 
   this.nd.update(item.id, { status: 'InProgress' });
-  
+  this.nd.update(item.id, { dateApproved: today });  
 
 
   for (var q=0;q<this.loadedDescList.length;q++) {
