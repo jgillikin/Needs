@@ -278,6 +278,7 @@ today = mm+'/'+dd+'/'+yyyy;
  "advocateName": this.fname+' '+this.lname,
  "advocateCell": this.reqCell,
  "dateComp": '',
+ "dateApproved": '',
  "notes": '',
  "communityId": commId
 });

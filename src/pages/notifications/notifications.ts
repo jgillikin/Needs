@@ -201,8 +201,7 @@ today = mm+'/'+dd+'/'+yyyy;
 
   let toS: any;
 
-  this.nd.update(item.id, { status: 'InProgress' });
-  this.nd.update(item.id, { dateApproved: today });  
+  this.nd.update(item.id, { status: 'InProgress',dateApproved: today  });
 
 
   for (var q=0;q<this.loadedDescList.length;q++) {
