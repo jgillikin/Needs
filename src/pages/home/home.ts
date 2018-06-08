@@ -296,7 +296,6 @@ toast2.present();
 
 //send text for new Need
 
-/*
 
 var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
 
@@ -318,7 +317,7 @@ let params: URLSearchParams = new URLSearchParams();
 
 } //end for
 
-*/
+
 
 this.navCtrl.setRoot(HomePage);
 
