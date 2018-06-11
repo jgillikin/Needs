@@ -31,6 +31,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { HttpModule } from '@angular/http';
 import { Toast } from '@ionic-native/toast';
+import { StatusBar } from '@ionic-native/status-bar';
 
 
 @NgModule({
@@ -98,6 +99,7 @@ import { Toast } from '@ionic-native/toast';
   providers: [
    
     Toast,
+    StatusBar,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

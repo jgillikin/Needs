@@ -16,13 +16,12 @@ export class MyApp {
   private platform;
   private user: firebase.User;
 
-  constructor(app: App, platform: Platform,
-		public afAuth: AngularFireAuth) {
+  constructor(app: App, platform: Platform,private statusBar: StatusBar,public afAuth: AngularFireAuth) {
 
 
 		this.app = app;
 		this.platform = platform;
-//           this.initializeApp();
+           this.initializeApp();
 
 /*const unsubscribe = afAuth.auth.onAuthStateChanged(user => {
       if (user) {
@@ -43,6 +42,24 @@ export class MyApp {
 
   }
 
+initializeApp() {
+			this.platform.ready().then(() => {
+				this.statusBar.styleDefault();
+			});
 
+			this.afAuth.authState
+				.subscribe(
+					user => {
+						if (user) {
+							this.rootPage = TabsPage;
+						} else {
+							this.rootPage = LoginPage;
+						}
+					},
+					() => {
+						this.rootPage = LoginPage;
+					}
+				);
+	}
 
 }
