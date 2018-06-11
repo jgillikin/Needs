@@ -22,7 +22,7 @@ export class MyApp {
 
 		this.app = app;
 		this.platform = platform;
-           this.initializeApp();
+//           this.initializeApp();
 
 /*const unsubscribe = afAuth.auth.onAuthStateChanged(user => {
       if (user) {
