@@ -17,7 +17,7 @@ export class MyApp {
   private user: firebase.User;
 
   constructor(app: App, platform: Platform,
-		public afAuth: AngularFireAuth,private statusBar: StatusBar) {
+		public afAuth: AngularFireAuth) {
 
 
 		this.app = app;
