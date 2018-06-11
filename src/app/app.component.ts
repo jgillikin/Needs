@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { StatusBar } from '@ionic-native/status-bar';
 import { App, MenuController, Nav, Platform } from 'ionic-angular';
