@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+import { StatusBar } from '@ionic-native/status-bar';
+import { App, MenuController, Nav, Platform } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -9,7 +13,20 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class MyApp {
   rootPage:any = LoginPage;
 
-  constructor() {
+  private app;
+  private platform;
+  private user: firebase.User;
+
+  constructor(app: App, platform: Platform,
+		public afAuth: AngularFireAuth,private statusBar: StatusBar) {
+
+           afAuth.authState.subscribe(user => {
+			this.user = user;
+});
+
+		this.app = app;
+		this.platform = platform;
+           this.initializeApp();
 
 /*const unsubscribe = afAuth.auth.onAuthStateChanged(user => {
       if (user) {
@@ -29,4 +46,26 @@ export class MyApp {
     }); */
 
   }
+
+initializeApp() {
+  this.platform.ready().then(() => {
+    this.statusBar.styleDefault();
+});
+
+this.afAuth.authState
+    .subscribe(
+      user => {
+        if (user) {
+          this.rootPage = TabsPage;
+        } else {
+          this.rootPage = LoginPage;
+        }
+      },
+      () => {
+        this.rootPage = LoginPage;
+      }
+    );
+}
+
+
 }
