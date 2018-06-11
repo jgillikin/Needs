@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { App, MenuController, Nav, Platform } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,7 +16,7 @@ export class MyApp {
   private platform;
   private user: firebase.User;
 
-  constructor(app: App, platform: Platform,private statusBar: StatusBar,public afAuth: AngularFireAuth) {
+  constructor(app: App, platform: Platform,private statusBar: StatusBar,private auth: AuthService) {
 
 
 		this.app = app;
@@ -46,7 +47,7 @@ initializeApp() {
 				this.statusBar.styleDefault();
 			});
 
-			this.afAuth.authState
+			this.auth.afAuth.authState
 				.subscribe(
 					user => {
 						if (user) {
