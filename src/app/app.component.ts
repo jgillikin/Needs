@@ -19,9 +19,6 @@ export class MyApp {
   constructor(app: App, platform: Platform,
 		public afAuth: AngularFireAuth,private statusBar: StatusBar) {
 
-           afAuth.authState.subscribe(user => {
-			this.user = user;
-});
 
 		this.app = app;
 		this.platform = platform;
@@ -49,6 +46,12 @@ export class MyApp {
 initializeApp() {
   this.platform.ready().then(() => {
     this.statusBar.styleDefault();
+
+           this.afAuth.authState.subscribe(user => {
+			this.user = user;
+});
+
+
 });
 
 this.afAuth.authState
