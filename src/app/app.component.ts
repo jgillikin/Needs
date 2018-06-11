@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { App, MenuController, Nav, Platform } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
-import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   templateUrl: 'app.html'
