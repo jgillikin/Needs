@@ -43,31 +43,6 @@ export class MyApp {
 
   }
 
-initializeApp() {
-  this.platform.ready().then(() => {
-    this.statusBar.styleDefault();
-
-           this.afAuth.authState.subscribe(user => {
-			this.user = user;
-});
-
-
-});
-
-this.afAuth.authState
-    .subscribe(
-      user => {
-        if (user) {
-          this.rootPage = TabsPage;
-        } else {
-          this.rootPage = LoginPage;
-        }
-      },
-      () => {
-        this.rootPage = LoginPage;
-      }
-    );
-}
 
 
 }
