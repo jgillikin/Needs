@@ -242,7 +242,7 @@ let params: URLSearchParams = new URLSearchParams();
   });
 */
 
-  this.navCtrl.setRoot(Notifications2Page);
+  this.navCtrl.setRoot(Notifications3Page);
 
   }
 
@@ -250,7 +250,7 @@ let params: URLSearchParams = new URLSearchParams();
 
   this.nd.update(item.id, { status: 'NEW',reqBy: '',reqName: '', reqCell: '' });
 
-  this.navCtrl.setRoot(Notifications2Page);
+  this.navCtrl.setRoot(Notifications3Page);
 
   }
 
@@ -308,7 +308,7 @@ let params: URLSearchParams = new URLSearchParams();
 */
 
 
-  this.navCtrl.setRoot(Notifications2Page);
+  this.navCtrl.setRoot(Notifications3Page);
 
   }
 
@@ -316,7 +316,7 @@ let params: URLSearchParams = new URLSearchParams();
 
   this.nd.update(item.id, { status: 'Requested' });
 
-  this.navCtrl.setRoot(Notifications2Page);
+  this.navCtrl.setRoot(Notifications3Page);
 
   }
 
@@ -399,7 +399,7 @@ let params: URLSearchParams = new URLSearchParams();
   });
 */
 
-  this.navCtrl.setRoot(Notifications2Page); 
+  this.navCtrl.setRoot(Notifications3Page); 
 
   }
 
@@ -407,7 +407,7 @@ let params: URLSearchParams = new URLSearchParams();
 
   this.nd.update(item.id, { status: 'InProgress' });
 
-  this.navCtrl.setRoot(Notifications2Page);
+  this.navCtrl.setRoot(Notifications3Page);
 
   }
 
