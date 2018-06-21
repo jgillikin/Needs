@@ -8,7 +8,7 @@ import { ContactPage } from '../contact/contact';
 import { HomePage } from '../home/home';
 import { ApproveuserPage } from '../approveuser/approveuser';
 import { MorePage } from '../more/more';
-
+import { Notifications3Page } from '../notifications3/notifications3';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -22,7 +22,10 @@ export class TabsPage {
   badgeCount: any;
   isAdmin: boolean = false;
   public descList:Array<any>;
+  public descList2:Array<any>;
   public descRef: firebase.database.Reference;
+  public descRef2: firebase.database.Reference;
+
   public pendRef: firebase.database.Reference;
   public pendList: Array<any>;
 
@@ -32,6 +35,7 @@ export class TabsPage {
   tab3Root = ContactPage;
   tab4Root = ApproveuserPage;
   tab5Root = MorePage;
+  tab6Root = Notifications3Page;
 
   constructor(public navCtrl: NavController,
 public platform: Platform,public db: AngularFireDatabase) {
@@ -71,6 +75,36 @@ this.descRef.on('value', descList => {
   this.isAdmin = temp;
 
 });
+
+this.descRef = firebase.database().ref('/needs');
+
+this.descRef.on('value', descList => {
+  let descs2 = [];
+  descList.forEach( desc => {
+//    descs.push(desc.val());
+    var weeklyData = {};
+
+    weeklyData["id"] = desc.key;
+    weeklyData["record"] = desc.val();
+    //descs.push(desc.val()+" "+desc.key);
+
+
+     if (weeklyData["record"].status == 'InProgress' && weeklyData["record"].reqBy == this.userId) {
+      descs2.push(weeklyData);
+     }
+
+
+  return false;
+  });
+
+  this.descList2 = descs2;
+
+});
+
+
+if (this.descList2 === undefined)
+ this.descList2 = [];
+
 
 this.pendRef = firebase.database().ref('/users-pending');
 

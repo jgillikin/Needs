@@ -21,6 +21,7 @@ import { LoginPage } from '../pages/login/login';
 import { ResetpwdPage } from '../pages/resetpwd/resetpwd';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { Notifications2Page } from '../pages/notifications2/notifications2';
+import { Notifications3Page } from '../pages/notifications3/notifications3';
 import { ListcommunityPage } from '../pages/listcommunity/listcommunity';
 import { ManageclientsPage } from '../pages/manageclients/manageclients';
 import { ManageusersPage } from '../pages/manageusers/manageusers';
@@ -51,6 +52,7 @@ import { StatusBar } from '@ionic-native/status-bar';
     RegisterPage,
     NotificationsPage,
     Notifications2Page,
+    Notifications3Page,
     RequestsPage,
     AllopenPage,
     SearchopenPage,
@@ -86,6 +88,7 @@ import { StatusBar } from '@ionic-native/status-bar';
     RegisterPage,
     NotificationsPage,
     Notifications2Page,
+    Notifications3Page,
     RequestsPage,
     AllopenPage,
     SearchopenPage,
