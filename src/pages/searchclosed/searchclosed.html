@@ -17,8 +17,10 @@
 <div text-center>
 <div *ngFor="let desc of descList" text-center>
 
-<ion-item><b>Need Desc:</b>  {{desc.record.desc}}<br>
-<b>Date Closed:</b>  {{desc.record.dateComp}}</ion-item>
+<ion-item text-wrap><b><u>Need Desc:</u></b>  {{desc.record.desc}}<br>
+<b><u>Date Closed:</u></b>  {{desc.record.dateComp}}<br>
+<b><u>Community:</u></b>  {{desc.record.communityId}}
+</ion-item>
 
 </div>
 </div>
