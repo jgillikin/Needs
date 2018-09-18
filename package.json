@@ -5,7 +5,12 @@
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
-postinstall": "ionic-app-scripts build
+"clean": "ionic-app-scripts clean",
+    "build": "ionic-app-scripts build",
+    "lint": "ionic-app-scripts lint",
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve",
+    "ionic:build": "ionic-app-scripts build"    
   },
   "dependencies": {
     "@angular/common": "5.0.3",
