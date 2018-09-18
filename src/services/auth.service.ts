@@ -49,10 +49,10 @@ export class AuthService {
 				return this.afAuth.auth.getRedirectResult().then( result => {
 					// This gives you a Google Access Token.
 					// You can use it to access the Google API.
-					let token = result.credential.accessToken;
+					//let token = result.credential.accessToken;
 					// The signed-in user info.
-					let user = result.user;
-					console.log(token, user);
+					//let user = result.user;
+					//console.log(token, user);
 				}).catch(function(error) {
 					// Handle Errors here.
 					alert(error.message);

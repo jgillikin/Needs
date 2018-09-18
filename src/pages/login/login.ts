@@ -37,7 +37,7 @@ public platform: Platform) {
  
   async login(user: User) {
     try {
-      const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
+      const result = await this.afAuth.auth.signInWithEmailAndPassword(this.user.email, this.user.password);
       if (result) {
         this.navCtrl.setRoot(TabsPage);
       }  
@@ -86,8 +86,8 @@ return false;
       .then((user) => {
        
         this.us.push({
- "email": user.email,
- "uid": user.uid
+ "email": this.user.email,
+ "uid": user.user.uid
 }); 
 
 

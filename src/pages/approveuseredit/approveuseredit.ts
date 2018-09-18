@@ -251,7 +251,7 @@ this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.pass2)
         "dateAdded": today,
         "type": typeUser,
         "email": this.email,
-        "uid": user.uid
+        "uid": user.user.uid
        });
 
        //delete need to delete from users-pending
