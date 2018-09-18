@@ -1,6 +1,6 @@
 {
   "name": "needsApp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
@@ -53,7 +53,7 @@
     "zone.js": "0.8.18"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "3.1.2",
+    "@ionic/app-scripts": "^3.2.0",
     "typescript": "2.4.2"
   },
   "description": "An Ionic project",
