@@ -15,7 +15,6 @@ import { ModalController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 
 
-
 @Component({
   selector: 'page-allopen',
   templateUrl: 'allopen.html'
