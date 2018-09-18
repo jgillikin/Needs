@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController,Platform,NavParams } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireAction,AngularFireList } from 'angularfire2/database';
-import { FirebaseListObservable } from 'angularfire2/database-deprecated';
+//import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { Community } from './../../models/community/community';
 import { HomePage } from '../home/home';

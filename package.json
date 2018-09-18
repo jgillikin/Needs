@@ -12,6 +12,9 @@
     "ionic:serve": "ionic-app-scripts serve",
     "postinstall": "ionic-app-scripts build"
   },
+  "config": {
+    "ionic_source_map_type": "eval"
+  },
   "dependencies": {
     "@angular/common": "5.0.3",
     "@angular/compiler": "5.0.3",
@@ -29,7 +32,7 @@
     "@ionic-native/toast": "^4.5.3",
     "@ionic/pro": "1.0.16",
     "@ionic/storage": "2.1.3",
-    "angularfire2": "^5.0.0-rc.4",
+    "angularfire2": "^5.0.0-rc.9",
     "cordova-android": "6.3.0",
     "cordova-plugin-add-swift-support": "^1.7.1",
     "cordova-plugin-device": "^1.1.4",

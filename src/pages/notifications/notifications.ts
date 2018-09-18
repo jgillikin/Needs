@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFireDatabase, AngularFireAction,AngularFireList } from 'angularfire2/database';
-import { FirebaseListObservable } from 'angularfire2/database-deprecated';
+//import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { NavController, Platform } from 'ionic-angular';
