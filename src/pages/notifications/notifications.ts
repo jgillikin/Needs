@@ -222,8 +222,8 @@ var mmsg = 'You have been assigned Need "'+item.record.desc+'"';
 mmsg = mmsg+ '.  Please contact '+item.record.advocateName+' at '+item.record.advocateCell+' for more info';
 
 
-var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
-
+//var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
+var link2='https://warm-particle.glitch.me/login';
 
 //alert("send to "+toS);
 
