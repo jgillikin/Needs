@@ -290,7 +290,7 @@ let params: URLSearchParams = new URLSearchParams();
 var mmsg = 'Needs work completed for Need "'+item.record.desc+'" by '+item.record.reqName+' ('+item.record.reqCell+') please close it out';
 
 
-var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
+var link2='https://warm-particle.glitch.me/login';
 
 
   //send SMS
@@ -379,7 +379,7 @@ today = mm+'/'+dd+'/'+yyyy;
 var mmsg = 'NeedsApp, status set to CLOSED for Need:  "'+item.record.desc+'"';
 
 
-var link2='https://twiliotest-ajvlzxkjds.now.sh/login';
+var link2='https://warm-particle.glitch.me/login';
 
 
   //send SMS

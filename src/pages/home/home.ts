@@ -304,6 +304,9 @@ var mmsg = 'There is a new Need in the Needs App:  '+nd2.desc;
 
 for (var s=0; s< this.hviewList.length; s++) {
 
+if (this.hviewList[s].record.defaultCom == commId) {
+//only send email to those users with same Community as the newly entered Need
+
 let params: URLSearchParams = new URLSearchParams();
  params.set('msg', mmsg);
  params.set('mto','["1'+this.hviewList[s].record.cell+'"]');
@@ -315,6 +318,8 @@ let params: URLSearchParams = new URLSearchParams();
    (response) => console.log('worked'), 
    (error) => console.log('error')
  );
+ 
+} //end if
 
 } //end for
 
